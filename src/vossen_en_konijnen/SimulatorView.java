@@ -51,11 +51,24 @@ public class SimulatorView extends JFrame
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
+        
+        Container buttonView = new JPanel();
+        buttonView.setLayout(new FlowLayout());
+        Container buttonViewSub = new JPanel();
+        buttonViewSub.setLayout(new GridLayout(2, 1));
+        JButton oneStep = new JButton("1 step");
+        //oneStep.addActionListener(vossen_en_konijnen.Simulator);
+        buttonViewSub.add(oneStep);
+        JButton hundredStep = new JButton("100 steps");
+        //hundredStep.addActionListener(vossen_en_konijnen.Simulator);
+        buttonViewSub.add(hundredStep);
+        buttonView.add(buttonViewSub);
 
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
+        contents.add(buttonView, BorderLayout.WEST);
         pack();
         setVisible(true);
     }

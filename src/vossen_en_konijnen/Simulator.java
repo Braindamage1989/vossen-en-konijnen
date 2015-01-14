@@ -70,8 +70,6 @@ public class Simulator
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Fox.class, Color.blue);
         
-        viewer = new Viewer(view);
-        
         // Setup a valid starting point.
         reset();
     }
