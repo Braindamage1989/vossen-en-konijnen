@@ -26,6 +26,7 @@ public class SimulatorView extends JFrame
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
+    private JButton oneStep, hundredStep;
     private JLabel stepLabel, population;
     private FieldView fieldView;
     
@@ -56,11 +57,9 @@ public class SimulatorView extends JFrame
         buttonView.setLayout(new FlowLayout());
         Container buttonViewSub = new JPanel();
         buttonViewSub.setLayout(new GridLayout(2, 1));
-        JButton oneStep = new JButton("1 step");
-        //oneStep.addActionListener(vossen_en_konijnen.Simulator);
+        oneStep = new JButton("1 step");
         buttonViewSub.add(oneStep);
-        JButton hundredStep = new JButton("100 steps");
-        //hundredStep.addActionListener(vossen_en_konijnen.Simulator);
+        hundredStep = new JButton("100 steps");
         buttonViewSub.add(hundredStep);
         buttonView.add(buttonViewSub);
 
@@ -98,6 +97,16 @@ public class SimulatorView extends JFrame
         }
     }
 
+    public void addStepOneListener(ActionListener listenForStepOne)
+    {
+    	oneStep.addActionListener(listenForStepOne);
+    }
+    
+    public void addStepHundredListener(ActionListener listenForStepHundred)
+    {
+        hundredStep.addActionListener(listenForStepHundred);
+    }
+    
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.

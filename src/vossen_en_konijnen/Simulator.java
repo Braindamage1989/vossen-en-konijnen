@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -67,6 +69,8 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
+        this.view.addStepOneListener(new stepOneListener());
+        this.view.addStepHundredListener(new stepHundredListener());
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Fox.class, Color.blue);
         
@@ -156,5 +160,21 @@ public class Simulator
                 // else leave the location empty.
             }
         }
+    }
+    
+    class stepOneListener implements ActionListener
+    {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			simulateOneStep();
+		}
+    }
+    
+    class stepHundredListener implements ActionListener
+    {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			simulate(100);
+		}
     }
 }
