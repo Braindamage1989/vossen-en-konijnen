@@ -1,4 +1,4 @@
-package vossen_en_konijnen;
+package vossen_en_konijnen; 
 
 /**
  * Represent a location in a rectangular grid.

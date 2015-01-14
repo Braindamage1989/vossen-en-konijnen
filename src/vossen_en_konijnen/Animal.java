@@ -1,4 +1,4 @@
-package vossen_en_konijnen;
+package vossen_en_konijnen; 
 
 import java.util.List;
 
