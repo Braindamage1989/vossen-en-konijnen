@@ -45,6 +45,8 @@ public class SimulatorView extends JFrame
         stats = new FieldStats();
         colors = new LinkedHashMap<Class, Color>();
 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         setTitle("Fox and Rabbit Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
