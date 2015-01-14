@@ -1,3 +1,5 @@
+package vossen_en_konijnen;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

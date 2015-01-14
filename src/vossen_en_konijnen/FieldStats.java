@@ -1,3 +1,5 @@
+package vossen_en_konijnen;
+
 import java.awt.Color;
 import java.util.HashMap;
 
