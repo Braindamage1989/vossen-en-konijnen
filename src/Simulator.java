@@ -31,6 +31,7 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+    private Viewer viewer;
     
     public static void main(String[] args) {
         new Simulator();
@@ -42,6 +43,7 @@ public class Simulator
     public Simulator()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        
     }
     
     /**
@@ -65,6 +67,8 @@ public class Simulator
         view = new SimulatorView(depth, width);
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Fox.class, Color.blue);
+        
+        viewer = new Viewer(view);
         
         // Setup a valid starting point.
         reset();
