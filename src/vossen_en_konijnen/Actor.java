@@ -3,11 +3,21 @@ package vossen_en_konijnen;
 import java.util.List;
 
 /**
- *
- * @author R
+ * De interface die uitgebreid kan worden door elke klasse
+ * die deel wil nemen aan de simulatie
  */
-public abstract class Actor
+public interface Actor
 {
-    abstract public void act(List<Actor> newActors);
-    abstract public boolean isActive();
+    /**
+    * Voer het gebruikelijke gedrag van de deelnemer uit.
+    * @param newActors Een lijst waarin zojuist gemaakte
+    * deelnemers worden opgelsagen.
+    */
+    void act(List<Actor> newActors);
+    
+    /**
+    * Is de deelnemer nog steeds actief?
+    * @return true als de deelnemer nog actief, anders false.
+    */
+    boolean isActive();
 }

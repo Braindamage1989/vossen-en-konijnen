@@ -8,7 +8,7 @@ import java.util.List;
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
-public abstract class Animal extends Actor
+public abstract class Animal implements Actor
 {
     // Whether the animal is alive or not.
     private boolean alive;
