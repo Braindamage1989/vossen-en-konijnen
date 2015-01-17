@@ -35,7 +35,7 @@ public class Counter
     {
         return name;
     }
-
+    
     /**
      * @return The current count for this type.
      */
