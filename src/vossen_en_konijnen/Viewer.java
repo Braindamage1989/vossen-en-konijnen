@@ -9,7 +9,6 @@ public class Viewer {
 	private JFrame frame;
 	private JLabel filenameLabel;
 	private JLabel statusLabel;
-    private SimulatorView simulatorView;
     
     public Viewer(SimulatorView simulatorView)
     {
