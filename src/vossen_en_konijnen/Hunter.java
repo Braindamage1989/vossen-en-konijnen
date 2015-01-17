@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
+ * A simple model of a hunter.
+ * Hunters kill everything, and won't die.
  * 
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
@@ -22,10 +22,10 @@ public class Hunter implements Actor
     private boolean alive;
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
+     * Create a hunter. A hunter can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
+     * @param randomAge If true, the hunter will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
@@ -37,11 +37,11 @@ public class Hunter implements Actor
     }
     
     /**
-     * This is what the fox does most of the time: it hunts for
+     * This is what the hunter does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param field The field currently occupied.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newFoxes A list to return newly born hunteres.
      */
     public void act(List<Actor> newHunter)
     {
@@ -103,8 +103,8 @@ public class Hunter implements Actor
     }
     
     /**
-     * Return the animal's location.
-     * @return The animal's location.
+     * Return the hunters location.
+     * @return The hunters location.
      */
     protected Location getLocation()
     {
@@ -112,8 +112,8 @@ public class Hunter implements Actor
     }
     
     /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
+     * Place the hunter at the new location in the given field.
+     * @param newLocation The hunters new location.
      */
     protected void setLocation(Location newLocation)
     {
@@ -125,8 +125,8 @@ public class Hunter implements Actor
     }
     
     /**
-     * Return the animal's field.
-     * @return The animal's field.
+     * Return the hunters field.
+     * @return The hunters field.
      */
     protected Field getField()
     {
