@@ -22,6 +22,8 @@ public class Simulator
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
+    // The probability that a lynx will be created in any given grid position.
+    private static final double LYNX_CREATION_PROBABILITY = 0.02;
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
@@ -29,7 +31,6 @@ public class Simulator
 
     // List of animals in the field.
     private List<Actor> actors;
-    private List<Animal> animals;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -74,6 +75,7 @@ public class Simulator
         this.view.addStepHundredListener(new stepHundredListener());
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Fox.class, Color.blue);
+        view.setColor(Lynx.class, Color.red);
         
         // Setup a valid starting point.
         reset();
@@ -157,6 +159,11 @@ public class Simulator
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location);
                     actors.add(rabbit);
+                }
+                else if(rand.nextDouble() <= LYNX_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Lynx lynx = new Lynx(true, field, location);
+                    actors.add(lynx);
                 }
                 // else leave the location empty.
             }
