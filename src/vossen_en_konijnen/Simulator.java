@@ -23,7 +23,7 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a lynx will be created in any given grid position.
-    private static final double LYNX_CREATION_PROBABILITY = 0.02;
+    private static final double LYNX_CREATION_PROBABILITY = 0.01;
     // The probability that a fox will be created in any given grid position.
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
@@ -37,7 +37,6 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
-    private Viewer viewer;
     
     public static void main(String[] args) {
         new Simulator();
