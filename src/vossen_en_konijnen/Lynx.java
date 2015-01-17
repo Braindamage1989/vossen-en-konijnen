@@ -130,7 +130,7 @@ public class Lynx extends Animal
                     return where;
                 }
             }
-            if(animal instanceof Fox) {
+            else if(animal instanceof Fox) {
                 Fox fox = (Fox) animal;
                 if(fox.isActive()) { 
                     fox.setDead();
