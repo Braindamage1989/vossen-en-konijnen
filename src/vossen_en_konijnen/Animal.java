@@ -1,6 +1,7 @@
 package vossen_en_konijnen; 
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * A class representing shared characteristics of animals.
@@ -18,6 +19,8 @@ public abstract class Animal implements Actor
     private Location location;
     
     private int age;
+    
+    private static final Random rand = Randomizer.getRandom();
     
     /**
      * Create a new animal at location in field.
@@ -104,5 +107,45 @@ public abstract class Animal implements Actor
     protected Field getField()
     {
         return field;
+    }
+    
+    abstract int getBreedingAge();
+    
+    /**
+     * An animal can breed if it has reached the breeding age.
+     */
+    public boolean canBreed()
+    {
+        return age >= getBreedingAge();
+    }
+    
+    abstract int getMaxAge();
+    
+    /**
+     * Increase the age. This could result in the fox's death.
+     */
+    public void incrementAge()
+    {
+        age++;
+        if(age > getMaxAge()) {
+            setDead();
+        }
+    }
+    
+    abstract double getBreedingProbability();
+    abstract int getMaxLitterSize();
+    
+    /**
+     * Generate a number representing the number of births,
+     * if it can breed.
+     * @return The number of births (may be zero).
+     */
+    protected int breed()
+    {
+        int births = 0;
+        if(canBreed() && rand.nextDouble() <= getBreedingProbability()) {
+            births = rand.nextInt(getMaxLitterSize()) + 1;
+        }
+        return births;
     }
 }

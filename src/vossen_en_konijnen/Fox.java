@@ -31,7 +31,7 @@ public class Fox extends Animal
     
     // Individual characteristics (instance fields).
     // The fox's age.
-    private int age;
+    
     // The fox's food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -47,11 +47,11 @@ public class Fox extends Animal
     {
         super(field, location);
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            super.setAge(rand.nextInt(MAX_AGE));
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
         }
         else {
-            age = 0;
+            super.setAge(0);
             foodLevel = RABBIT_FOOD_VALUE;
         }
     }
@@ -65,7 +65,7 @@ public class Fox extends Animal
      */
     public void act(List<Actor> newFoxes)
     {
-        incrementAge();
+        super.incrementAge();
         incrementHunger();
         if(isActive()) {
             giveBirth(newFoxes);            
@@ -83,17 +83,6 @@ public class Fox extends Animal
                 // Overcrowding.
                 setDead();
             }
-        }
-    }
-
-    /**
-     * Increase the age. This could result in the fox's death.
-     */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
-            setDead();
         }
     }
     
@@ -145,33 +134,31 @@ public class Fox extends Animal
         // Get a list of adjacent free locations.
         Field field = getField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
+        int births = super.breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
             Fox young = new Fox(false, field, loc);
             newFoxes.add(young);
         }
     }
-        
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
+    
+    public int getBreedingAge()
     {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
+        return BREEDING_AGE;
     }
-
-    /**
-     * A fox can breed if it has reached the breeding age.
-     */
-    private boolean canBreed()
+    
+    public int getMaxAge()
     {
-        return age >= BREEDING_AGE;
+        return MAX_AGE;
+    }
+    
+    public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+    public int getMaxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
     }
 }
