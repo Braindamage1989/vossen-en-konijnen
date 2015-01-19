@@ -68,9 +68,14 @@ public class SimulatorView extends JFrame
         buttonViewSub.add(hundredStep);
         buttonView.add(buttonViewSub);
 
+        Container viewContainer = new JPanel();
+        viewContainer.setLayout(new GridLayout(1,2));
+        viewContainer.add(fieldView);
+        viewContainer.add(textView);
+        
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
-        contents.add(fieldView, BorderLayout.CENTER);
+        contents.add(viewContainer, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
         contents.add(buttonView, BorderLayout.WEST);
         pack();
@@ -143,7 +148,9 @@ public class SimulatorView extends JFrame
         stats.countFinished();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
+        textView.updatePopulation(field);
         fieldView.repaint();
+        textView.repaint();
     }
 
     /**

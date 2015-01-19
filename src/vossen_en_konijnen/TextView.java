@@ -1,7 +1,6 @@
 package vossen_en_konijnen;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Creates a textview with current population
@@ -9,13 +8,22 @@ import java.awt.*;
  */
 public class TextView extends AbstractView
 {
-	private JFrame frame;
-	private String population;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 522169609862382099L;
+	private JLabel population;
 	
 	public TextView(FieldStats stats)
 	{
 		super(stats);
-		population = null;
+		population = new JLabel("LOlolololol", JLabel.CENTER);
 		//textField = new JTextField(population);
+	}
+	
+	public void updatePopulation(Field field)
+	{
+		String line = stats.getPopulationDetails(field);
+		population.setText(line);
 	}
 }
