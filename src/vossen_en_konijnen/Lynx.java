@@ -66,7 +66,7 @@ public class Lynx extends Animal
         incrementAge();
         incrementHunger();
         if(isActive()) {
-            giveBirth(newLynxes);            
+            super.giveBirth(newLynxes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -128,25 +128,6 @@ public class Lynx extends Animal
             }
         }
         return null;
-    }
-    
-    /**
-     * Check whether or not this lynx is to give birth at this step.
-     * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born lynxes.
-     */
-    private void giveBirth(List<Actor> newLynxes)
-    {
-        // New lynxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            Lynx young = new Lynx(false, field, loc);
-            newLynxes.add(young);
-        }
     }
     
     public int getBreedingAge()

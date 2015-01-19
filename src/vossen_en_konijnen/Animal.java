@@ -145,4 +145,34 @@ public abstract class Animal implements Actor
         }
         return births;
     }
+    
+    /**
+     * Check whether or not this fox is to give birth at this step.
+     * New births will be made into free adjacent locations.
+     * @param newFoxes A list to return newly born foxes.
+     */
+    protected void giveBirth(List<Actor> newAnimals)
+    {
+        // New foxes are born into adjacent locations.
+        // Get a list of adjacent free locations.
+        Animal animal = this;
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        int births = breed();
+        for(int b = 0; b < births && free.size() > 0; b++) {
+            Location loc = free.remove(0);
+            if(animal instanceof Fox) {
+                Fox young = new Fox(false, field, loc);
+                newAnimals.add(young);
+            }
+            else if(animal instanceof Rabbit) {
+                Rabbit young = new Rabbit(false, field, loc);
+                newAnimals.add(young);
+            }
+            else if(animal instanceof Lynx) {
+                Lynx young = new Lynx(false, field, loc);
+                newAnimals.add(young);
+            }
+        }
+    }
 }
