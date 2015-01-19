@@ -17,6 +17,8 @@ public abstract class Animal implements Actor
     // The animal's position in the field.
     private Location location;
     
+    private int age;
+    
     /**
      * Create a new animal at location in field.
      * 
@@ -28,6 +30,17 @@ public abstract class Animal implements Actor
         alive = true;
         this.field = field;
         setLocation(location);
+        age = 0;
+    }
+    
+    protected int getAge()
+    {
+        return age;
+    }
+    
+    protected void setAge(int age)
+    {
+        this.age = age;
     }
     
     /**
