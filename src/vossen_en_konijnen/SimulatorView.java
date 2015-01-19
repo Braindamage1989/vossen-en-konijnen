@@ -29,6 +29,7 @@ public class SimulatorView extends JFrame
     private JButton oneStep, hundredStep;
     private JLabel stepLabel, population;
     private FieldView fieldView;
+    private TextView textView;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -54,6 +55,8 @@ public class SimulatorView extends JFrame
         setLocation(100, 50);
         
         fieldView = new FieldView(height, width);
+        
+        textView = new TextView(stats);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
