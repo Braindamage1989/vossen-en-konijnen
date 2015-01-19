@@ -30,8 +30,6 @@ public class Lynx extends Animal
     private static final Random rand = Randomizer.getRandom();
     
     // Individual characteristics (instance fields).
-    // The lynxes age.
-    private int age;
     // The lynxes food level, which is increased by eating rabbits.
     private int foodLevel;
 
@@ -47,11 +45,11 @@ public class Lynx extends Animal
     {
         super(field, location);
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            super.setAge(rand.nextInt(MAX_AGE));
             foodLevel = rand.nextInt(FOOD_VALUE);
         }
         else {
-            age = 0;
+            super.setAge(0);
             foodLevel = FOOD_VALUE;
         }
     }
@@ -83,17 +81,6 @@ public class Lynx extends Animal
                 // Overcrowding.
                 setDead();
             }
-        }
-    }
-
-    /**
-     * Increase the age. This could result in the lynx's death.
-     */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
-            setDead();
         }
     }
     
@@ -161,26 +148,24 @@ public class Lynx extends Animal
             newLynxes.add(young);
         }
     }
-        
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
+    
+    public int getBreedingAge()
     {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
+        return BREEDING_AGE;
     }
-
-    /**
-     * A lynx can breed if it has reached the breeding age.
-     */
-    private boolean canBreed()
+    
+    public int getMaxAge()
     {
-        return age >= BREEDING_AGE;
+        return MAX_AGE;
+    }
+    
+    public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+    public int getMaxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
     }
 }
