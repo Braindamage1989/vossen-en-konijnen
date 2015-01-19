@@ -116,7 +116,7 @@ public abstract class Animal implements Actor
     /**
      * An animal can breed if it has reached the breeding age.
      */
-    public boolean canBreed()
+    protected boolean canBreed()
     {
         return age >= getBreedingAge();
     }
@@ -124,7 +124,7 @@ public abstract class Animal implements Actor
     /**
      * Increase the age. This could result in the fox's death.
      */
-    public void incrementAge()
+    protected void incrementAge()
     {
         age++;
         if(age > getMaxAge()) {
