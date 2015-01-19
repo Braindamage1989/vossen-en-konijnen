@@ -18,6 +18,7 @@ public class TextView extends AbstractView
 	{
 		super(stats);
 		population = new JLabel("LOlolololol", JLabel.CENTER);
+		this.add(population);
 		//textField = new JTextField(population);
 	}
 	
