@@ -53,6 +53,10 @@ public abstract class Animal implements Actor
      */
     @Override
     abstract public void act(List<Actor> newActors);
+    abstract double getBreedingProbability();
+    abstract int getMaxLitterSize();
+    abstract int getMaxAge();
+    abstract int getBreedingAge();
      
     
     /**
@@ -109,8 +113,6 @@ public abstract class Animal implements Actor
         return field;
     }
     
-    abstract int getBreedingAge();
-    
     /**
      * An animal can breed if it has reached the breeding age.
      */
@@ -118,8 +120,6 @@ public abstract class Animal implements Actor
     {
         return age >= getBreedingAge();
     }
-    
-    abstract int getMaxAge();
     
     /**
      * Increase the age. This could result in the fox's death.
@@ -131,9 +131,6 @@ public abstract class Animal implements Actor
             setDead();
         }
     }
-    
-    abstract double getBreedingProbability();
-    abstract int getMaxLitterSize();
     
     /**
      * Generate a number representing the number of births,
