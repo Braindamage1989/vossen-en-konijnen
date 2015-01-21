@@ -49,6 +49,14 @@ public class FieldStats
         return buffer.toString();
     }
     
+    /*
+     * 
+     */
+    public HashMap<Class, Counter> getCounters()
+    {
+    	return counters;
+    }
+    
     /**
      * Invalidate the current set of statistics; reset all 
      * counts to zero.
