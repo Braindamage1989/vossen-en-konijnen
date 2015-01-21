@@ -14,6 +14,7 @@ import vossen_en_konijnen.logic.Fox;
 import vossen_en_konijnen.logic.Hunter;
 import vossen_en_konijnen.logic.Location;
 import vossen_en_konijnen.logic.Lynx;
+import vossen_en_konijnen.logic.Lion;
 import vossen_en_konijnen.logic.Rabbit;
 import vossen_en_konijnen.logic.Randomizer;
 import vossen_en_konijnen.main.SimulatorView;
@@ -40,7 +41,7 @@ public class Simulator
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a lion will be created in any given grid position.
-    private static final double LION_CREATION_PROBABILITY = 0.08;
+    private static final double LION_CREATION_PROBABILITY = 0.005;
     
     private static final double HUNTER_CREATION_PROBABILITY = 0.005; 
 
@@ -190,7 +191,7 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Lion lion = new Lion(field, location);
+                    Lion lion = new Lion(true, field, location);
                     actors.add(lion);
                 }
                 // else leave the location empty.
