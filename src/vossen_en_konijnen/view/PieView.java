@@ -14,18 +14,19 @@ public class PieView extends AbstractView
 	private Map<Class, Color> colors;
 	private int fieldCount;
 	private static final Color UNKNOWN_COLOR = Color.gray;
+	
+	private final int GRID_VIEW_SCALING_FACTOR = 6;
+	private int scale;
+    Dimension size;
+    private Graphics g;
+    private Image fieldImage;
 
 	public PieView(FieldStats stats, Map<Class, Color> colors, int fieldCount) 
 	{
 		super(stats);
 		this.colors = colors;
 		this.fieldCount = fieldCount;
-		setSize(200,200);
-	}
-	
-	private void setColors(Map<Class, Color> colors)
-	{
-		//Iterator it = colors.getIterator();
+		this.size = new Dimension(0,0);
 	}
 	
 	public void updateStats(FieldStats stats, Map<Class, Color> colors)
@@ -34,10 +35,23 @@ public class PieView extends AbstractView
 		this.colors = colors;
 	}
 	
-	public void updateView() 
-	{
-		repaint();
-	}
+	 /**
+     * Prepare for a new round of painting. Since the component
+     * may be resized, compute the scaling factor again.
+     */
+    public void preparePaint()
+    {
+        if(! size.equals(getSize())) {  // if the size has changed...
+            size = getSize();
+            fieldImage = this.createImage(size.width, size.height);
+            g = fieldImage.getGraphics();
+
+            int xScale = size.width;
+            int yScale = size.height;
+            if(xScale <= yScale) { scale = xScale; } else { scale = yScale; }
+            if(scale < 1) { scale = GRID_VIEW_SCALING_FACTOR; }
+        }
+    }
 	
 	private Color getColor(Class animalClass)
     {
@@ -54,24 +68,30 @@ public class PieView extends AbstractView
 	public void paintComponent(Graphics g) 
 	{
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, 200, 200);
+		g.fillRect(0, 0, scale, scale);
+		
+		int pieScale = (int) (scale/100.0) * 95;
+		int pieStart = (scale - pieScale)/2;
 		
 		HashMap<Class, Counter> counters = stats.getCounters();
 		int position = 0;
+		int fullFill = 0;
+		
+		for(Counter value : counters.values()) { fullFill += value.getCount(); }
 		
 		for(Class key : counters.keySet()) {
             int count = counters.get(key).getCount();
-            int arc = (int) (count/(double) fieldCount) * 360;
+            int arc = (int) Math.round(((float) count/fullFill) * 360);
             Color color = getColor(key);
-            
+            int i = 0;
             g.setColor(color);
-    		g.fillArc(10, 10, 180, 180, position, arc);
-    		position += count;
+    		g.fillArc(pieStart, pieStart, pieScale, pieScale, position, arc);
+    		position += arc;
         }
 		
 		if(position < 360) {
 			g.setColor(Color.WHITE);
-			g.fillArc(10, 10, 180, 180, position, 360-position);
+			g.fillArc(pieStart, pieStart, pieScale, pieScale, position, 360-position);
 		}
 	}	
 }
