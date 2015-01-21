@@ -173,6 +173,10 @@ public abstract class Animal implements Actor
                 Lynx young = new Lynx(false, field, loc);
                 newAnimals.add(young);
             }
+            else if(animal instanceof Lion) {
+                Lion young = new Lion(false, field, loc);
+                newAnimals.add(young);
+            }
         }
     }
 }
