@@ -1,6 +1,9 @@
-package vossen_en_konijnen;
+package vossen_en_konijnen.view;
 
 import javax.swing.*;
+
+import vossen_en_konijnen.logic.Field;
+import vossen_en_konijnen.logic.FieldStats;
 
 /**
  * Creates a textview with current population

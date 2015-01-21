@@ -1,4 +1,4 @@
-package vossen_en_konijnen; 
+package vossen_en_konijnen.controller; 
 
 import java.util.Random;
 import java.util.List;
@@ -7,6 +7,17 @@ import java.util.Iterator;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import vossen_en_konijnen.logic.Actor;
+import vossen_en_konijnen.logic.Field;
+import vossen_en_konijnen.logic.Fox;
+import vossen_en_konijnen.logic.Hunter;
+import vossen_en_konijnen.logic.Location;
+import vossen_en_konijnen.logic.Lynx;
+import vossen_en_konijnen.logic.Rabbit;
+import vossen_en_konijnen.logic.Randomizer;
+import vossen_en_konijnen.main.SimulatorView;
+import vossen_en_konijnen.view.TextView;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -39,10 +50,12 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+    // TextField with current population
+    private TextView textView;
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         new Simulator();
-    }
+    }*/
     
     /**
      * Construct a simulation field with default size.

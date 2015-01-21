@@ -1,8 +1,14 @@
-package vossen_en_konijnen; 
+package vossen_en_konijnen.main; 
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import vossen_en_konijnen.logic.Field;
+import vossen_en_konijnen.logic.FieldStats;
+import vossen_en_konijnen.view.TextView;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 

@@ -1,6 +1,8 @@
-package vossen_en_konijnen;
+package vossen_en_konijnen.view;
 
 import javax.swing.*;
+
+import vossen_en_konijnen.logic.FieldStats;
 
 /**
  * Create a view of the given width and height.
