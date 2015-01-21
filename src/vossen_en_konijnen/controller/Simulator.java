@@ -8,15 +8,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import vossen_en_konijnen.logic.Actor;
-import vossen_en_konijnen.logic.Field;
-import vossen_en_konijnen.logic.Fox;
-import vossen_en_konijnen.logic.Hunter;
-import vossen_en_konijnen.logic.Location;
-import vossen_en_konijnen.logic.Lynx;
-import vossen_en_konijnen.logic.Lion;
-import vossen_en_konijnen.logic.Rabbit;
-import vossen_en_konijnen.logic.Randomizer;
+import vossen_en_konijnen.logic.*;
 import vossen_en_konijnen.main.SimulatorView;
 import vossen_en_konijnen.view.TextView;
 
