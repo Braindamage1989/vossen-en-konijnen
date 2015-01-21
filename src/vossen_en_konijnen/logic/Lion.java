@@ -117,10 +117,10 @@ public class Lion extends Animal
                     return where;
                 }
             }
-            else if(animal instanceof Fox) {
-                Fox fox = (Fox) animal;
-                if(fox.isActive()) { 
-                    fox.setDead();
+            else if(animal instanceof Lynx) {
+                Lynx lynx = (Lynx) animal;
+                if(lynx.isActive()) { 
+                    lynx.setDead();
                     foodLevel = FOOD_VALUE;
                     // Remove the dead rabbit from the field.
                     return where;
