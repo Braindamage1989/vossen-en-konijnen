@@ -5,9 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import vossen_en_konijnen.logic.Field;
-import vossen_en_konijnen.logic.FieldStats;
-import vossen_en_konijnen.view.TextView;
+import vossen_en_konijnen.logic.*;
+import vossen_en_konijnen.view.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class SimulatorView extends JFrame
     private JButton oneStep, hundredStep;
     private JLabel stepLabel, population;
     private FieldView fieldView;
-    private TextView textView;
+    private PieView pieView;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -62,7 +61,7 @@ public class SimulatorView extends JFrame
         
         fieldView = new FieldView(height, width);
         
-        textView = new TextView(stats);
+        pieView = new PieView(stats, colors, height * width);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
@@ -77,7 +76,7 @@ public class SimulatorView extends JFrame
         Container viewContainer = new JPanel();
         viewContainer.setLayout(new GridLayout(1,2));
         viewContainer.add(fieldView);
-        viewContainer.add(textView);
+        viewContainer.add(pieView);
         
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -154,9 +153,9 @@ public class SimulatorView extends JFrame
         stats.countFinished();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        textView.updatePopulation(field);
+        pieView.updateStats(stats, colors);
         fieldView.repaint();
-        textView.repaint();
+        pieView.repaint();
     }
 
     /**
