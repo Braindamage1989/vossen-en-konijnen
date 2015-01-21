@@ -100,7 +100,7 @@ public class SimulatorView extends JFrame
     /**
      * @return The color to be used for a given class of animal.
      */
-    private Color getColor(Class animalClass)
+    public Color getColor(Class animalClass)
     {
         Color col = colors.get(animalClass);
         if(col == null) {
@@ -137,6 +137,7 @@ public class SimulatorView extends JFrame
         stats.reset();
         
         fieldView.preparePaint();
+        pieView.preparePaint();
 
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
