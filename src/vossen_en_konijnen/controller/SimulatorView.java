@@ -62,7 +62,7 @@ public class SimulatorView extends JFrame
         
         fieldView = new FieldView(stats, height, width);
         
-        pieView = new PieView(stats, colors, height * width);
+        pieView = new PieView(stats, colors, height, width);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
@@ -74,10 +74,9 @@ public class SimulatorView extends JFrame
         buttonViewSub.add(hundredStep);
         buttonView.add(buttonViewSub);
 
-        Container viewContainer = new JPanel();
-        viewContainer.setLayout(new GridLayout(1,2));
-        viewContainer.add(fieldView);
-        viewContainer.add(pieView);
+        JTabbedPane viewContainer = new JTabbedPane();
+        viewContainer.addTab("fieldView", null, fieldView, "The field in wich it all dies...");
+        viewContainer.addTab("pieView", null, pieView, "The chart representing all that still lifes. :)");
         
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
