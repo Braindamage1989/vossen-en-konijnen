@@ -1,8 +1,13 @@
 package vossen_en_konijnen.view;
 
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+
 import javax.swing.*;
 
 import vossen_en_konijnen.logic.FieldStats;
+import vossen_en_konijnen.main.SimulatorView;
 
 /**
  * Create a view of the given width and height.
@@ -10,12 +15,15 @@ import vossen_en_konijnen.logic.FieldStats;
  */
 public abstract class AbstractView extends JPanel
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8055043978325587179L;
-	//private int step;
+	protected SimulatorView model;
+    public Graphics g;
+    public int xScale, yScale;
+    protected final int GRID_VIEW_SCALING_FACTOR = 6;
+    protected int gridWidth, gridHeight;
+    protected Dimension size;
+    protected Image fieldImage;
 	protected FieldStats stats;
+	
 	
     public AbstractView(FieldStats stats)
     {
