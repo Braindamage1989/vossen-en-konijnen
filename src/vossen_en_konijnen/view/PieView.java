@@ -2,24 +2,16 @@ package vossen_en_konijnen.view;
 
 import java.util.*;
 import java.awt.*;
-
-import javax.swing.*;
-
-import vossen_en_konijnen.main.*;
 import vossen_en_konijnen.logic.*;
 
 public class PieView extends AbstractView
 {
-	protected SimulatorView model;
+	
 	private Map<Class, Color> colors;
 	private int fieldCount;
 	private static final Color UNKNOWN_COLOR = Color.gray;
 	
-	private final int GRID_VIEW_SCALING_FACTOR = 6;
 	private int scale;
-    Dimension size;
-    private Graphics g;
-    private Image fieldImage;
 
 	public PieView(FieldStats stats, Map<Class, Color> colors, int fieldCount) 
 	{
