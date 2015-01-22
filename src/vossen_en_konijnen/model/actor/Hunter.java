@@ -1,8 +1,11 @@
-package vossen_en_konijnen.logic; 
+package vossen_en_konijnen.model.actor; 
 
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
+
+import vossen_en_konijnen.model.Field;
+import vossen_en_konijnen.model.Location;
 
 /**
  * A simple model of a hunter.

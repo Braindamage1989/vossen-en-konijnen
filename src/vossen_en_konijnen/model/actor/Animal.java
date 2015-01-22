@@ -1,7 +1,11 @@
-package vossen_en_konijnen.logic; 
+package vossen_en_konijnen.model.actor; 
 
 import java.util.List;
 import java.util.Random;
+
+import vossen_en_konijnen.model.Field;
+import vossen_en_konijnen.model.Location;
+import vossen_en_konijnen.model.Randomizer;
 
 /**
  * A class representing shared characteristics of animals.

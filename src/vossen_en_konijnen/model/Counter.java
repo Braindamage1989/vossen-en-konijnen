@@ -1,4 +1,4 @@
-package vossen_en_konijnen.logic; 
+package vossen_en_konijnen.model; 
 
 import java.awt.Color;
 

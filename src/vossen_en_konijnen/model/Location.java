@@ -1,4 +1,4 @@
-package vossen_en_konijnen.logic; 
+package vossen_en_konijnen.model; 
 
 /**
  * Represent a location in a rectangular grid.

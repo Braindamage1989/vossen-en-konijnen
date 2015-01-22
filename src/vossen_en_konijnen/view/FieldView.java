@@ -1,7 +1,8 @@
 package vossen_en_konijnen.view;
 
 import java.awt.*;
-import vossen_en_konijnen.logic.*;
+
+import vossen_en_konijnen.model.FieldStats;
 
 public class FieldView extends AbstractView
 {

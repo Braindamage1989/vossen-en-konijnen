@@ -6,8 +6,8 @@ import java.awt.Image;
 
 import javax.swing.*;
 
-import vossen_en_konijnen.logic.FieldStats;
-import vossen_en_konijnen.main.SimulatorView;
+import vossen_en_konijnen.controller.SimulatorView;
+import vossen_en_konijnen.model.FieldStats;
 
 /**
  * Create a view of the given width and height.

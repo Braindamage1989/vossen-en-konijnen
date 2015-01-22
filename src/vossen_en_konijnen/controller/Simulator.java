@@ -8,8 +8,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import vossen_en_konijnen.logic.*;
-import vossen_en_konijnen.main.SimulatorView;
+import vossen_en_konijnen.model.Field;
+import vossen_en_konijnen.model.Location;
+import vossen_en_konijnen.model.Randomizer;
+import vossen_en_konijnen.model.actor.*;
 import vossen_en_konijnen.view.TextView;
 
 /**
