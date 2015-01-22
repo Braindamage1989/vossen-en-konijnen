@@ -13,9 +13,7 @@ public class FieldView extends AbstractView
      */
     public FieldView(FieldStats stats, int height, int width)
     {
-    	super(stats);
-        gridHeight = height;
-        gridWidth = width;
+    	super(stats, height, width);
     }
 
     /**

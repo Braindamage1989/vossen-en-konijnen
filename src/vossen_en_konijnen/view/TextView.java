@@ -17,9 +17,9 @@ public class TextView extends AbstractView
 	private static final long serialVersionUID = 522169609862382099L;
 	private JLabel population;
 	
-	public TextView(FieldStats stats)
+	public TextView(FieldStats stats, int height, int depth)
 	{
-		super(stats);
+		super(stats, height, depth);
 		population = new JLabel("", JLabel.CENTER);
 		this.add(population);
 		//textField = new JTextField(population);
