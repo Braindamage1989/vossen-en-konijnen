@@ -21,7 +21,7 @@ import vossen_en_konijnen.view.TextView;
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
  */
-public class Simulator
+public class Simulator extends AbstractController
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.

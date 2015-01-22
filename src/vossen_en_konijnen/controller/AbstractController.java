@@ -1,5 +1,8 @@
 package vossen_en_konijnen.controller;
 
-public abstract class AbstractController {
+import javax.swing.*;
+
+public abstract class AbstractController extends JFrame
+{
 
 }
