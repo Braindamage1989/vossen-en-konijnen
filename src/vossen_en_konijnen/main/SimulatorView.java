@@ -59,7 +59,7 @@ public class SimulatorView extends JFrame
         
         setLocation(100, 50);
         
-        fieldView = new FieldView(height, width);
+        fieldView = new FieldView(stats, height, width);
         
         pieView = new PieView(stats, colors, height * width);
         
