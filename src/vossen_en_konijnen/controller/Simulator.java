@@ -8,14 +8,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import vossen_en_konijnen.logic.Actor;
-import vossen_en_konijnen.logic.Field;
-import vossen_en_konijnen.logic.Fox;
-import vossen_en_konijnen.logic.Hunter;
-import vossen_en_konijnen.logic.Location;
-import vossen_en_konijnen.logic.Lynx;
-import vossen_en_konijnen.logic.Rabbit;
-import vossen_en_konijnen.logic.Randomizer;
+import vossen_en_konijnen.logic.*;
 import vossen_en_konijnen.main.SimulatorView;
 import vossen_en_konijnen.view.TextView;
 
@@ -39,6 +32,8 @@ public class Simulator
     private static final double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    // The probability that a lion will be created in any given grid position.
+    private static final double LION_CREATION_PROBABILITY = 0.005;
     
     private static final double HUNTER_CREATION_PROBABILITY = 0.005; 
 
@@ -91,6 +86,7 @@ public class Simulator
         view.setColor(Fox.class, Color.blue);
         view.setColor(Lynx.class, Color.red);
         view.setColor(Hunter.class, Color.black);
+        view.setColor(Lion.class, Color.green);
         
         // Setup a valid starting point.
         reset();
@@ -184,6 +180,11 @@ public class Simulator
                     Location location = new Location(row, col);
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
+                }
+                else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Lion lion = new Lion(true, field, location);
+                    actors.add(lion);
                 }
                 // else leave the location empty.
             }
