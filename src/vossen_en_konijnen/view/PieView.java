@@ -3,6 +3,7 @@ package vossen_en_konijnen.view;
 import java.util.*;
 import java.awt.*;
 
+import vossen_en_konijnen.controller.SimulatorView;
 import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
@@ -15,9 +16,9 @@ public class PieView extends AbstractView
 	
 	private int scale;
 
-	public PieView(FieldStats stats, Map<Class, Color> colors, int height, int width) 
+	public PieView(SimulatorView model, FieldStats stats, Map<Class, Color> colors, int height, int width) 
 	{
-		super(stats, height, width);
+		super(model, stats, height, width);
 		this.colors = colors;
 		this.fieldCount = height * width;
 	}
@@ -75,7 +76,7 @@ public class PieView extends AbstractView
 		for(Class key : counters.keySet()) {
             int count = counters.get(key).getCount();
             int arc = (int) Math.round(((float) count/fullFill) * 360);
-            Color color = getColor(key);
+            Color color = model.getColor(key);
             int i = 0;
             g.setColor(color);
     		g.fillArc(pieStart, pieStart, pieScale, pieScale, position, arc);

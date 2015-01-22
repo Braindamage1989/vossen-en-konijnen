@@ -25,8 +25,9 @@ public abstract class AbstractView extends JPanel
 	protected FieldStats stats;
 	
 	
-    public AbstractView(FieldStats stats, int height, int width)
+    public AbstractView(SimulatorView model, FieldStats stats, int height, int width)
     {
+    	this.model = model;
     	this.stats = stats;
 		this.size = new Dimension();
         gridHeight = height;
