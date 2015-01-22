@@ -86,7 +86,7 @@ public class Simulator
         view.setColor(Fox.class, Color.blue);
         view.setColor(Lynx.class, Color.red);
         view.setColor(Hunter.class, Color.black);
-        view.setColor(Lion.class, Color.yellow);
+        view.setColor(Lion.class, Color.green);
         
         // Setup a valid starting point.
         reset();
