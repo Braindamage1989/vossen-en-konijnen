@@ -1,4 +1,4 @@
-package vossen_en_konijnen.runner;
+package vossen_en_konijnen;
 import vossen_en_konijnen.controller.Simulator;
 
 
