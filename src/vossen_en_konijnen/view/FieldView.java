@@ -16,7 +16,6 @@ public class FieldView extends AbstractView
     	super(stats);
         gridHeight = height;
         gridWidth = width;
-        size = new Dimension(0, 0);
     }
 
     /**
@@ -37,7 +36,7 @@ public class FieldView extends AbstractView
         if(! size.equals(getSize())) {  // if the size has changed...
             size = getSize();
             fieldImage = this.createImage(size.width, size.height);
-            g = this.getGraphics();
+            g = this.fieldImage.getGraphics();
 
             xScale = size.width / gridWidth;
             if(xScale < 1) {

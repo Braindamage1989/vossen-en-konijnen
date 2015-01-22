@@ -28,5 +28,6 @@ public abstract class AbstractView extends JPanel
     public AbstractView(FieldStats stats)
     {
     	this.stats = stats;
+		this.size = new Dimension();
     }
 }

@@ -20,7 +20,6 @@ public class PieView extends AbstractView
 		super(stats);
 		this.colors = colors;
 		this.fieldCount = fieldCount;
-		this.size = new Dimension(0,0);
 	}
 	
 	public void updateStats(FieldStats stats, Map<Class, Color> colors)
@@ -36,9 +35,9 @@ public class PieView extends AbstractView
     public void preparePaint()
     {
         if(! size.equals(getSize())) {  // if the size has changed...
-            size = getSize();
-            fieldImage = this.createImage(size.width, size.height);
-            g = fieldImage.getGraphics();
+            //size = getSize();
+            //fieldImage = this.createImage(size.width, size.height);
+            //g = fieldImage.getGraphics();
 
             int xScale = size.width;
             int yScale = size.height;
