@@ -160,6 +160,7 @@ public class SimulatorView extends JFrame
             }
         }
         stats.countFinished();
+        pieView.paintChart();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         pieView.updateStats(stats, colors);

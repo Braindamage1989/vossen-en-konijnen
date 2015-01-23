@@ -5,6 +5,7 @@ import java.awt.*;
 import vossen_en_konijnen.controller.SimulatorView;
 import vossen_en_konijnen.model.FieldStats;
 
+@SuppressWarnings({"serial"})
 public class FieldView extends AbstractView
 {
     

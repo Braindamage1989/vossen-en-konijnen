@@ -9,6 +9,7 @@ import javax.swing.*;
 import vossen_en_konijnen.controller.SimulatorView;
 import vossen_en_konijnen.model.FieldStats;
 
+@SuppressWarnings({"serial"})
 /**
  * Create a view of the given width and height.
  * @param step

@@ -7,26 +7,19 @@ import vossen_en_konijnen.controller.SimulatorView;
 import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
+@SuppressWarnings({"serial", "rawtypes"})
 public class PieView extends AbstractView
 {
-	
-	private Map<Class, Color> colors;
-	private int fieldCount;
-	private static final Color UNKNOWN_COLOR = Color.gray;
-	
 	private int scale;
 
-	public PieView(SimulatorView model, FieldStats stats, Map<Class, Color> colors, int height, int width) 
+	public PieView(SimulatorView model, FieldStats stats, int height, int width) 
 	{
 		super(model, stats, height, width);
-		this.colors = colors;
-		this.fieldCount = height * width;
 	}
 	
-	public void updateStats(FieldStats stats, Map<Class, Color> colors)
+	public void updateStats(FieldStats stats)
 	{
 		this.stats = stats;
-		this.colors = colors;
 	}
 	
 	 /**
@@ -47,31 +40,7 @@ public class PieView extends AbstractView
         }
     }
 	
-	private Color getColor(Class animalClass)
-    {
-        Color col = colors.get(animalClass);
-        if(col == null) {
-            // no color defined for this class
-            return UNKNOWN_COLOR;
-        }
-        else {
-            return col;
-        }
-    }
-	
-	public void paintComponent(Graphics g) 
-	{
-		if(fieldImage != null) {
-            Dimension currentSize = getSize();
-            if(size.equals(currentSize)) {
-                g.drawImage(fieldImage, 0, 0, null);
-            }
-            else {
-                // Rescale the previous image.
-                g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
-            }
-        }
-		
+	public void paintChart() {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, size.width, size.height);
 		
@@ -88,7 +57,6 @@ public class PieView extends AbstractView
             int count = counters.get(key).getCount();
             int arc = (int) Math.round(((float) count/fullFill) * 360);
             Color color = model.getColor(key);
-            int i = 0;
             g.setColor(color);
     		g.fillArc(pieStart, pieStart, pieScale, pieScale, position, arc);
     		position += arc;
@@ -98,5 +66,19 @@ public class PieView extends AbstractView
 			g.setColor(Color.WHITE);
 			g.fillArc(pieStart, pieStart, pieScale, pieScale, position, 360-position);
 		}
+	}
+	
+	public void paintComponent(Graphics g) 
+	{
+		if(fieldImage != null) {
+            Dimension currentSize = getSize();
+            if(size.equals(currentSize)) {
+                g.drawImage(fieldImage, 0, 0, null);
+            }
+            else {
+                // Rescale the previous image.
+                g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
+            }
+        }
 	}	
 }
