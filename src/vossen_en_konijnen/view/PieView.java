@@ -100,7 +100,5 @@ public class PieView extends AbstractView
                 g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
             }
         }
-		
-		
 	}	
 }
