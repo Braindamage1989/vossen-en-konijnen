@@ -60,9 +60,9 @@ public class SimulatorView extends JFrame
         
         setLocation(100, 50);
         
-        fieldView = new FieldView(this, stats, height, width);
+       // fieldView = new FieldView(this, stats, height, width);
         
-        pieView = new PieView(this, stats, height, width);
+       // pieView = new PieView(this, stats, height, width);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
