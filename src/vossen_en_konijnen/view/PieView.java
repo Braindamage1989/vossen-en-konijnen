@@ -59,19 +59,7 @@ public class PieView extends AbstractView
         }
     }
 	
-	public void paintComponent(Graphics g) 
-	{
-		if(fieldImage != null) {
-            Dimension currentSize = getSize();
-            if(size.equals(currentSize)) {
-                g.drawImage(fieldImage, 0, 0, null);
-            }
-            else {
-                // Rescale the previous image.
-                g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
-            }
-        }
-		
+	public void paintChart() {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, size.width, size.height);
 		
@@ -98,5 +86,21 @@ public class PieView extends AbstractView
 			g.setColor(Color.WHITE);
 			g.fillArc(pieStart, pieStart, pieScale, pieScale, position, 360-position);
 		}
+	}
+	
+	public void paintComponent(Graphics g) 
+	{
+		if(fieldImage != null) {
+            Dimension currentSize = getSize();
+            if(size.equals(currentSize)) {
+                g.drawImage(fieldImage, 0, 0, null);
+            }
+            else {
+                // Rescale the previous image.
+                g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
+            }
+        }
+		
+		
 	}	
 }
