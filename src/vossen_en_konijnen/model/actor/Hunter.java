@@ -44,7 +44,7 @@ public class Hunter implements Actor
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
      * @param field The field currently occupied.
-     * @param newFoxes A list to return newly born hunteres.
+     * @param newHunter A list to return newly born hunteres.
      */
     public void act(List<Actor> newHunter)
     {
@@ -59,6 +59,7 @@ public class Hunter implements Actor
             }
     }
     
+    @Override
     public boolean isActive()
     {
         return alive;
@@ -97,6 +98,14 @@ public class Hunter implements Actor
                 Lynx lynx = (Lynx) animal;
                 if(lynx.isActive()) { 
                     lynx.setDead();
+                    // Remove the dead rabbit from the field.
+                    return where;
+                }
+            }
+            else if(animal instanceof Lion) {
+                Lion lion = (Lion) animal;
+                if(lion.isActive()) { 
+                    lion.setDead();
                     // Remove the dead rabbit from the field.
                     return where;
                 }

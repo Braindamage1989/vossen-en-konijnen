@@ -20,16 +20,16 @@ public class Lion extends Animal
     // Characteristics shared by all Lynxes (class variables).
     
     // The age at which a lion can start to breed.
-    private static final int BREEDING_AGE = 25;
+    private static final int BREEDING_AGE = 30;
     // The age to which a lion can live.
-    private static final int MAX_AGE = 200;
+    private static final int MAX_AGE = 175;
     // The likelihood of a lion breeding.
-    private static final double BREEDING_PROBABILITY = 0.05;
+    private static final double BREEDING_PROBABILITY = 0.06;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 1;
     // The food value of a single lion. In effect, this is the
     // number of steps a lion can go before it has to eat again.
-    private static final int FOOD_VALUE = 15;
+    private static final int FOOD_VALUE = 10;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -117,6 +117,14 @@ public class Lion extends Animal
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
                     foodLevel = FOOD_VALUE;
+                    // Remove the dead rabbit from the field.
+                    return where;
+                }
+            }
+            else if(animal instanceof Fox) {
+                Fox fox = (Fox) animal;
+                if(fox.isActive()) { 
+                    fox.setDead();
                     // Remove the dead rabbit from the field.
                     return where;
                 }
