@@ -82,8 +82,9 @@ public class Simulator extends AbstractController
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        this.view.addStepOneListener(new stepOneListener());
-        this.view.addStepHundredListener(new stepHundredListener());
+        this.view.addStepOneListener(new SimulationActionListeners());
+        this.view.addStepHundredListener(new SimulationActionListeners());
+        this.view.addResetListener(new SimulationActionListeners());
         view.setColor(Rabbit.class, Color.orange);
         view.setColor(Fox.class, Color.blue);
         view.setColor(Lynx.class, Color.red);
@@ -193,19 +194,15 @@ public class Simulator extends AbstractController
         }
     }
     
-    class stepOneListener implements ActionListener
+    class SimulationActionListeners implements ActionListener
     {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			simulateOneStep();
-		}
-    }
-    
-    class stepHundredListener implements ActionListener
-    {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			simulate(100);
+			String s = e.getActionCommand();
+			
+			if(s == "1 step") {simulateOneStep(); }
+			if(s == "100 steps") {simulate(100); }
+			if(s == "reset") {reset(); }
 		}
     }
 }
