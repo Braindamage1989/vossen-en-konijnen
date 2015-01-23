@@ -11,7 +11,6 @@ import java.util.*;
 
 import javax.swing.*;
 
-import vossen_en_konijnen.controller.Simulator.SimulationActionListeners;
 import vossen_en_konijnen.model.*;
 import vossen_en_konijnen.model.actor.*;
 import vossen_en_konijnen.view.*;
@@ -32,7 +31,9 @@ public class Controller extends AbstractController
     // The probability that a lion will be created in any given grid position.
     private static final double LION_CREATION_PROBABILITY = 0.005;
     
-    private static final double HUNTER_CREATION_PROBABILITY = 0.005; 
+    private static final double HUNTER_CREATION_PROBABILITY = 0.005;
+    
+    private static final double ROCK_CREATION_PROBABILITY = 0.05;
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -96,6 +97,7 @@ public class Controller extends AbstractController
         setColor(Lynx.class, Color.red);
         setColor(Hunter.class, Color.black);
         setColor(Lion.class, Color.green);
+        setColor(Rock.class, Color.darkGray);
         
         // Setup a valid starting point.
         reset();
@@ -194,6 +196,11 @@ public class Controller extends AbstractController
                     Location location = new Location(row, col);
                     Lion lion = new Lion(true, field, location);
                     actors.add(lion);
+                }
+                else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Rock rock = new Rock(field, location);
+                    actors.add(rock);
                 }
                 // else leave the location empty.
             }
