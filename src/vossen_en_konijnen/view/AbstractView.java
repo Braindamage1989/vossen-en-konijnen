@@ -1,6 +1,7 @@
 package vossen_en_konijnen.view;
 
 import java.awt.Dimension;
+import vossen_en_konijnen.controller.*;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -16,7 +17,7 @@ import vossen_en_konijnen.model.FieldStats;
  */
 public abstract class AbstractView extends JPanel
 {
-	protected SimulatorView model;
+	protected Controller model;
     public Graphics g;
     public int xScale, yScale;
     protected final int GRID_VIEW_SCALING_FACTOR = 6;
@@ -26,7 +27,7 @@ public abstract class AbstractView extends JPanel
 	protected FieldStats stats;
 	
 	
-    public AbstractView(SimulatorView model, FieldStats stats, int height, int width)
+    public AbstractView(Controller model, FieldStats stats, int height, int width)
     {
     	this.model = model;
     	this.stats = stats;

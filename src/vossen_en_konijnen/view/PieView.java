@@ -3,7 +3,7 @@ package vossen_en_konijnen.view;
 import java.util.*;
 import java.awt.*;
 
-import vossen_en_konijnen.controller.SimulatorView;
+import vossen_en_konijnen.controller.*;
 import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
@@ -12,7 +12,7 @@ public class PieView extends AbstractView
 {
 	private int scale;
 
-	public PieView(SimulatorView model, FieldStats stats, int height, int width) 
+	public PieView(Controller model, FieldStats stats, int height, int width) 
 	{
 		super(model, stats, height, width);
 	}

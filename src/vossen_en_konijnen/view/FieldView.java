@@ -2,7 +2,7 @@ package vossen_en_konijnen.view;
 
 import java.awt.*;
 
-import vossen_en_konijnen.controller.SimulatorView;
+import vossen_en_konijnen.controller.*;
 import vossen_en_konijnen.model.FieldStats;
 
 @SuppressWarnings({"serial"})
@@ -13,7 +13,7 @@ public class FieldView extends AbstractView
     /**
      * Create a new FieldView component.
      */
-    public FieldView(SimulatorView model, FieldStats stats, int height, int width)
+    public FieldView(Controller model, FieldStats stats, int height, int width)
     {
     	super(model, stats, height, width);
     }

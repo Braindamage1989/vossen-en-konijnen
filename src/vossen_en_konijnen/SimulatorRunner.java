@@ -1,11 +1,12 @@
 package vossen_en_konijnen;
-import vossen_en_konijnen.controller.Simulator;
+import vossen_en_konijnen.controller.*;
 
 
 public class SimulatorRunner
 {
 	public static void main(String[] args)
 	{
-        new Simulator();
+        //new Simulator();
+		new Controller();
     }
 }
