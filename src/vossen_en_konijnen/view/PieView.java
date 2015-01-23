@@ -61,8 +61,19 @@ public class PieView extends AbstractView
 	
 	public void paintComponent(Graphics g) 
 	{
+		if(fieldImage != null) {
+            Dimension currentSize = getSize();
+            if(size.equals(currentSize)) {
+                g.drawImage(fieldImage, 0, 0, null);
+            }
+            else {
+                // Rescale the previous image.
+                g.drawImage(fieldImage, 0, 0, currentSize.width, currentSize.height, null);
+            }
+        }
+		
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, scale, scale);
+		g.fillRect(0, 0, size.width, size.height);
 		
 		int pieScale = (int) (scale/100.0) * 95;
 		int pieStart = (scale - pieScale)/2;
