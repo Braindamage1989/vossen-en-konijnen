@@ -37,7 +37,9 @@ public class Simulator extends AbstractController
     // The probability that a lion will be created in any given grid position.
     private static final double LION_CREATION_PROBABILITY = 0.005;
     
-    private static final double HUNTER_CREATION_PROBABILITY = 0.005; 
+    private static final double HUNTER_CREATION_PROBABILITY = 0.005;
+    
+    private static final double ROCK_CREATION_PROBABILITY = 0.05; 
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -90,6 +92,7 @@ public class Simulator extends AbstractController
         view.setColor(Lynx.class, Color.red);
         view.setColor(Hunter.class, Color.black);
         view.setColor(Lion.class, Color.green);
+        view.setColor(Rock.class, Color.darkGray);
         
         // Setup a valid starting point.
         reset();
@@ -188,6 +191,11 @@ public class Simulator extends AbstractController
                     Location location = new Location(row, col);
                     Lion lion = new Lion(true, field, location);
                     actors.add(lion);
+                }
+                else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Rock rock = new Rock(field, location);
+                    actors.add(rock);
                 }
                 // else leave the location empty.
             }
