@@ -67,13 +67,14 @@ public class SimulatorView extends JFrame
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
         Container buttonViewSub = new JPanel();
-        buttonViewSub.setLayout(new GridLayout(2, 1));
+        buttonViewSub.setLayout(new GridLayout(4, 1));
         oneStep = new JButton("1 step");
-        buttonViewSub.add(oneStep);
+        buttonViewSub.add(oneStep, 0);
         hundredStep = new JButton("100 steps");
-        buttonViewSub.add(hundredStep);
+        buttonViewSub.add(hundredStep, 1);
+        buttonViewSub.add(new JLabel(""), 2);
         reset = new JButton("reset");
-        buttonViewSub.add(reset);
+        buttonViewSub.add(reset, 3);
         buttonView.add(buttonViewSub);
 
         JTabbedPane viewContainer = new JTabbedPane();
