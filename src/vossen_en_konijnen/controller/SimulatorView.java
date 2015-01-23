@@ -32,7 +32,7 @@ public class SimulatorView extends JFrame
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JButton oneStep, hundredStep;
+    private JButton oneStep, hundredStep, reset;
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieView pieView;
@@ -72,6 +72,8 @@ public class SimulatorView extends JFrame
         buttonViewSub.add(oneStep);
         hundredStep = new JButton("100 steps");
         buttonViewSub.add(hundredStep);
+        reset = new JButton("reset");
+        buttonViewSub.add(reset);
         buttonView.add(buttonViewSub);
 
         JTabbedPane viewContainer = new JTabbedPane();
@@ -120,6 +122,11 @@ public class SimulatorView extends JFrame
     public void addStepHundredListener(ActionListener listenForStepHundred)
     {
         hundredStep.addActionListener(listenForStepHundred);
+    }
+    
+    public void addResetListener(ActionListener listenForStepHundred)
+    {
+        reset.addActionListener(listenForStepHundred);
     }
     
     /**
