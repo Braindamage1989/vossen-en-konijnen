@@ -91,13 +91,16 @@ public class Controller extends AbstractController
         this.addStepHundredListener(new SimulationActionListeners());
         this.addResetListener(new SimulationActionListeners());
         */
+        Color brown = new Color(169, 39, 19);
+        Color darkViolet = new Color(148, 0, 211);
+        
         makeFrame(depth, width);
-        setColor(Rabbit.class, Color.orange);
+        setColor(Rabbit.class, Color.yellow);
         setColor(Fox.class, Color.blue);
         setColor(Lynx.class, Color.red);
         setColor(Hunter.class, Color.black);
-        setColor(Lion.class, Color.green);
-        setColor(Rock.class, Color.darkGray);
+        setColor(Lion.class, darkViolet);
+        setColor(Rock.class, brown);
         
         // Setup a valid starting point.
         reset();
