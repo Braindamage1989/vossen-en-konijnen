@@ -216,9 +216,9 @@ public class Controller extends AbstractController
 		public void actionPerformed(ActionEvent e) {
 			String s = e.getActionCommand();
 			
-			if(s == "1 step") {simulateOneStep(); }
-			if(s == "100 steps") {simulate(100); }
-			if(s == "reset") {reset(); }
+			if(s.equals("1 step")) {simulateOneStep(); }
+			if(s.equals("100 steps")) {simulate(100); }
+			if(s.equals("reset")) {reset(); }
 		}
     }
     public void makeFrame(int height, int width)
