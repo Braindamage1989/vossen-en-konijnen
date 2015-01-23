@@ -62,7 +62,7 @@ public class SimulatorView extends JFrame
         
         fieldView = new FieldView(this, stats, height, width);
         
-        pieView = new PieView(this, stats, colors, height, width);
+        pieView = new PieView(this, stats, height, width);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
@@ -163,7 +163,7 @@ public class SimulatorView extends JFrame
         pieView.paintChart();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        pieView.updateStats(stats, colors);
+        //pieView.updateStats(stats, colors);
         fieldView.repaint();
         pieView.repaint();
     }
