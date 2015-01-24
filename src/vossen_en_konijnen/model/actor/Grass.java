@@ -47,10 +47,10 @@ public class Grass implements Actor
     {
         alive = true;
         this.field = field;
-        this.location = location;
-        age = 0;
+        setLocation(location);
+        setAge(0);
         if(randomAge) {
-            age = rand.nextInt(MAX_AGE);
+            setAge(rand.nextInt(MAX_AGE));
         }
     }
     
@@ -75,6 +75,33 @@ public class Grass implements Actor
             location = null;
             field = null;
         }
+    }
+    
+    /**
+     * Place the hunter at the new location in the given field.
+     * @param newLocation The hunters new location.
+     */
+    private void setLocation(Location newLocation)
+    {
+        if(location != null) {
+            field.clear(location);
+        }
+        location = newLocation;
+        field.place(this, newLocation);
+    }
+    
+    private void setAge(int age)
+    {
+        this.age = age;
+    }
+    
+    /**
+     * Return the animal's field.
+     * @return The animal's field.
+     */
+    private Field getField()
+    {
+        return field;
     }
     
     /**
@@ -106,13 +133,23 @@ public class Grass implements Actor
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
-        List<Location> free = field.getFreeAdjacentLocations(location);
+        Field field = getField();
+        List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
             Grass young = new Grass(false, field, loc);
             newGrass.add(young);
         }
+    }
+    
+    /**
+     * Return the hunters location.
+     * @return The hunters location.
+     */
+    private Location getLocation()
+    {
+        return location;
     }
     
     public boolean isActive()
