@@ -32,10 +32,6 @@ public class Lynx extends Animal
     private static final int FOOD_VALUE = 13;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
-    // Individual characteristics (instance fields).
-    // The lynxes food level, which is increased by eating rabbits.
-    private int foodLevel;
 
     /**
      * Create a lynx. A lynx can be created as a new born (age zero
@@ -49,12 +45,12 @@ public class Lynx extends Animal
     {
         super(field, location);
         if(randomAge) {
-            super.setAge(rand.nextInt(MAX_AGE));
-            foodLevel = rand.nextInt(FOOD_VALUE);
+            setAge(rand.nextInt(MAX_AGE));
+            setFoodLevel(rand.nextInt(FOOD_VALUE));
         }
         else {
-            super.setAge(0);
-            foodLevel = FOOD_VALUE;
+            setAge(0);
+            setFoodLevel(FOOD_VALUE);
         }
     }
     
@@ -70,7 +66,7 @@ public class Lynx extends Animal
         incrementAge();
         incrementHunger();
         if(isActive()) {
-            super.giveBirth(newLynxes);            
+            giveBirth(newLynxes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -85,17 +81,6 @@ public class Lynx extends Animal
                 // Overcrowding.
                 setDead();
             }
-        }
-    }
-    
-    /**
-     * Make this lynx more hungry. This could result in the lynx's death.
-     */
-    private void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
         }
     }
     
@@ -116,7 +101,7 @@ public class Lynx extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    foodLevel = FOOD_VALUE;
+                    setFoodLevel(FOOD_VALUE);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -125,7 +110,7 @@ public class Lynx extends Animal
                 Fox fox = (Fox) animal;
                 if(fox.isActive()) { 
                     fox.setDead();
-                    foodLevel = FOOD_VALUE;
+                    setFoodLevel(FOOD_VALUE);
                     // Remove the dead rabbit from the field.
                     return where;
                 }

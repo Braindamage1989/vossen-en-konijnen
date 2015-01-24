@@ -32,12 +32,6 @@ public class Fox extends Animal
     private static final int RABBIT_FOOD_VALUE = 11;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
-    // Individual characteristics (instance fields).
-    // The fox's age.
-    
-    // The fox's food level, which is increased by eating rabbits.
-    private int foodLevel;
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -51,12 +45,12 @@ public class Fox extends Animal
     {
         super(field, location);
         if(randomAge) {
-            super.setAge(rand.nextInt(MAX_AGE));
-            foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
+            setAge(rand.nextInt(MAX_AGE));
+            setFoodLevel(rand.nextInt(RABBIT_FOOD_VALUE));
         }
         else {
-            super.setAge(0);
-            foodLevel = RABBIT_FOOD_VALUE;
+            setAge(0);
+            setFoodLevel(RABBIT_FOOD_VALUE);
         }
     }
     
@@ -69,10 +63,10 @@ public class Fox extends Animal
      */
     public void act(List<Actor> newFoxes)
     {
-        super.incrementAge();
+        incrementAge();
         incrementHunger();
         if(isActive()) {
-            super.giveBirth(newFoxes);            
+            giveBirth(newFoxes);            
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) { 
@@ -87,17 +81,6 @@ public class Fox extends Animal
                 // Overcrowding.
                 setDead();
             }
-        }
-    }
-    
-    /**
-     * Make this fox more hungry. This could result in the fox's death.
-     */
-    private void incrementHunger()
-    {
-        foodLevel--;
-        if(foodLevel <= 0) {
-            setDead();
         }
     }
     
@@ -118,7 +101,7 @@ public class Fox extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    foodLevel = RABBIT_FOOD_VALUE;
+                    setFoodLevel(RABBIT_FOOD_VALUE);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
