@@ -91,7 +91,7 @@ public class Simulator extends AbstractController
         view.setColor(Fox.class, Color.blue);
         view.setColor(Lynx.class, Color.red);
         view.setColor(Hunter.class, Color.black);
-        view.setColor(Lion.class, Color.green);
+        //view.setColor(Lion.class, Color.green);
         view.setColor(Rock.class, Color.darkGray);
         
         // Setup a valid starting point.
@@ -187,11 +187,11 @@ public class Simulator extends AbstractController
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-                else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
+               /* else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Lion lion = new Lion(true, field, location);
                     actors.add(lion);
-                }
+                }*/
                 else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rock rock = new Rock(field, location);
