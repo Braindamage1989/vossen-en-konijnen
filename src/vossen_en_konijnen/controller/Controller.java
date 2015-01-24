@@ -137,7 +137,7 @@ public class Controller extends AbstractController
 
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();        
-        // Let all rabbits act.
+        // Let all animals act.
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
             actor.act(newActors);
@@ -222,7 +222,7 @@ public class Controller extends AbstractController
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); }
-                        if(s.equals("Disease")) {startDisease(); }
+            if(s.equals("Disease")) {startDisease(); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -286,7 +286,14 @@ public class Controller extends AbstractController
     
     public void startDisease()
     {
-        if(Rabbit.getZiekteGen() == true);
+        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
+            if(actor instanceof Rabbit) {
+                if(((Rabbit) actor).getZiekteGen()) {
+                	
+                }
+            }
+        }
     }
 
     /**

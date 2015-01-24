@@ -34,7 +34,7 @@ public class Rabbit extends Animal
     
     private final boolean ZIEKTE_GEN = Randomizer.getRandomZiekte();
     
-    private boolean ziekte = false;
+    private boolean ziekte;
     
     // The fox's food level, which is increased by eating rabbits.
 
@@ -57,6 +57,7 @@ public class Rabbit extends Animal
             setAge(0);
             setFoodLevel(GRASS_FOOD_VALUE);
         }
+        ziekte = false;
     }
     
     /**
