@@ -32,6 +32,10 @@ public class Rabbit extends Animal
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
+    private final boolean ZIEKTE_GEN = Randomizer.getRandomZiekte();
+    
+    private boolean ziekte = false;
+    
     // The fox's food level, which is increased by eating rabbits.
 
     /**
@@ -108,6 +112,11 @@ public class Rabbit extends Animal
         }
         return null;
     }
+    
+    public void setZiekte(boolean ziekte)
+    {
+        this.ziekte = ziekte;
+    }
         
     public int getBreedingAge()
     {
@@ -127,5 +136,10 @@ public class Rabbit extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public boolean getZiekteGen()
+    {
+        return ZIEKTE_GEN;
     }
 }

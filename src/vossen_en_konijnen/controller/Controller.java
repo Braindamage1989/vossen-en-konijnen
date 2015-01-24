@@ -52,7 +52,7 @@ public class Controller extends AbstractController
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JButton oneStep, hundredStep, reset;
+    private JButton oneStep, hundredStep, reset, disease;
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieView pieView;
@@ -222,6 +222,7 @@ public class Controller extends AbstractController
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); }
+                        if(s.equals("Disease")) {startDisease(); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -252,6 +253,8 @@ public class Controller extends AbstractController
         buttonViewSub.add(new JLabel(""), 2);
         reset = new JButton("reset");
         buttonViewSub.add(reset, 3);
+        disease = new JButton("Disease");
+        buttonViewSub.add(disease, 4);
         buttonView.add(buttonViewSub);
 
         JTabbedPane viewContainer = new JTabbedPane();
@@ -279,6 +282,11 @@ public class Controller extends AbstractController
     public void setColor(Class animalClass, Color color)
     {
         colors.put(animalClass, color);
+    }
+    
+    public void startDisease()
+    {
+        if(Rabbit.getZiekteGen() == true);
     }
 
     /**
@@ -309,6 +317,11 @@ public class Controller extends AbstractController
     public void addResetListener(ActionListener listenForStepHundred)
     {
         reset.addActionListener(listenForStepHundred);
+    }
+    
+    public void addDiseaseListener(ActionListener listenForDisease)
+    {
+        reset.addActionListener(listenForDisease);
     }
     
     /**
