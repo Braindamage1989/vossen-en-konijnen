@@ -1,5 +1,6 @@
 package vossen_en_konijnen.model.actor; 
 
+/*
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
@@ -14,7 +15,7 @@ import vossen_en_konijnen.model.Randomizer;
  * 
  * @author David J. Barnes and Michael Kölling
  * @version 2011.07.31
- */
+ *
 public class Lion extends Animal
 {
     // Characteristics shared by all Lynxes (class variables).
@@ -44,7 +45,7 @@ public class Lion extends Animal
      * @param randomAge If true, the lion will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
-     */
+     *
     public Lion(boolean randomAge, Field field, Location location)
     {
         super(field, location);
@@ -64,7 +65,7 @@ public class Lion extends Animal
      * or die of old age.
      * @param field The field currently occupied.
      * @param newLynxes A list to return newly born lynxes.
-     */
+     *
     public void act(List<Actor> newLions)
     {
         incrementAge();
@@ -90,7 +91,7 @@ public class Lion extends Animal
     
     /**
      * Make this lion more hungry. This could result in the lions death.
-     */
+     *
     private void incrementHunger()
     {
         foodLevel--;
@@ -103,7 +104,7 @@ public class Lion extends Animal
      * Look for animals adjacent to the current location.
      * Only the first live animal is eaten.
      * @return Where food was found, or null if it wasn't.
-     */
+     *
     private Location findFood()
     {
         Field field = getField();
@@ -162,3 +163,4 @@ public class Lion extends Animal
         return MAX_LITTER_SIZE;
     }
 }
+*/
