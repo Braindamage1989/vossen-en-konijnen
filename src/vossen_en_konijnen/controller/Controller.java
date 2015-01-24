@@ -29,11 +29,13 @@ public class Controller extends AbstractController
     // The probability that a rabbit will be created in any given grid position.
     private static final double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a lion will be created in any given grid position.
-    private static final double LION_CREATION_PROBABILITY = 0.005;
+    //private static final double LION_CREATION_PROBABILITY = 0.005;
     
     private static final double HUNTER_CREATION_PROBABILITY = 0.005;
     
     private static final double ROCK_CREATION_PROBABILITY = 0.05;
+    
+    private static final double GRASS_CREATION_PROBABILITY = 0.15;
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -41,10 +43,6 @@ public class Controller extends AbstractController
     private Field field;
     // The current step of the simulation.
     private int step;
-    // A graphical view of the simulation.
-    //private SimulatorView view;
-    // TextField with current population
-    private TextView textView;
     
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
@@ -99,8 +97,9 @@ public class Controller extends AbstractController
         setColor(Fox.class, Color.blue);
         setColor(Lynx.class, Color.red);
         setColor(Hunter.class, Color.black);
-        setColor(Lion.class, darkViolet);
+        //setColor(Lion.class, darkViolet);
         setColor(Rock.class, brown);
+        setColor(Grass.class, Color.green);
         
         // Setup a valid starting point.
         reset();
@@ -195,15 +194,19 @@ public class Controller extends AbstractController
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-                else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
+                /*         Location location = new Location(row, col);
                     Lion lion = new Lion(true, field, location);
                     actors.add(lion);
-                }
+                }*/
                 else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rock rock = new Rock(field, location);
                     actors.add(rock);
+                }
+                else if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Grass grass = new Grass(true, field, location);
+                    actors.add(grass);
                 }
                 // else leave the location empty.
             }
