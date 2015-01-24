@@ -1,5 +1,6 @@
 package vossen_en_konijnen.model.actor; 
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -19,15 +20,19 @@ public class Rabbit extends Animal
     // Characteristics shared by all rabbits (class variables).
 
     // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 5;
+    private static final int BREEDING_AGE = 4;
     // The age to which a rabbit can live.
     private static final int MAX_AGE = 40;
     // The likelihood of a rabbit breeding.
     private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
+    
+    private static final int GRASS_FOOD_VALUE = 8;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
+    
+    // The fox's food level, which is increased by eating rabbits.
 
     /**
      * Create a new rabbit. A rabbit may be created with age
@@ -40,9 +45,13 @@ public class Rabbit extends Animal
     public Rabbit(boolean randomAge, Field field, Location location)
     {
         super(field, location);
-         super.setAge(0);
         if(randomAge) {
-             super.setAge(rand.nextInt(MAX_AGE));
+            setAge(rand.nextInt(MAX_AGE));
+            setFoodLevel(rand.nextInt(GRASS_FOOD_VALUE));
+        }
+        else {
+            setAge(0);
+            setFoodLevel(GRASS_FOOD_VALUE);
         }
     }
     
@@ -54,10 +63,16 @@ public class Rabbit extends Animal
     public void act(List<Actor> newRabbits)
     {
         incrementAge();
+        incrementHunger();
         if(isActive()) {
-            super.giveBirth(newRabbits);            
-            // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+            giveBirth(newRabbits);            
+            // Move towards a source of food if found.
+            Location newLocation = findFood();
+            if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
             }
@@ -66,6 +81,32 @@ public class Rabbit extends Animal
                 setDead();
             }
         }
+    }
+    
+        /**
+     * Look for rabbits adjacent to the current location.
+     * Only the first live rabbit is eaten.
+     * @return Where food was found, or null if it wasn't.
+     */
+    private Location findFood()
+    {
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+            Object animal = field.getObjectAt(where);
+            if(animal instanceof Grass) {
+                Grass grass = (Grass) animal;
+                if(grass.isActive()) { 
+                    grass.setDead();
+                    setFoodLevel(GRASS_FOOD_VALUE);
+                    // Remove the dead rabbit from the field.
+                    return where;
+                }
+            }
+        }
+        return null;
     }
         
     public int getBreedingAge()
