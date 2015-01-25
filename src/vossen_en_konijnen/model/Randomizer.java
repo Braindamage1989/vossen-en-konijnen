@@ -50,7 +50,7 @@ public class Randomizer
         }
     }
     
-    public static boolean getRandomZiekte() 
+    public static boolean getRandomZiekteGen() 
     {
         boolean ziekte = true;
         int range = (10 - 1) + 1;     
@@ -60,6 +60,20 @@ public class Randomizer
         }
         else if(value == 1) {
             ziekte = false;
+        }
+        return ziekte;
+    }
+    
+    public static boolean getRandomZiekte()
+    {
+    	boolean ziekte = false;
+        int range = (10 - 1) + 1;     
+        int value = (int)(Math.random() * range) + 1;
+        if(value > 1) {
+            ziekte = false;
+        }
+        else if(value == 1) {
+            ziekte = true;
         }
         return ziekte;
     }

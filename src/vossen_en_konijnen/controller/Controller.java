@@ -270,6 +270,7 @@ public class Controller extends AbstractController
         addStepOneListener(new SimulationActionListeners());
         addStepHundredListener(new SimulationActionListeners());
         addResetListener(new SimulationActionListeners());
+        addDiseaseListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -288,10 +289,8 @@ public class Controller extends AbstractController
     {
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
-            if(actor instanceof Rabbit) {
-                if(((Rabbit) actor).getZiekteGen()) {
-                	
-                }
+            if(actor instanceof Rabbit && ((Rabbit) actor).getZiekte()) {
+            	((Rabbit) actor).setMaxAge(5);
             }
         }
     }
@@ -328,7 +327,7 @@ public class Controller extends AbstractController
     
     public void addDiseaseListener(ActionListener listenForDisease)
     {
-        reset.addActionListener(listenForDisease);
+        disease.addActionListener(listenForDisease);
     }
     
     /**
