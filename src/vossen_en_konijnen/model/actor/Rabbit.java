@@ -22,7 +22,7 @@ public class Rabbit extends Animal
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 4;
     // The age to which a rabbit can live.
-    private int maxAge = 40;
+    private static final int MAX_AGE = 40;
     // The likelihood of a rabbit breeding.
     private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
@@ -31,10 +31,6 @@ public class Rabbit extends Animal
     private static final int GRASS_FOOD_VALUE = 8;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
-    
-    private final boolean ZIEKTE_GEN = Randomizer.getRandomZiekteGen();
-    
-    private boolean ziekte;
     
     // The fox's food level, which is increased by eating rabbits.
 
@@ -50,14 +46,13 @@ public class Rabbit extends Animal
     {
         super(field, location);
         if(randomAge) {
-            setAge(rand.nextInt(maxAge));
+            setAge(rand.nextInt(MAX_AGE));
             setFoodLevel(rand.nextInt(GRASS_FOOD_VALUE));
         }
         else {
             setAge(0);
             setFoodLevel(GRASS_FOOD_VALUE);
         }
-        ziekte = false;
     }
     
     /**
@@ -110,23 +105,8 @@ public class Rabbit extends Animal
                     return where;
                 }
             }
-            else if(animal instanceof Rabbit) {
-            	if(((Rabbit)animal).getZiekte() && getZiekteGen()) {
-            		ziekte = true;
-            		setMaxAge(5);
-            	}
-            }
         }
         return null;
-    }
-    public void setMaxAge(int age)
-    {
-    	maxAge = age;
-    }
-    
-    public void setZiekte(boolean ziekte)
-    {
-        this.ziekte = ziekte;
     }
         
     public int getBreedingAge()
@@ -136,7 +116,7 @@ public class Rabbit extends Animal
     
     public int getMaxAge()
     {
-        return maxAge;
+        return MAX_AGE;
     }
     
     public double getBreedingProbability()
@@ -147,15 +127,5 @@ public class Rabbit extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
-    }
-    
-    public boolean getZiekteGen()
-    {
-        return ZIEKTE_GEN;
-    }
-    
-    public boolean getZiekte()
-    {
-        return ziekte;
     }
 }

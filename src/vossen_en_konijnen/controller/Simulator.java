@@ -187,11 +187,11 @@ public class Simulator extends AbstractController
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-               /* else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Lion lion = new Lion(true, field, location);
-                    actors.add(lion);
-                }*/
+                    //Lion lion = new Lion(true, field, location);
+                    //actors.add(lion);
+                }
                 else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rock rock = new Rock(field, location);

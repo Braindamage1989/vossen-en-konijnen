@@ -52,7 +52,7 @@ public class Controller extends AbstractController
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JButton oneStep, hundredStep, reset, disease;
+    private JButton oneStep, hundredStep, reset;
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieView pieView;
@@ -137,7 +137,7 @@ public class Controller extends AbstractController
 
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();        
-        // Let all animals act.
+        // Let all rabbits act.
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
             actor.act(newActors);
@@ -222,7 +222,6 @@ public class Controller extends AbstractController
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); }
-            if(s.equals("Disease")) {startDisease(); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -253,8 +252,6 @@ public class Controller extends AbstractController
         buttonViewSub.add(new JLabel(""), 2);
         reset = new JButton("reset");
         buttonViewSub.add(reset, 3);
-        disease = new JButton("Disease");
-        buttonViewSub.add(disease, 4);
         buttonView.add(buttonViewSub);
 
         JTabbedPane viewContainer = new JTabbedPane();
@@ -270,7 +267,6 @@ public class Controller extends AbstractController
         addStepOneListener(new SimulationActionListeners());
         addStepHundredListener(new SimulationActionListeners());
         addResetListener(new SimulationActionListeners());
-        addDiseaseListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -283,16 +279,6 @@ public class Controller extends AbstractController
     public void setColor(Class animalClass, Color color)
     {
         colors.put(animalClass, color);
-    }
-    
-    public void startDisease()
-    {
-        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-            Actor actor = it.next();
-            if(actor instanceof Rabbit) {
-            	((Rabbit) actor).setZiekte(Randomizer.getRandomZiekte());
-            }
-        }
     }
 
     /**
@@ -325,11 +311,6 @@ public class Controller extends AbstractController
         reset.addActionListener(listenForStepHundred);
     }
     
-    public void addDiseaseListener(ActionListener listenForDisease)
-    {
-        disease.addActionListener(listenForDisease);
-    }
-    
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.
@@ -360,6 +341,7 @@ public class Controller extends AbstractController
             }
         }
         stats.countFinished();
+        stats.addHistory();
         pieView.paintChart();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
