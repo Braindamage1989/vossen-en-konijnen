@@ -289,8 +289,8 @@ public class Controller extends AbstractController
     {
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
-            if(actor instanceof Rabbit && ((Rabbit) actor).getZiekte()) {
-            	((Rabbit) actor).setMaxAge(5);
+            if(actor instanceof Rabbit) {
+            	((Rabbit) actor).setZiekte(Randomizer.getRandomZiekte());
             }
         }
     }

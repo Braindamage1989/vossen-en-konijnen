@@ -57,7 +57,7 @@ public class Rabbit extends Animal
             setAge(0);
             setFoodLevel(GRASS_FOOD_VALUE);
         }
-        ziekte = Randomizer.getRandomZiekte();
+        ziekte = false;
     }
     
     /**
@@ -113,6 +113,7 @@ public class Rabbit extends Animal
             else if(animal instanceof Rabbit) {
             	if(((Rabbit)animal).getZiekte() && getZiekteGen()) {
             		ziekte = true;
+            		setMaxAge(5);
             	}
             }
         }
