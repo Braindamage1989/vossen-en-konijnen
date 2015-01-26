@@ -7,10 +7,9 @@ import vossen_en_konijnen.controller.Controller;
 import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
-@SuppressWarnings({"serial"})
+@SuppressWarnings({"serial","rawtypes"})
 public class LineView extends AbstractView
 {
-	private int scale;
 
 	public LineView(Controller model, FieldStats stats, int height, int width) 
 	{
@@ -33,16 +32,52 @@ public class LineView extends AbstractView
             fieldImage = this.createImage(size.width, size.height);
             g = fieldImage.getGraphics();
 
-            int xScale = size.width;
-            int yScale = size.height;
-            if(xScale <= yScale) { scale = xScale; } else { scale = yScale; }
-            if(scale < 1) { scale = GRID_VIEW_SCALING_FACTOR; }
+            xScale = size.width / gridWidth;
+            if(xScale < 1) {
+                xScale = GRID_VIEW_SCALING_FACTOR;
+            }
+            yScale = size.height / gridHeight;
+            if(yScale < 1) {
+                yScale = GRID_VIEW_SCALING_FACTOR;
+            }
         }
     }
 	
 	public void paintChart() {
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, size.width, size.height);
+		
+		int[] x = new int[100];
+		int[] y = new int[100];
+		int step = size.width / 100;
+		for(int i = 0; i<100; i++) {
+			y[i] = size.width - (i * step);
+		}
+		
 		for(Class c : stats.getHistory().keySet()) {
+			Color color = model.getColor(c);
+			Iterator it = stats.getHistory().get(c).descendingIterator();
+			int i = 0;
+			while(it.hasNext()) {
+				Counter counter = (Counter) it.next();
+				x[i] = counter.getCount();
+				i++;
+			}
+			if(i < 99) {
+				i+=1;
+				for(; i<100 ; i++) {
+					x[i]=size.height;
+				}
+			}
 			
+			g.setColor(color);
+			for(i = 0; i<99 ; i++) {
+				g.drawLine(
+						y[i], 
+						x[i], 
+						y[i+1], 
+						x[i+1]);
+			}
 		}
 	}
 	

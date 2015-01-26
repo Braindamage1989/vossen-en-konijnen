@@ -33,8 +33,8 @@ public class PieView extends AbstractView
             fieldImage = this.createImage(size.width, size.height);
             g = fieldImage.getGraphics();
 
-            int xScale = size.width;
-            int yScale = size.height;
+            xScale = size.width;
+            yScale = size.height;
             if(xScale <= yScale) { scale = xScale; } else { scale = yScale; }
             if(scale < 1) { scale = GRID_VIEW_SCALING_FACTOR; }
         }
