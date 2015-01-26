@@ -9,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 
+import sun.applet.Main;
 import vossen_en_konijnen.model.*;
 import vossen_en_konijnen.model.actor.*;
 import vossen_en_konijnen.view.*;
@@ -221,8 +223,8 @@ public class Controller extends AbstractController
 			
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
-			if(s.equals("reset")) {reset(); }
-            if(s.equals("Disease")) {startDisease(); }
+			if(s.equals("reset")) {reset(); ; playSound("reset.wav"); }
+            if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -376,4 +378,22 @@ public class Controller extends AbstractController
     {
         return stats.isViable(field);
     }
+    
+    public static synchronized void playSound(final String url)
+    {
+		new Thread(new Runnable() {
+			public void run()
+			{
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+					Main.class.getResourceAsStream("../../sounds/" + url));
+			        clip.open(inputStream);
+			        clip.start();
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+	}
 }
