@@ -64,5 +64,8 @@ public class SliderController extends AbstractController
        sliderPanel.add(panel);
     }
     
-    
+    public void setRabbitAge()
+    {
+    	
+    }
 }
