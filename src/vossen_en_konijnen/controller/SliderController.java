@@ -1,17 +1,14 @@
 package vossen_en_konijnen.controller;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.util.Dictionary;
 import java.util.Hashtable;
-
 import java.awt.*;
-import java.awt.Component;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import vossen_en_konijnen.model.actor.*;
 
 
 public class SliderController extends AbstractController
@@ -24,7 +21,8 @@ public class SliderController extends AbstractController
 	{
 		JFrame settings = new JFrame("Settings");
         sliderPanel = new JPanel();
-        sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        sliderPanel.setLayout(new GridLayout(4, 2, 5, 10));
+        sliderPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
         listener = new ChangeListener()
         {
@@ -36,36 +34,58 @@ public class SliderController extends AbstractController
            }
         };
         
-        JSlider slider = new JSlider();
+        JSlider rabbitAgeSlider = new JSlider(0, 50, 40);
+        rabbitAgeSlider.setPaintTicks(true);
+        rabbitAgeSlider.setSnapToTicks(true);
+        rabbitAgeSlider.setPaintLabels(true);
+        rabbitAgeSlider.setMajorTickSpacing(10);
+        rabbitAgeSlider.setMinorTickSpacing(1);
+        rabbitAgeSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Rabbit.setMaxAge(source.getValue());
+        	}
+        });
+        addSlider(rabbitAgeSlider, "Rabbit age");
         
-        slider = new JSlider();
-        slider.setPaintTicks(true);
-        slider.setSnapToTicks(true);
-        slider.setPaintLabels(true);
-        slider.setMajorTickSpacing(20);
-        slider.setMinorTickSpacing(5);
-        addSlider(slider, "Rabbit age");
+        JSlider foxAgeSlider = new JSlider(0, 50, 40);
+        addSlider(foxAgeSlider, "Fox age");
+        foxAgeSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Fox.setMaxAge(source.getValue());
+        	}
+        });
+        
 
         // add the text field that displays the slider value
         textField = new JTextField();
-        add(sliderPanel, BorderLayout.CENTER);
-        add(textField, BorderLayout.SOUTH);
+        settings.add(sliderPanel);
+        //add(textField, BorderLayout.SOUTH);
         
-        settings.getContentPane().add(sliderPanel, BorderLayout.CENTER);
         settings.pack();
         settings.setVisible(true);
 	}
     
     public void addSlider(JSlider s, String description)
     {
-       JPanel panel = new JPanel();
-       panel.add(s);
-       panel.add(new JLabel(description));
-       sliderPanel.add(panel);
+    	s.setPaintTicks(true);
+        s.setSnapToTicks(true);
+        s.setPaintLabels(true);
+        s.setMajorTickSpacing(10);
+        s.setMinorTickSpacing(1);
+        
+        JPanel panel = new JPanel();
+        
+        panel.add(new JLabel(description));
+        panel.add(s);
+        sliderPanel.add(panel);
     }
     
-    public void setRabbitAge()
+    public void setRabbitAge(int age)
     {
-    	
+    	Rabbit.setMaxAge(age);
     }
 }

@@ -22,7 +22,7 @@ public class Fox extends Animal
     // The age at which a fox can start to breed.
     private static final int BREEDING_AGE = 15;
     // The age to which a fox can live.
-    private static final int MAX_AGE = 150;
+    private static int MAX_AGE = 150;
     // The likelihood of a fox breeding.
     private static final double BREEDING_PROBABILITY = 0.09;
     // The maximum number of births.
@@ -108,6 +108,11 @@ public class Fox extends Animal
             }
         }
         return null;
+    }
+    
+    public static void setMaxAge(int age)
+    {
+    	MAX_AGE = age;
     }
     
     public int getBreedingAge()
