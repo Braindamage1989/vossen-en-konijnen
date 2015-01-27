@@ -356,17 +356,17 @@ public class Controller extends AbstractController
         stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
         
-        Iterator it1 = views.iterator();
+        Iterator it = views.iterator();
         
-        while(it1.hasNext()) {
-        	AbstractView view = (AbstractView) it1.next();
+        while(it.hasNext()) {
+        	AbstractView view = (AbstractView) it.next();
         	view.preparePaint();
         }
 
-        Iterator it2 = views.iterator();
+        it = views.iterator();
         
-        while(it2.hasNext()) {
-        	AbstractView view = (AbstractView) it2.next();
+        while(it.hasNext()) {
+        	AbstractView view = (AbstractView) it.next();
 	        if(view instanceof FieldView) {
 	        	FieldView fieldView = (FieldView) view;
 		        for(int row = 0; row < field.getDepth(); row++) {
@@ -391,10 +391,10 @@ public class Controller extends AbstractController
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
         
-        Iterator it3 = views.iterator();
+        it = views.iterator();
         
-        while(it3.hasNext()) {
-        	AbstractView view = (AbstractView) it3.next();
+        while(it.hasNext()) {
+        	AbstractView view = (AbstractView) it.next();
         	view.repaint();
         }
     }
