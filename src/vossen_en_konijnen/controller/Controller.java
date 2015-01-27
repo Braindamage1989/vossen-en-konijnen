@@ -12,8 +12,6 @@ import java.util.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
-import java.awt.Component;
-
 import sun.applet.Main;
 import vossen_en_konijnen.model.*;
 import vossen_en_konijnen.model.actor.*;
@@ -68,7 +66,7 @@ public class Controller extends AbstractController
     private JMenuItem aboutItem;
     private JMenu fileMenu;
     private JMenuItem settingsItem;
-    private JPanel sliderPanel;
+    //private JPanel sliderPanel;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -240,9 +238,10 @@ public class Controller extends AbstractController
 			if(s.equals("reset")) {reset(); playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
             if(s.equals("About")) { showAbout(); };
-            if(s.equals("Settings")) { showSettings(); }; 
+            if(s.equals("Settings")) { new SliderController(); }; 
 		}
     }
+    
     public void makeFrame(int height, int width)
     {
         stats = new FieldStats();
@@ -305,6 +304,8 @@ public class Controller extends AbstractController
         addDiseaseListener(new SimulationActionListeners());
         addAboutListener(new SimulationActionListeners());
         addSettingsListener(new SimulationActionListeners());
+        
+       // this.view.addStepOneListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -429,44 +430,6 @@ public class Controller extends AbstractController
     		"About ImageViewer",
     		JOptionPane.INFORMATION_MESSAGE
     	);
-    }
-    
-    public void showSettings()
-    {
-        JFrame settings = new JFrame("Settings");
-        sliderPanel = new JPanel();
-        sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        JSlider slider = new JSlider();
-        addSlider(slider, "Plain");
-        
-        slider = new JSlider();
-        slider.setPaintTicks(true);
-        slider.setMajorTickSpacing(20);
-        slider.setMinorTickSpacing(5);
-        
-        Dictionary<Integer, Component> labelTable = new Hashtable<Integer, Component>();
-        labelTable.put(0, new JLabel("A"));
-
-        slider.setLabelTable(labelTable);
-
-        // add the text field that displays the slider value
-/*
-        textField = new JTextField();
-        add(sliderPanel, BorderLayout.CENTER);
-        add(textField, BorderLayout.SOUTH);*/
-        
-        //sliderView.add(slider);
-        settings.getContentPane().add(sliderPanel, BorderLayout.CENTER);
-        settings.pack();
-        settings.setVisible(true);
-    }
-    
-    public void addSlider(JSlider s, String description)
-    {
-       JPanel panel = new JPanel();
-       panel.add(s);
-       panel.add(new JLabel(description));
-       sliderPanel.add(panel);
     }
     
     public static synchronized void playSound(final String url)
