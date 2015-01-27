@@ -62,10 +62,11 @@ public class PieView extends AbstractView
     		position += arc;
         }
 		
+		/*
 		if(position < 360) {
 			g.setColor(Color.WHITE);
 			g.fillArc(pieStart, pieStart, pieScale, pieScale, position, 360-position);
-		}
+		}*/
 	}
 	
 	public void paintComponent(Graphics g) 
