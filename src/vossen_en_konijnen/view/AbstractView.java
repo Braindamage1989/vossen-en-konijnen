@@ -35,4 +35,10 @@ public abstract class AbstractView extends JPanel
         gridHeight = height;
         gridWidth = width;
     }
+    
+    public abstract void preparePaint();
+    
+    public void paintChart() {};
+    
+    public abstract void paintComponent(Graphics g);
 }
