@@ -66,6 +66,7 @@ public class Controller extends AbstractController
     private JMenuItem aboutItem;
     private JMenu fileMenu;
     private JMenuItem settingsItem;
+    private JPanel sliderPanel;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -301,7 +302,7 @@ public class Controller extends AbstractController
         addResetListener(new SimulationActionListeners());
         addDiseaseListener(new SimulationActionListeners());
         addAboutListener(new SimulationActionListeners());
-        addSettingsListener(new SimulationActionListeners());
+       // addSettingsListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -433,11 +434,26 @@ public class Controller extends AbstractController
         JFrame settings = new JFrame("Settings");	
         Container sliderView = new JPanel();
         sliderView.setLayout(new BorderLayout());
-        oneStep = new JButton("1 step");
-        sliderView.add(oneStep);
+        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+        addSlider(slider, "Plain");
+        
+        slider.setMinorTickSpacing(2);
+        slider.setMajorTickSpacing(10);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        
+        sliderView.add(slider);
         settings.getContentPane().add(sliderView, BorderLayout.CENTER);
         settings.pack();
         settings.setVisible(true);
+    }
+    
+    public void addSlider(JSlider s, String description)
+    {
+       JPanel panel = new JPanel();
+       panel.add(s);
+       panel.add(new JLabel(description));
+       sliderPanel.add(panel);
     }
     
     public static synchronized void playSound(final String url)
