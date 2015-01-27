@@ -26,10 +26,11 @@ public class Grass implements Actor
     private boolean alive;
     private int age;
     
+    private static final int BREEDING_AGE = 3;
     // The age to which a rabbit can live.
     private static final int MAX_AGE = 15;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.3;
+    private static final double BREEDING_PROBABILITY = 0.5;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 8;
     // A shared random number generator to control breeding.
@@ -123,7 +124,7 @@ public class Grass implements Actor
     private int breed()
     {
         int births = 0;
-        if(rand.nextDouble() <= BREEDING_PROBABILITY) {
+        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
             births = rand.nextInt(MAX_LITTER_SIZE) + 1;
         }
         return births;
@@ -150,6 +151,11 @@ public class Grass implements Actor
     private Location getLocation()
     {
         return location;
+    }
+    
+    protected boolean canBreed()
+    {
+        return age >= BREEDING_AGE;
     }
     
     public boolean isActive()

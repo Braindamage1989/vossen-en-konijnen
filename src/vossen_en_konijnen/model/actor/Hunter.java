@@ -2,7 +2,6 @@ package vossen_en_konijnen.model.actor;
 
 import java.util.List;
 import java.util.Iterator;
-import java.util.Random;
 
 import vossen_en_konijnen.model.Field;
 import vossen_en_konijnen.model.Location;
@@ -16,6 +15,9 @@ import vossen_en_konijnen.model.Location;
  */
 public class Hunter implements Actor
 {    
+    private static final int MAX_KILLS = 50;
+    
+    private static final int STEPS_TO_ACTIVE = 25;
     // Individual characteristics (instance fields).
     // The hunter his field
     private Field field;
@@ -23,12 +25,13 @@ public class Hunter implements Actor
     private Location location;
     // Determine if the hunter is alive
     private boolean alive;
+    
+    private int counter = 0;
 
     /**
      * Create a hunter. A hunter can be created as a new born (age zero
      * and not hungry) or with a random age and food level.
      * 
-     * @param randomAge If true, the hunter will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
@@ -48,15 +51,27 @@ public class Hunter implements Actor
      */
     public void act(List<Actor> newHunter)
     {
-            Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }
+        if(counter >= MAX_KILLS) {
+            alive = false;
+            counter = 0;
+        }
+        /*else if (alive == false) {
+            counter++;
+        }
+        else if (alive == false && counter >= STEPS_TO_ACTIVE) {
+            counter = 0;
+            alive = true;    
+        }*/
+        
+        Location newLocation = findFood();
+        if(newLocation == null) { 
+            // No food found - try to move to a free location.
+            newLocation = getField().freeAdjacentLocation(getLocation());
+        }
+        // See if it was possible to move.
+        if(newLocation != null) {
+            setLocation(newLocation);
+        }
     }
     
     @Override
@@ -82,6 +97,7 @@ public class Hunter implements Actor
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
+                    counter++;
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -90,6 +106,7 @@ public class Hunter implements Actor
                 Fox fox = (Fox) animal;
                 if(fox.isActive()) { 
                     fox.setDead();
+                    counter++;
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -98,6 +115,7 @@ public class Hunter implements Actor
                 Lynx lynx = (Lynx) animal;
                 if(lynx.isActive()) { 
                     lynx.setDead();
+                    counter++;
                     // Remove the dead rabbit from the field.
                     return where;
                 }
