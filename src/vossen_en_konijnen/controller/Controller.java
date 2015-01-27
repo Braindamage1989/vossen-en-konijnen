@@ -12,6 +12,8 @@ import java.util.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
+import java.awt.Component;
+
 import sun.applet.Main;
 import vossen_en_konijnen.model.*;
 import vossen_en_konijnen.model.actor.*;
@@ -302,7 +304,7 @@ public class Controller extends AbstractController
         addResetListener(new SimulationActionListeners());
         addDiseaseListener(new SimulationActionListeners());
         addAboutListener(new SimulationActionListeners());
-       // addSettingsListener(new SimulationActionListeners());
+        addSettingsListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -431,19 +433,30 @@ public class Controller extends AbstractController
     
     public void showSettings()
     {
-        JFrame settings = new JFrame("Settings");	
-        Container sliderView = new JPanel();
-        sliderView.setLayout(new BorderLayout());
-        JSlider slider = new JSlider(JSlider.HORIZONTAL, 0, 50, 25);
+        JFrame settings = new JFrame("Settings");
+        sliderPanel = new JPanel();
+        sliderPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JSlider slider = new JSlider();
         addSlider(slider, "Plain");
         
-        slider.setMinorTickSpacing(2);
-        slider.setMajorTickSpacing(10);
+        slider = new JSlider();
         slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
+        slider.setMajorTickSpacing(20);
+        slider.setMinorTickSpacing(5);
         
-        sliderView.add(slider);
-        settings.getContentPane().add(sliderView, BorderLayout.CENTER);
+        Dictionary<Integer, Component> labelTable = new Hashtable<Integer, Component>();
+        labelTable.put(0, new JLabel("A"));
+
+        slider.setLabelTable(labelTable);
+
+        // add the text field that displays the slider value
+/*
+        textField = new JTextField();
+        add(sliderPanel, BorderLayout.CENTER);
+        add(textField, BorderLayout.SOUTH);*/
+        
+        //sliderView.add(slider);
+        settings.getContentPane().add(sliderPanel, BorderLayout.CENTER);
         settings.pack();
         settings.setVisible(true);
     }
