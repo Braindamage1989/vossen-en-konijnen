@@ -2,6 +2,7 @@ package vossen_en_konijnen.view;
 
 import java.util.*;
 import java.awt.*;
+import java.math.*;
 
 import vossen_en_konijnen.controller.Controller;
 import vossen_en_konijnen.model.Counter;
@@ -47,6 +48,16 @@ public class LineView extends AbstractView
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, size.width, size.height);
 		
+		for(int j=0; j<5 ;j++) {
+			for(int k = 1; k<10; k++) {
+				int i = (int) (size.height - 100 * Math.log10(Math.pow(10, j) * k));
+				int n = i;
+				g.setColor(Color.LIGHT_GRAY);
+				g.drawLine(0, i, size.width, i);
+			}
+		}
+		
+		
 		int[] x = new int[100];
 		int[] y = new int[100];
 		int step = size.width / 100;
@@ -60,11 +71,10 @@ public class LineView extends AbstractView
 			int i = 0;
 			while(it.hasNext()) {
 				int count = (int) it.next();
-				x[i] = size.height - count;
+				x[i] = (int) (size.height - 100 * Math.log10(count));
 				i++;
 			}
 			if(i < 99) {
-				i+=1;
 				for(; i<100 ; i++) {
 					x[i]=size.height;
 				}
