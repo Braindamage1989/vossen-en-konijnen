@@ -58,6 +58,7 @@ public class Controller extends AbstractController
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieView pieView;
+    private LineView lineView;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -241,8 +242,8 @@ public class Controller extends AbstractController
         setLocation(100, 50);
         
         fieldView = new FieldView(this, stats, height, width);
-        
         pieView = new PieView(this, stats, height, width);
+        lineView = new LineView(this, stats, height, width);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
@@ -262,6 +263,7 @@ public class Controller extends AbstractController
         JTabbedPane viewContainer = new JTabbedPane();
         viewContainer.addTab("fieldView", null, fieldView, "The field in wich it all dies...");
         viewContainer.addTab("pieView", null, pieView, "The chart representing all that still lifes. :)");
+        viewContainer.addTab("lineView", null, lineView, "Here you see how many there are alive");
         
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -348,6 +350,7 @@ public class Controller extends AbstractController
         
         fieldView.preparePaint();
         pieView.preparePaint();
+        lineView.preparePaint();
 
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
@@ -362,12 +365,14 @@ public class Controller extends AbstractController
             }
         }
         stats.countFinished();
+        stats.addHistory();
         pieView.paintChart();
+        lineView.paintChart();
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        //pieView.updateStats(stats, colors);
         fieldView.repaint();
         pieView.repaint();
+        lineView.repaint();
     }
 
     /**
