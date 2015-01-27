@@ -237,8 +237,8 @@ public class Controller extends AbstractController
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
-            if(s.equals("About")) { showAbout(); };
-            if(s.equals("Settings")) { new SliderController(); }; 
+            if(s.equals("About")) { showAbout(); }
+            if(s.equals("Settings")) { new SliderController(); }
 		}
     }
     
