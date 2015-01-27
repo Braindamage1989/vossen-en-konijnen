@@ -2,7 +2,9 @@ package vossen_en_konijnen.model;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.LinkedList;
 
+@SuppressWarnings("rawtypes")
 /**
  * This class collects and provides some statistical data on the state 
  * of a field. It is flexible: it will create and maintain a counter 
@@ -15,6 +17,8 @@ public class FieldStats
 {
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, Counter> counters;
+    
+    private HashMap<Class, LinkedList<Integer>> countHistory;
     // Whether the counters are currently up to date.
     private boolean countsValid;
 
@@ -26,6 +30,7 @@ public class FieldStats
         // Set up a collection for counters for each type of animal that
         // we might find
         counters = new HashMap<Class, Counter>();
+        countHistory = new HashMap<Class, LinkedList<Integer>>();
         countsValid = true;
     }
 
@@ -49,12 +54,20 @@ public class FieldStats
         return buffer.toString();
     }
     
-    /*
+    /**
      * 
      */
     public HashMap<Class, Counter> getCounters()
     {
     	return counters;
+    }
+    
+    /**
+     * 
+     */
+    public HashMap<Class, LinkedList<Integer>> getHistory()
+    {
+    	return countHistory;
     }
     
     /**
@@ -94,6 +107,24 @@ public class FieldStats
         countsValid = true;
     }
 
+    /**
+     * 
+     */
+    public void addHistory()
+    {
+    	for(Class animal: counters.keySet()) {
+    		int c = counters.get(animal).getCount();
+    		if(!countHistory.containsKey(animal)) {
+    			LinkedList<Integer> l = new LinkedList<>();
+    			countHistory.put(animal, l);
+    		}
+    		countHistory.get(animal).add(c);
+    		if(countHistory.get(animal).size() > 100) {
+    			countHistory.get(animal).remove();
+    		}
+    	}
+    }
+    
     /**
      * Determine whether the simulation is still viable.
      * I.e., should it continue to run.
