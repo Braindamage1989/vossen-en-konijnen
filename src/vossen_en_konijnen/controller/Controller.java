@@ -60,9 +60,12 @@ public class Controller extends AbstractController
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieView pieView;
+    
     private JMenuBar menubar;
     private JMenu helpMenu;
     private JMenuItem aboutItem;
+    private JMenu fileMenu;
+    private JMenuItem settingsItem;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -270,6 +273,12 @@ public class Controller extends AbstractController
         
         menubar = new JMenuBar();
         setJMenuBar(menubar);
+        
+        fileMenu = new JMenu("File");
+        menubar.add(fileMenu);
+        settingsItem = new JMenu("Settings");
+        fileMenu.add(settingsItem);
+        
         helpMenu = new JMenu("Help");
         menubar.add(helpMenu);
         aboutItem = new JMenuItem("About");
@@ -411,6 +420,11 @@ public class Controller extends AbstractController
     		"About ImageViewer",
     		JOptionPane.INFORMATION_MESSAGE
     	);
+    }
+    
+    public void showSettings()
+    {
+    	
     }
     
     public static synchronized void playSound(final String url)
