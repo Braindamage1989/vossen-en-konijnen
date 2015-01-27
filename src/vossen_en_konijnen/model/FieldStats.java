@@ -18,7 +18,7 @@ public class FieldStats
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, Counter> counters;
     
-    private HashMap<Class, LinkedList<Counter>> countHistory;
+    private HashMap<Class, LinkedList<Integer>> countHistory;
     // Whether the counters are currently up to date.
     private boolean countsValid;
 
@@ -30,7 +30,7 @@ public class FieldStats
         // Set up a collection for counters for each type of animal that
         // we might find
         counters = new HashMap<Class, Counter>();
-        countHistory = new HashMap<Class, LinkedList<Counter>>();
+        countHistory = new HashMap<Class, LinkedList<Integer>>();
         countsValid = true;
     }
 
@@ -65,7 +65,7 @@ public class FieldStats
     /*
      * 
      */
-    public HashMap<Class, LinkedList<Counter>> getHistory()
+    public HashMap<Class, LinkedList<Integer>> getHistory()
     {
     	return countHistory;
     }
@@ -110,9 +110,9 @@ public class FieldStats
     public void addHistory()
     {
     	for(Class animal: counters.keySet()) {
-    		Counter c = counters.get(animal);
+    		int c = counters.get(animal).getCount();
     		if(!countHistory.containsKey(animal)) {
-    			LinkedList<Counter> l = new LinkedList<Counter>();
+    			LinkedList<Integer> l = new LinkedList<>();
     			countHistory.put(animal, l);
     		}
     		countHistory.get(animal).add(c);

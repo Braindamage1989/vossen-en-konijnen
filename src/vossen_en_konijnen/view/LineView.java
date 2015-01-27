@@ -59,8 +59,8 @@ public class LineView extends AbstractView
 			Iterator it = stats.getHistory().get(c).descendingIterator();
 			int i = 0;
 			while(it.hasNext()) {
-				Counter counter = (Counter) it.next();
-				x[i] = counter.getCount();
+				int count = (int) it.next();
+				x[i] = size.height - count;
 				i++;
 			}
 			if(i < 99) {
