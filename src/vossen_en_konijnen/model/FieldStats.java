@@ -126,6 +126,14 @@ public class FieldStats
     }
     
     /**
+     * 
+     */
+    public void clearHistory()
+    {
+    	countHistory.clear();
+    }
+    
+    /**
      * Determine whether the simulation is still viable.
      * I.e., should it continue to run.
      * @return true If there is more than one species alive.
