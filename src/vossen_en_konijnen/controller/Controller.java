@@ -162,6 +162,7 @@ public class Controller extends AbstractController
     {
         step = 0;
         actors.clear();
+        stats.clearHistory();
         populate();
         
         // Show the starting state in the view.
