@@ -103,6 +103,9 @@ public class Controller extends AbstractController
         setColor(Rock.class, brown);
         setColor(Grass.class, Color.green);
         
+        //it's got to beheheeheeheeheeheee...
+        playSound("almost_perfect.wav");
+        
         // Setup a valid starting point.
         reset();
     }
@@ -223,7 +226,7 @@ public class Controller extends AbstractController
 			
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
-			if(s.equals("reset")) {reset(); ; playSound("reset.wav"); }
+			if(s.equals("reset")) {reset(); playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
 		}
     }
