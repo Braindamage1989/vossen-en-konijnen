@@ -56,10 +56,8 @@ public class Controller extends AbstractController
     private final String POPULATION_PREFIX = "Population: ";
     private JButton oneStep, hundredStep, reset, disease;
     private JLabel stepLabel, population;
-    private FieldView fieldView;
-    private PieView pieView;
-    private LineView lineView;
-    private BarView barView;
+    
+    private ArrayList<AbstractView> views;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -87,6 +85,7 @@ public class Controller extends AbstractController
         
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
+        views = new ArrayList<AbstractView>();
 
         // Create a view of the state of each location in the field.
         /*this.addStepOneListener(new SimulationActionListeners());
@@ -243,10 +242,15 @@ public class Controller extends AbstractController
         
         setLocation(100, 50);
         
-        fieldView = new FieldView(this, stats, height, width);
-        pieView = new PieView(this, stats, height, width);
-        lineView = new LineView(this, stats, height, width);
-        barView = new BarView(this, stats, height, width);
+        AbstractView fieldView = new FieldView(this, stats, height, width);
+        AbstractView pieView = new PieView(this, stats, height, width);
+        AbstractView lineView = new LineView(this, stats, height, width);
+        AbstractView barView = new BarView(this, stats, height, width);
+        
+        views.add(fieldView);
+        views.add(pieView);
+        views.add(lineView);
+        views.add(barView);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
@@ -352,34 +356,47 @@ public class Controller extends AbstractController
         stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
         
-        fieldView.preparePaint();
-        pieView.preparePaint();
-        lineView.preparePaint();
-        barView.preparePaint();
-
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getObjectAt(row, col);
-                if(animal != null) {
-                    stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
-                }
-                else {
-                    fieldView.drawMark(col, row, EMPTY_COLOR);
-                }
-            }
+        Iterator it1 = views.iterator();
+        
+        while(it1.hasNext()) {
+        	AbstractView view = (AbstractView) it1.next();
+        	view.preparePaint();
         }
-        stats.countFinished();
-        stats.addHistory();
-        pieView.paintChart();
-        lineView.paintChart();
-        barView.paintChart();
+
+        Iterator it2 = views.iterator();
+        
+        while(it2.hasNext()) {
+        	AbstractView view = (AbstractView) it2.next();
+	        if(view instanceof FieldView) {
+	        	FieldView fieldView = (FieldView) view;
+		        for(int row = 0; row < field.getDepth(); row++) {
+		            for(int col = 0; col < field.getWidth(); col++) {
+		                Object animal = field.getObjectAt(row, col);
+		                if(animal != null) {
+		                    stats.incrementCount(animal.getClass());
+		                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+		                }
+		                else {
+		                    fieldView.drawMark(col, row, EMPTY_COLOR);
+		                }
+		            }
+		        }
+		        stats.countFinished();
+		        stats.addHistory();
+	        }
+	        else {
+	        	view.paintChart();
+	        }
+        }
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        fieldView.repaint();
-        pieView.repaint();
-        lineView.repaint();
-        barView.repaint();
+        
+        Iterator it3 = views.iterator();
+        
+        while(it3.hasNext()) {
+        	AbstractView view = (AbstractView) it3.next();
+        	view.repaint();
+        }
     }
 
     /**
