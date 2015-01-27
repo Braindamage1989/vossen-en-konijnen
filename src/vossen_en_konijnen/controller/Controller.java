@@ -248,7 +248,7 @@ public class Controller extends AbstractController
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
         Container buttonViewSub = new JPanel();
-        buttonViewSub.setLayout(new GridLayout(4, 1));
+        buttonViewSub.setLayout(new GridLayout(5, 1));
         oneStep = new JButton("1 step");
         buttonViewSub.add(oneStep, 0);
         hundredStep = new JButton("100 steps");
