@@ -37,7 +37,7 @@ public class Controller extends AbstractController
     
     private static final double ROCK_CREATION_PROBABILITY = 0.05;
     
-    private static final double GRASS_CREATION_PROBABILITY = 0.15;
+    private static final double GRASS_CREATION_PROBABILITY = 0.14;
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -93,7 +93,7 @@ public class Controller extends AbstractController
         this.addResetListener(new SimulationActionListeners());
         */
         Color brown = new Color(169, 39, 19);
-        Color darkViolet = new Color(148, 0, 211);
+        //Color darkViolet = new Color(148, 0, 211);
         
         makeFrame(depth, width);
         setColor(Rabbit.class, Color.yellow);
