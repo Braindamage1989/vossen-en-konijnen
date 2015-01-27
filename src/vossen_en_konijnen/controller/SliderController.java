@@ -38,16 +38,13 @@ public class SliderController extends AbstractController
         
         JSlider slider = new JSlider();
         
-        addSlider(slider, "Plain");
         slider = new JSlider();
         slider.setPaintTicks(true);
+        slider.setSnapToTicks(true);
+        slider.setPaintLabels(true);
         slider.setMajorTickSpacing(20);
         slider.setMinorTickSpacing(5);
-        
-        Dictionary<Integer, Component> labelTable = new Hashtable<Integer, Component>();
-        labelTable.put(0, new JLabel("A"));
-
-        slider.setLabelTable(labelTable);
+        addSlider(slider, "Rabbit age");
 
         // add the text field that displays the slider value
         textField = new JTextField();
@@ -66,4 +63,6 @@ public class SliderController extends AbstractController
        panel.add(new JLabel(description));
        sliderPanel.add(panel);
     }
+    
+    
 }
