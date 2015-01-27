@@ -12,7 +12,7 @@ import vossen_en_konijnen.model.Field;
 import vossen_en_konijnen.model.Location;
 import vossen_en_konijnen.model.Randomizer;
 import vossen_en_konijnen.model.actor.*;
-import vossen_en_konijnen.view.TextView;
+//import vossen_en_konijnen.view.TextView;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -50,7 +50,7 @@ public class Simulator extends AbstractController
     // A graphical view of the simulation.
     private SimulatorView view;
     // TextField with current population
-    private TextView textView;
+    //private TextView textView;
     
     /*public static void main(String[] args) {
         new Simulator();
