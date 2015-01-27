@@ -38,6 +38,8 @@ public class Controller extends AbstractController
     private static final double ROCK_CREATION_PROBABILITY = 0.05;
     
     private static final double GRASS_CREATION_PROBABILITY = 0.15;
+    
+    private static final String VERSION = "Version 0.0";
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -58,6 +60,9 @@ public class Controller extends AbstractController
     private JLabel stepLabel, population;
     private FieldView fieldView;
     private PieView pieView;
+    private JMenuBar menubar;
+    private JMenu helpMenu;
+    private JMenuItem aboutItem;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
@@ -228,6 +233,7 @@ public class Controller extends AbstractController
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
+            if(s.equals("About")) { showAbout(); }; 
 		}
     }
     public void makeFrame(int height, int width)
@@ -261,6 +267,13 @@ public class Controller extends AbstractController
         disease = new JButton("Disease");
         buttonViewSub.add(disease, 4);
         buttonView.add(buttonViewSub);
+        
+        menubar = new JMenuBar();
+        setJMenuBar(menubar);
+        helpMenu = new JMenu("Help");
+        menubar.add(helpMenu);
+        aboutItem = new JMenuItem("About");
+        helpMenu.add(aboutItem);
 
         JTabbedPane viewContainer = new JTabbedPane();
         viewContainer.addTab("fieldView", null, fieldView, "The field in wich it all dies...");
@@ -272,10 +285,13 @@ public class Controller extends AbstractController
         contents.add(population, BorderLayout.SOUTH);
         contents.add(buttonView, BorderLayout.WEST);
         
+        
+        
         addStepOneListener(new SimulationActionListeners());
         addStepHundredListener(new SimulationActionListeners());
         addResetListener(new SimulationActionListeners());
         addDiseaseListener(new SimulationActionListeners());
+        addAboutListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -335,6 +351,12 @@ public class Controller extends AbstractController
         disease.addActionListener(listenForDisease);
     }
     
+    public void addAboutListener(ActionListener listenForAbout)
+    {
+    	helpMenu.addActionListener(listenForAbout);
+    	aboutItem.addActionListener(listenForAbout);
+    }
+    
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.
@@ -380,6 +402,15 @@ public class Controller extends AbstractController
     public boolean isViable(Field field)
     {
         return stats.isViable(field);
+    }
+    
+    public void showAbout()
+    {
+    	JOptionPane.showMessageDialog(this,
+    		"ImageViewer\n" + VERSION,
+    		"About ImageViewer",
+    		JOptionPane.INFORMATION_MESSAGE
+    	);
     }
     
     public static synchronized void playSound(final String url)
