@@ -236,7 +236,8 @@ public class Controller extends AbstractController
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
-            if(s.equals("About")) { showAbout(); }; 
+            if(s.equals("About")) { showAbout(); };
+            if(s.equals("Settings")) { showSettings(); }; 
 		}
     }
     public void makeFrame(int height, int width)
@@ -276,7 +277,7 @@ public class Controller extends AbstractController
         
         fileMenu = new JMenu("File");
         menubar.add(fileMenu);
-        settingsItem = new JMenu("Settings");
+        settingsItem = new JMenuItem("Settings");
         fileMenu.add(settingsItem);
         
         helpMenu = new JMenu("Help");
@@ -295,12 +296,12 @@ public class Controller extends AbstractController
         contents.add(buttonView, BorderLayout.WEST);
         
         
-        
         addStepOneListener(new SimulationActionListeners());
         addStepHundredListener(new SimulationActionListeners());
         addResetListener(new SimulationActionListeners());
         addDiseaseListener(new SimulationActionListeners());
         addAboutListener(new SimulationActionListeners());
+        addSettingsListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -366,6 +367,11 @@ public class Controller extends AbstractController
     	aboutItem.addActionListener(listenForAbout);
     }
     
+    public void addSettingsListener(ActionListener listenForAbout)
+    {
+    	settingsItem.addActionListener(listenForAbout);
+    }
+    
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.
@@ -424,7 +430,14 @@ public class Controller extends AbstractController
     
     public void showSettings()
     {
-    	
+        JFrame settings = new JFrame("Settings");	
+        Container sliderView = new JPanel();
+        sliderView.setLayout(new BorderLayout());
+        oneStep = new JButton("1 step");
+        sliderView.add(oneStep);
+        settings.getContentPane().add(sliderView, BorderLayout.CENTER);
+        settings.pack();
+        settings.setVisible(true);
     }
     
     public static synchronized void playSound(final String url)
