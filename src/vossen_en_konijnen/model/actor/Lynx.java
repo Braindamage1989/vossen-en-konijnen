@@ -26,10 +26,10 @@ public class Lynx extends Animal
     // The likelihood of a lynx breeding.
     private static double BREEDING_PROBABILITY = 0.09;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 1;
+    private static int MAX_LITTER_SIZE = 1;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a lynx can go before it has to eat again.
-    private static final int FOOD_VALUE = 13;
+    private static int FOOD_VALUE = 13;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -134,6 +134,16 @@ public class Lynx extends Animal
     	BREEDING_PROBABILITY = age;
     }
     
+    public static void setMaxLitterSize(int litter)
+    {
+    	MAX_LITTER_SIZE = litter;
+    }
+    
+    public static void setFoodValue(int value)
+    {
+    	FOOD_VALUE = value;
+    }
+    
     public int getBreedingAge()
     {
         return BREEDING_AGE;
@@ -167,5 +177,15 @@ public class Lynx extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public static int getMaxLynxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public static int getFoodValue()
+    {
+    	return FOOD_VALUE;
     }
 }

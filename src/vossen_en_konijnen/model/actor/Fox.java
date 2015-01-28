@@ -26,10 +26,10 @@ public class Fox extends Animal
     // The likelihood of a fox breeding.
     private static double BREEDING_PROBABILITY = 0.09;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 5;
+    private static int MAX_LITTER_SIZE = 5;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 11;
+    private static int RABBIT_FOOD_VALUE = 11;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -125,6 +125,16 @@ public class Fox extends Animal
     	BREEDING_PROBABILITY = age;
     }
     
+    public static void setMaxLitterSize(int litter)
+    {
+    	MAX_LITTER_SIZE = litter;
+    }
+    
+    public static void setRabbitFoodValue(int value)
+    {
+    	RABBIT_FOOD_VALUE = value;
+    }
+    
     public int getBreedingAge()
     {
         return BREEDING_AGE;
@@ -158,5 +168,15 @@ public class Fox extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public static int getMaxFoxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public static int getRabbitFoodValue()
+    {
+    	return RABBIT_FOOD_VALUE;
     }
 }

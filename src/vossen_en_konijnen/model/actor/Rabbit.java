@@ -26,9 +26,9 @@ public class Rabbit extends Animal
     // The likelihood of a rabbit breeding.
     private static double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
+    private static int MAX_LITTER_SIZE = 4;
     
-    private static final int GRASS_FOOD_VALUE = 8;
+    private static int GRASS_FOOD_VALUE = 8;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -135,9 +135,19 @@ public class Rabbit extends Animal
     	BREEDING_PROBABILITY = age;
     }
     
+    public static void setMaxLitterSize(int litter)
+    {
+    	MAX_LITTER_SIZE = litter;
+    }
+    
     public void setZiekte(boolean ziekte)
     {
         this.ziekte = ziekte;
+    }
+    
+    public static void setGrassFoodValue(int value)
+    {
+    	GRASS_FOOD_VALUE = value;
     }
         
     public int getBreedingAge()
@@ -173,6 +183,16 @@ public class Rabbit extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public static int getMaxRabbitLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public static int getGrassFoodValue()
+    {
+    	return GRASS_FOOD_VALUE;
     }
     
     public boolean getZiekteGen()
