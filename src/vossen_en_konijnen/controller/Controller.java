@@ -54,7 +54,7 @@ public class Controller extends AbstractController
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JButton oneStep, hundredStep, reset, disease;
+    private JButton oneStep, hundredStep, reset, disease, start, stop;
     private JLabel stepLabel, population;
     
     private ArrayList<AbstractView> views;
@@ -63,6 +63,10 @@ public class Controller extends AbstractController
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
+    
+    SimulatorThread thread = new SimulatorThread();
+    
+    private static boolean run;
     
     public Controller()
     {
@@ -153,6 +157,18 @@ public class Controller extends AbstractController
 
         showStatus(step, field);
     }
+    
+    public void start()
+    {
+        run = true;
+        thread.run();
+    }
+    
+    public void stop()
+    {
+        run = false;
+        thread.run();
+    }
         
     /**
      * Reset the simulation to a starting position.
@@ -225,7 +241,9 @@ public class Controller extends AbstractController
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
 			if(s.equals("reset")) {reset(); ; playSound("reset.wav"); }
-            if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
+                        if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
+                        if(s.equals("Start")) {start(); }
+                        if(s.equals("Stop")) {stop(); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -254,7 +272,7 @@ public class Controller extends AbstractController
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
         Container buttonViewSub = new JPanel();
-        buttonViewSub.setLayout(new GridLayout(5, 1));
+        buttonViewSub.setLayout(new GridLayout(8, 1));
         oneStep = new JButton("1 step");
         buttonViewSub.add(oneStep, 0);
         hundredStep = new JButton("100 steps");
@@ -264,6 +282,11 @@ public class Controller extends AbstractController
         buttonViewSub.add(reset, 3);
         disease = new JButton("Disease");
         buttonViewSub.add(disease, 4);
+        buttonViewSub.add(new JLabel(""), 5);
+        start = new JButton("Start");
+        buttonViewSub.add(start, 6);
+        stop = new JButton("Stop");
+        buttonViewSub.add(stop, 7);
         buttonView.add(buttonViewSub);
 
         JTabbedPane viewContainer = new JTabbedPane();
@@ -282,6 +305,8 @@ public class Controller extends AbstractController
         addStepHundredListener(new SimulationActionListeners());
         addResetListener(new SimulationActionListeners());
         addDiseaseListener(new SimulationActionListeners());
+        addStartListener(new SimulationActionListeners());
+        addStopListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -340,6 +365,15 @@ public class Controller extends AbstractController
     public void addDiseaseListener(ActionListener listenForDisease)
     {
         disease.addActionListener(listenForDisease);
+    }
+    public void addStartListener(ActionListener listenForStart)
+    {
+        start.addActionListener(listenForStart);
+    }
+    
+    public void addStopListener(ActionListener listenForStop)
+    {
+        stop.addActionListener(listenForStop);
     }
     
     /**
@@ -425,4 +459,16 @@ public class Controller extends AbstractController
 			}
 		}).start();
 	}
+    
+    class SimulatorThread extends Thread {
+         SimulatorThread() {
+         }
+
+         public void run() {
+            while(run) {
+                simulateOneStep();
+            }
+         }
+     }
+    
 }
