@@ -26,7 +26,9 @@ public abstract class AbstractView extends JPanel
     protected Image fieldImage;
 	protected FieldStats stats;
 	
-	
+	/**
+	 * Constructor
+	 */
     public AbstractView(Controller model, FieldStats stats, int height, int width)
     {
     	this.model = model;
@@ -36,9 +38,19 @@ public abstract class AbstractView extends JPanel
         gridWidth = width;
     }
     
+    /**
+     * Prepare for a new round of painting. Since the component
+     * may be resized, compute the scaling factor again.
+     */
     public abstract void preparePaint();
     
+    /**
+     * Painting the chart
+     */
     public void paintChart() {};
     
+    /**
+     * Overridden method needed for painting
+     */
     public abstract void paintComponent(Graphics g);
 }

@@ -11,11 +11,18 @@ import vossen_en_konijnen.model.FieldStats;
 public class BarView extends AbstractView
 {
 
+	/**
+	 * Create a new BarView component.
+	 */
 	public BarView(Controller model, FieldStats stats, int height, int width) 
 	{
 		super(model, stats, height, width);
 	}
 	
+	/**
+	 * Update the stats
+	 * @param stats
+	 */
 	public void updateStats(FieldStats stats)
 	{
 		this.stats = stats;
@@ -44,7 +51,7 @@ public class BarView extends AbstractView
     }
 	
     /**
-     * 
+     * Paint the chart with the already used colors.
      */
 	public void paintChart() {
 		g.setColor(Color.WHITE);
@@ -88,6 +95,10 @@ public class BarView extends AbstractView
 		
 	}
 	
+	/**
+     * The field view component needs to be redisplayed. Copy the
+     * internal image to screen.
+     */
 	public void paintComponent(Graphics g) 
 	{
 		if(fieldImage != null) {

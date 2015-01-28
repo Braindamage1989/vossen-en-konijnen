@@ -12,11 +12,18 @@ import vossen_en_konijnen.model.FieldStats;
 public class LineView extends AbstractView
 {
 
+	/**
+	 * Create a new LineView component.
+	 */
 	public LineView(Controller model, FieldStats stats, int height, int width) 
 	{
 		super(model, stats, height, width);
 	}
 	
+	/**
+	 * Update the statistics.
+	 * @param stats
+	 */
 	public void updateStats(FieldStats stats)
 	{
 		this.stats = stats;
@@ -44,6 +51,9 @@ public class LineView extends AbstractView
         }
     }
 	
+    /**
+     * Paint the chart with the already used colors.
+     */
 	public void paintChart() {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, size.width, size.height);
@@ -87,6 +97,10 @@ public class LineView extends AbstractView
 		}
 	}
 	
+	/**
+     * The field view component needs to be redisplayed. Copy the
+     * internal image to screen.
+     */
 	public void paintComponent(Graphics g) 
 	{
 		if(fieldImage != null) {

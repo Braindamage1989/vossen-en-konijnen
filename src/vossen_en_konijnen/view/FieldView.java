@@ -51,6 +51,9 @@ public class FieldView extends AbstractView
     
     /**
      * Paint on grid location on this field in a given color.
+     * @param x coordinate
+     * @param y coordinate
+     * @param color the mark has to become
      */
     public void drawMark(int x, int y, Color color)
     {
