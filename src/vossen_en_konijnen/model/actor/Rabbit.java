@@ -74,28 +74,26 @@ public class Rabbit extends Animal
         incrementAge();
         incrementHunger();
         if(isActive()) {
+            giveBirth(newRabbits);            
+            // Move towards a source of food if found.
+            Location newLocation = findFood();
+            if(newLocation == null) { 
+                // No food found - try to move to a free location.
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            // See if it was possible to move.
+            if(newLocation != null) {
+                setLocation(newLocation);
+            }
+            else {
+                // Overcrowding.
+                setDead();
+            }
             if(ziekte) {
                 if(ziekteAge >= MAX_DISEASE_AGE) {
                     setDead();
                 }
                 ziekteAge++;
-            }
-            else {
-                giveBirth(newRabbits);            
-                // Move towards a source of food if found.
-                Location newLocation = findFood();
-                if(newLocation == null) { 
-                    // No food found - try to move to a free location.
-                    newLocation = getField().freeAdjacentLocation(getLocation());
-                }
-                // See if it was possible to move.
-                if(newLocation != null) {
-                    setLocation(newLocation);
-                }
-                else {
-                    // Overcrowding.
-                    setDead();
-                }
             }
         }
     }
@@ -110,25 +108,27 @@ public class Rabbit extends Animal
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
+        Location goTo = null;
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
             if(animal instanceof Grass) {
                 Grass grass = (Grass) animal;
-                if(grass.isActive()) { 
+                if(grass.isActive() && goTo == null) { 
                     grass.setDead();
                     setFoodLevel(GRASS_FOOD_VALUE);
                     // Remove the dead rabbit from the field.
-                    return where;
+                    goTo = where;
                 }
             }
             else if(animal instanceof Rabbit) {
-            	if(((Rabbit)animal).getZiekte() && getZiekteGen()) {
-                    ziekte = true;
+            	Rabbit r = (Rabbit) animal;
+            	if(getZiekte() && r.getZiekteGen()) {
+            		r.setZiekte(true);
             	}
             }
         }
-        return null;
+        return goTo;
     }
     
     public void setZiekte(boolean ziekte)
