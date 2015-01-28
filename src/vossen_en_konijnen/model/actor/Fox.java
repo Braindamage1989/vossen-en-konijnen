@@ -24,7 +24,7 @@ public class Fox extends Animal
     // The age to which a fox can live.
     private static int MAX_AGE = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.09;
+    private static double BREEDING_PROBABILITY = 0.09;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 5;
     // The food value of a single rabbit. In effect, this is the
@@ -120,6 +120,11 @@ public class Fox extends Animal
     	BREEDING_AGE = age;
     }
     
+    public static void setBreedingProbability(double age)
+    {
+    	BREEDING_PROBABILITY = age;
+    }
+    
     public int getBreedingAge()
     {
         return BREEDING_AGE;
@@ -141,6 +146,11 @@ public class Fox extends Animal
     }
     
     public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+    public static double getFoxBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
