@@ -26,7 +26,11 @@ public class Hunter implements Actor
     // Determine if the hunter is alive
     private boolean alive;
     
-    private int counter = 0;
+    private boolean canKill;
+    
+    private int killCounter = 0;
+    
+    private int restCounter = 0;
 
     /**
      * Create a hunter. A hunter can be created as a new born (age zero
@@ -38,6 +42,7 @@ public class Hunter implements Actor
     public Hunter(Field field, Location location)
     {
         alive = true;
+        canKill = true;
         this.field = field;
         setLocation(location);
     }
@@ -51,26 +56,28 @@ public class Hunter implements Actor
      */
     public void act(List<Actor> newHunter)
     {
-        if(counter >= MAX_KILLS) {
-            alive = false;
-            counter = 0;
+        if(killCounter >= MAX_KILLS) {
+            canKill = false;
+            killCounter = 0;
         }
-        /*else if (alive == false) {
-            counter++;
+        else if (canKill == false && restCounter >= STEPS_TO_ACTIVE) {
+            restCounter = 0;
+            canKill = true;    
         }
-        else if (alive == false && counter >= STEPS_TO_ACTIVE) {
-            counter = 0;
-            alive = true;    
-        }*/
+        else if (canKill == false) {
+            restCounter++;
+        }
         
-        Location newLocation = findFood();
-        if(newLocation == null) { 
-            // No food found - try to move to a free location.
-            newLocation = getField().freeAdjacentLocation(getLocation());
-        }
-        // See if it was possible to move.
-        if(newLocation != null) {
-            setLocation(newLocation);
+        if(canKill) {
+	        Location newLocation = findFood();
+	        if(newLocation == null) { 
+	            // No food found - try to move to a free location.
+	            newLocation = getField().freeAdjacentLocation(getLocation());
+	        }
+	        // See if it was possible to move.
+	        if(newLocation != null) {
+	            setLocation(newLocation);
+	        }
         }
     }
     
@@ -97,7 +104,7 @@ public class Hunter implements Actor
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    counter++;
+                    killCounter++;
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -106,7 +113,7 @@ public class Hunter implements Actor
                 Fox fox = (Fox) animal;
                 if(fox.isActive()) { 
                     fox.setDead();
-                    counter++;
+                    killCounter++;
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -115,7 +122,7 @@ public class Hunter implements Actor
                 Lynx lynx = (Lynx) animal;
                 if(lynx.isActive()) { 
                     lynx.setDead();
-                    counter++;
+                    killCounter++;
                     // Remove the dead rabbit from the field.
                     return where;
                 }
