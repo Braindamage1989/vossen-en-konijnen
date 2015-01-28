@@ -21,10 +21,11 @@ public class SliderController extends AbstractController
 	{
 		JFrame settings = new JFrame("Settings");
         sliderPanel = new JPanel();
-        sliderPanel.setLayout(new GridLayout(10, 2, 5, 10));
+        sliderPanel.setLayout(new GridLayout(5, 1, 5, 10));
         sliderPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
         JTabbedPane settingsTab = new JTabbedPane();
+        settingsTab.setPreferredSize(new Dimension(550,550));
         
         listener = new ChangeListener()
         {
@@ -40,6 +41,10 @@ public class SliderController extends AbstractController
         JPanel rabbitPanel = new JPanel();
         JPanel foxPanel = new JPanel();
         JPanel lynxPanel = new JPanel();
+        
+        rabbitPanel.setLayout(new GridLayout(5, 1));
+        foxPanel.setLayout(new GridLayout(5, 1));
+        lynxPanel.setLayout(new GridLayout(5, 1));
         
         
         //**************************************Age sliders
@@ -83,9 +88,9 @@ public class SliderController extends AbstractController
         //*****************************************************Breeding age sliders
         
         //Slider to change minimum breeding age for rabbits
-        JSlider rabbitBreedingSlider = new JSlider(0, 200);
+        JSlider rabbitBreedingSlider = new JSlider(0, 50);
         rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingAge());
-        addSlider(rabbitPanel, rabbitBreedingSlider, "Minimum breeding age for rabbits", 50, 25);
+        addSlider(rabbitPanel, rabbitBreedingSlider, "Minimum breeding age for rabbits", 10, 5);
         rabbitBreedingSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -95,9 +100,9 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change minimum breeding age for foxes
-        JSlider foxBreedingSlider = new JSlider(0, 200);
+        JSlider foxBreedingSlider = new JSlider(0, 50);
         foxBreedingSlider.setValue(Fox.getFoxBreedingAge());
-        addSlider(foxPanel, foxBreedingSlider, "Minimum breeding age for foxes", 50, 25);
+        addSlider(foxPanel, foxBreedingSlider, "Minimum breeding age for foxes", 10, 5);
         foxBreedingSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -107,9 +112,9 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change minimum breeding age for lynxes
-        JSlider lynxBreedingSlider = new JSlider(0, 200);
+        JSlider lynxBreedingSlider = new JSlider(0, 50);
         lynxBreedingSlider.setValue(Lynx.getLynxBreedingAge());
-        addSlider(lynxPanel, lynxBreedingSlider, "Minimum breeding age for lynxes", 50, 25);
+        addSlider(lynxPanel, lynxBreedingSlider, "Minimum breeding age for lynxes", 10, 5);
         lynxBreedingSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -199,7 +204,7 @@ public class SliderController extends AbstractController
         //Maximum food value for rabbits
         JSlider rabbitFoodLevelSlider = new JSlider(0, 100);
         rabbitFoodLevelSlider.setValue(Rabbit.getGrassFoodValue());
-        addSlider(rabbitPanel, rabbitFoodLevelSlider, "The amount of steps a rabbit can go without food", 25, 5);
+        addSlider(rabbitPanel, rabbitFoodLevelSlider, "Steps a rabbit can go without food", 25, 5);
         rabbitFoodLevelSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -211,7 +216,7 @@ public class SliderController extends AbstractController
         //Maximum food value for foxes
         JSlider foxFoodLevelSlider = new JSlider(0, 100);
         foxFoodLevelSlider.setValue(Fox.getRabbitFoodValue());
-        addSlider(foxPanel, foxFoodLevelSlider, "The amount of steps a fox can go without food", 25, 5);
+        addSlider(foxPanel, foxFoodLevelSlider, "Steps a fox can go without food", 25, 5);
         foxFoodLevelSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -223,7 +228,7 @@ public class SliderController extends AbstractController
         //Maximum food value for lynxes
         JSlider lynxFoodLevelSlider = new JSlider(0, 100);
         lynxFoodLevelSlider.setValue(Lynx.getFoodValue());
-        addSlider(lynxPanel, lynxFoodLevelSlider, "The amount of steps a lynx can go without food", 25, 5);
+        addSlider(lynxPanel, lynxFoodLevelSlider, "Steps a lynx can go without food", 25, 5);
         lynxFoodLevelSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
