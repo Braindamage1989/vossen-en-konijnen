@@ -64,8 +64,6 @@ public class Controller extends AbstractController
     // A statistics object computing and storing simulation information
     private FieldStats stats;
     
-    SimulatorThread thread = new SimulatorThread();
-    
     private static boolean run;
     
     public Controller()
@@ -160,14 +158,13 @@ public class Controller extends AbstractController
     
     public void start()
     {
-        run = true;
-        thread.run();
+        SimulatorThread thread = new SimulatorThread();
+        thread.start();
     }
     
     public void stop()
     {
         run = false;
-        thread.run();
     }
         
     /**
@@ -474,8 +471,13 @@ public class Controller extends AbstractController
          }
 
          public void run() {
+            run = true;
             while(run) {
                 simulateOneStep();
+                try {
+                    sleep(150);
+                }
+                catch (InterruptedException e){}
             }
          }
      }
