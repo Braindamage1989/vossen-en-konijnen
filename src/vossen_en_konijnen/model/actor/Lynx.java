@@ -22,7 +22,7 @@ public class Lynx extends Animal
     // The age at which a lynx can start to breed.
     private static final int BREEDING_AGE = 25;
     // The age to which a lynx can live.
-    private static final int MAX_AGE = 150;
+    private static int MAX_AGE = 150;
     // The likelihood of a lynx breeding.
     private static final double BREEDING_PROBABILITY = 0.09;
     // The maximum number of births.
@@ -119,12 +119,22 @@ public class Lynx extends Animal
         return null;
     }
     
+    public static void setMaxAge(int age)
+    {
+    	MAX_AGE = age;
+    }
+    
     public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
     
     public int getMaxAge()
+    {
+        return MAX_AGE;
+    }
+    
+    public static int getMaxLynxAge()
     {
         return MAX_AGE;
     }

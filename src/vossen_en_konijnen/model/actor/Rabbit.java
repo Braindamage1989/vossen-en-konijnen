@@ -20,9 +20,9 @@ public class Rabbit extends Animal
     // Characteristics shared by all rabbits (class variables).
 
     // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 4;
+    private static int BREEDING_AGE = 4;
     // The age to which a rabbit can live.
-    private static int maxAge = 40;
+    private static int MAX_AGE = 40;
     // The likelihood of a rabbit breeding.
     private static final double BREEDING_PROBABILITY = 0.12;
     // The maximum number of births.
@@ -50,7 +50,7 @@ public class Rabbit extends Animal
     {
         super(field, location);
         if(randomAge) {
-            setAge(rand.nextInt(maxAge));
+            setAge(rand.nextInt(MAX_AGE));
             setFoodLevel(rand.nextInt(GRASS_FOOD_VALUE));
         }
         else {
@@ -119,9 +119,15 @@ public class Rabbit extends Animal
         }
         return null;
     }
+    
     public static void setMaxAge(int age)
     {
-    	maxAge = age;
+    	MAX_AGE = age;
+    }
+    
+    public static void setBreedingAge(int age)
+    {
+    	BREEDING_AGE = age;
     }
     
     public void setZiekte(boolean ziekte)
@@ -136,12 +142,22 @@ public class Rabbit extends Animal
     
     public int getMaxAge()
     {
-        return maxAge;
+        return MAX_AGE;
+    }
+    
+    public static int getMaxRabbitAge()
+    {
+    	return MAX_AGE;
     }
     
     public double getBreedingProbability()
     {
         return BREEDING_PROBABILITY;
+    }
+    
+    public static double getRabbitBreedingProbability()
+    {
+    	return BREEDING_PROBABILITY;
     }
     
     public int getMaxLitterSize()

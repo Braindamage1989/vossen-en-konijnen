@@ -20,7 +20,7 @@ public class Fox extends Animal
     // Characteristics shared by all foxes (class variables).
     
     // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 15;
+    private static int BREEDING_AGE = 15;
     // The age to which a fox can live.
     private static int MAX_AGE = 150;
     // The likelihood of a fox breeding.
@@ -115,12 +115,22 @@ public class Fox extends Animal
     	MAX_AGE = age;
     }
     
+    public static void setBreedingAge(int age)
+    {
+    	BREEDING_AGE = age;
+    }
+    
     public int getBreedingAge()
     {
         return BREEDING_AGE;
     }
     
     public int getMaxAge()
+    {
+        return MAX_AGE;
+    }
+    
+    public static int getMaxFoxAge()
     {
         return MAX_AGE;
     }

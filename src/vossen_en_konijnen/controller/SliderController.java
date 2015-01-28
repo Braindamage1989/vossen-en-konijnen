@@ -21,7 +21,7 @@ public class SliderController extends AbstractController
 	{
 		JFrame settings = new JFrame("Settings");
         sliderPanel = new JPanel();
-        sliderPanel.setLayout(new GridLayout(4, 2, 5, 10));
+        sliderPanel.setLayout(new GridLayout(5, 2, 5, 10));
         sliderPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
         listener = new ChangeListener()
@@ -33,13 +33,9 @@ public class SliderController extends AbstractController
               textField.setText("" + source.getValue());
            }
         };
-        
-        JSlider rabbitAgeSlider = new JSlider(0, 50, 40);
-        rabbitAgeSlider.setPaintTicks(true);
-        rabbitAgeSlider.setSnapToTicks(true);
-        rabbitAgeSlider.setPaintLabels(true);
-        rabbitAgeSlider.setMajorTickSpacing(10);
-        rabbitAgeSlider.setMinorTickSpacing(1);
+        //Slider to change max age of rabbits
+        JSlider rabbitAgeSlider = new JSlider(0, 200);
+        rabbitAgeSlider.setValue(Fox.getMaxFoxAge());
         rabbitAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -47,10 +43,12 @@ public class SliderController extends AbstractController
         		Rabbit.setMaxAge(source.getValue());
         	}
         });
-        addSlider(rabbitAgeSlider, "Rabbit age");
+        addSlider(rabbitAgeSlider, "Maximum age of rabbits");
         
-        JSlider foxAgeSlider = new JSlider(0, 50, 40);
-        addSlider(foxAgeSlider, "Fox age");
+        //Slider to change max age of foxes
+        JSlider foxAgeSlider = new JSlider(0, 200);
+        foxAgeSlider.setValue(Fox.getMaxFoxAge());
+        addSlider(foxAgeSlider, "Maximum age of foxes");
         foxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -59,6 +57,39 @@ public class SliderController extends AbstractController
         	}
         });
         
+        //Slider to change max age of lynxes
+        JSlider lynxAgeSlider = new JSlider(0, 200);
+        lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
+        addSlider(lynxAgeSlider, "Maximum age of lynxes");
+        lynxAgeSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Lynx.setMaxAge(source.getValue());
+        	}
+        });
+        
+        JSlider rabbitBreedingSlider = new JSlider(0, 200, 4);
+        //rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingProbability());
+        addSlider(rabbitBreedingSlider, "Minimum breeding age for rabbits");
+        rabbitBreedingSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Rabbit.setBreedingAge(source.getValue());
+        	}
+        });
+        
+        JSlider foxBreedingSlider = new JSlider(0, 200, 4);
+        //rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingProbability());
+        addSlider(foxBreedingSlider, "Minimum breeding age for rabbits");
+        foxBreedingSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Fox.setBreedingAge(source.getValue());
+        	}
+        });
 
         // add the text field that displays the slider value
         textField = new JTextField();
@@ -72,10 +103,9 @@ public class SliderController extends AbstractController
     public void addSlider(JSlider s, String description)
     {
     	s.setPaintTicks(true);
-        s.setSnapToTicks(true);
         s.setPaintLabels(true);
-        s.setMajorTickSpacing(10);
-        s.setMinorTickSpacing(1);
+        s.setMajorTickSpacing(50);
+        s.setMinorTickSpacing(25);
         
         JPanel panel = new JPanel();
         
