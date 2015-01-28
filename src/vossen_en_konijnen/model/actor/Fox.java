@@ -125,6 +125,11 @@ public class Fox extends Animal
         return BREEDING_AGE;
     }
     
+    public static int getFoxBreedingAge()
+    {
+        return BREEDING_AGE;
+    }
+    
     public int getMaxAge()
     {
         return MAX_AGE;

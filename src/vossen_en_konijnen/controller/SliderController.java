@@ -21,7 +21,7 @@ public class SliderController extends AbstractController
 	{
 		JFrame settings = new JFrame("Settings");
         sliderPanel = new JPanel();
-        sliderPanel.setLayout(new GridLayout(5, 2, 5, 10));
+        sliderPanel.setLayout(new GridLayout(10, 2, 5, 10));
         sliderPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
         listener = new ChangeListener()
@@ -69,8 +69,8 @@ public class SliderController extends AbstractController
         	}
         });
         
-        JSlider rabbitBreedingSlider = new JSlider(0, 200, 4);
-        //rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingProbability());
+        JSlider rabbitBreedingSlider = new JSlider(0, 200);
+        rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingAge());
         addSlider(rabbitBreedingSlider, "Minimum breeding age for rabbits");
         rabbitBreedingSlider.addChangeListener(new ChangeListener(){
         	@Override
@@ -80,14 +80,36 @@ public class SliderController extends AbstractController
         	}
         });
         
-        JSlider foxBreedingSlider = new JSlider(0, 200, 4);
-        //rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingProbability());
-        addSlider(foxBreedingSlider, "Minimum breeding age for rabbits");
+        JSlider foxBreedingSlider = new JSlider(0, 200);
+        foxBreedingSlider.setValue(Fox.getFoxBreedingAge());
+        addSlider(foxBreedingSlider, "Minimum breeding age for foxes");
         foxBreedingSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
         		Fox.setBreedingAge(source.getValue());
+        	}
+        });
+        
+        JSlider lynxBreedingSlider = new JSlider(0, 200);
+        lynxBreedingSlider.setValue(Lynx.getLynxBreedingAge());
+        addSlider(lynxBreedingSlider, "Minimum breeding age for lynxes");
+        lynxBreedingSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Lynx.setBreedingAge(source.getValue());
+        	}
+        });
+        
+        JSlider rabbitBreedingProbability = new JSlider(0, 1);
+        rabbitBreedingProbability.setValue((int) (Rabbit.getRabbitBreedingProbability() * 100));
+        addSlider(rabbitBreedingProbability, "The probability a rabbit will breed");
+        rabbitBreedingProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Rabbit.setBreedingProbability(source.getValue() / 100);
         	}
         });
 
