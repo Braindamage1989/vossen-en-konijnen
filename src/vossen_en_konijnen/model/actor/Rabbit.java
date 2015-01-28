@@ -22,7 +22,9 @@ public class Rabbit extends Animal
     // The age at which a rabbit can start to breed.
     private static final int BREEDING_AGE = 7;
     // The age to which a rabbit can live.
-    private int maxAge = 40;
+    private static final int MAX_AGE = 40;
+    
+    private static final int MAX_DISEASE_AGE = 5;
     // The likelihood of a rabbit breeding.
     private static final double BREEDING_PROBABILITY = 0.2;
     // The maximum number of births.
@@ -35,6 +37,8 @@ public class Rabbit extends Animal
     private final boolean ZIEKTE_GEN = Randomizer.getRandomZiekteGen();
     
     private boolean ziekte;
+    
+    private int ziekteAge = 0;
     
     // The fox's food level, which is increased by eating rabbits.
 
@@ -50,7 +54,7 @@ public class Rabbit extends Animal
     {
         super(field, location);
         if(randomAge) {
-            setAge(rand.nextInt(maxAge));
+            setAge(rand.nextInt(MAX_AGE));
             setFoodLevel(rand.nextInt(GRASS_FOOD_VALUE));
         }
         else {
@@ -70,20 +74,28 @@ public class Rabbit extends Animal
         incrementAge();
         incrementHunger();
         if(isActive()) {
-            giveBirth(newRabbits);            
-            // Move towards a source of food if found.
-            Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
+            if(ziekte) {
+                if(ziekteAge >= MAX_DISEASE_AGE) {
+                    setDead();
+                }
+                ziekteAge++;
             }
             else {
-                // Overcrowding.
-                setDead();
+                giveBirth(newRabbits);            
+                // Move towards a source of food if found.
+                Location newLocation = findFood();
+                if(newLocation == null) { 
+                    // No food found - try to move to a free location.
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+                }
+                // See if it was possible to move.
+                if(newLocation != null) {
+                    setLocation(newLocation);
+                }
+                else {
+                    // Overcrowding.
+                    setDead();
+                }
             }
         }
     }
@@ -112,16 +124,11 @@ public class Rabbit extends Animal
             }
             else if(animal instanceof Rabbit) {
             	if(((Rabbit)animal).getZiekte() && getZiekteGen()) {
-            		ziekte = true;
-            		setMaxAge(5);
+                    ziekte = true;
             	}
             }
         }
         return null;
-    }
-    public void setMaxAge(int age)
-    {
-    	maxAge = age;
     }
     
     public void setZiekte(boolean ziekte)
@@ -136,7 +143,7 @@ public class Rabbit extends Animal
     
     public int getMaxAge()
     {
-        return maxAge;
+        return MAX_AGE;
     }
     
     public double getBreedingProbability()

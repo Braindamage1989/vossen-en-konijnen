@@ -100,7 +100,6 @@ public class Controller extends AbstractController
         setColor(Fox.class, Color.blue);
         setColor(Lynx.class, Color.red);
         setColor(Hunter.class, Color.black);
-        //setColor(Lion.class, darkViolet);
         setColor(Rock.class, brown);
         setColor(Grass.class, Color.green);
         
@@ -299,6 +298,7 @@ public class Controller extends AbstractController
     
     public void startDisease()
     {
+        Color darkViolet = new Color(148, 0, 211);
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
             if(actor instanceof Rabbit) {
