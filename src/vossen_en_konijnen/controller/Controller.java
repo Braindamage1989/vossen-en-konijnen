@@ -408,7 +408,16 @@ public class Controller extends AbstractController
 		                Object animal = field.getObjectAt(row, col);
 		                if(animal != null) {
 		                    stats.incrementCount(animal.getClass());
-		                    fieldView.drawMark(col, row, getColor(animal.getClass()));
+		                    Color c;
+		                    if(animal instanceof Rabbit) {
+		                    	Rabbit r = (Rabbit) animal;
+		                    	if(r.getZiekte()){
+		                    		c = new Color(255,95,1);
+		                    	}
+		                    	else { c = getColor(animal.getClass()); }
+		                    }
+		                    else { c =getColor(animal.getClass()); }
+		                    fieldView.drawMark(col, row, c);
 		                }
 		                else {
 		                    fieldView.drawMark(col, row, EMPTY_COLOR);
