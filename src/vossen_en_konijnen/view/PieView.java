@@ -12,11 +12,18 @@ public class PieView extends AbstractView
 {
 	private int scale;
 
+	/**
+	 * Create a new PieView component.
+	 */
 	public PieView(Controller model, FieldStats stats, int height, int width) 
 	{
 		super(model, stats, height, width);
 	}
 	
+	/**
+	 * Update the statistics.
+	 * @param stats
+	 */
 	public void updateStats(FieldStats stats)
 	{
 		this.stats = stats;
@@ -33,13 +40,16 @@ public class PieView extends AbstractView
             fieldImage = this.createImage(size.width, size.height);
             g = fieldImage.getGraphics();
 
-            xScale = size.width;
-            yScale = size.height;
+            int xScale = size.width;
+            int yScale = size.height;
             if(xScale <= yScale) { scale = xScale; } else { scale = yScale; }
             if(scale < 1) { scale = GRID_VIEW_SCALING_FACTOR; }
         }
     }
 	
+    /**
+     * Paint the chart with the already used colors.
+     */
 	public void paintChart() {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, size.width, size.height);
@@ -62,13 +72,16 @@ public class PieView extends AbstractView
     		position += arc;
         }
 		
-		/*
 		if(position < 360) {
 			g.setColor(Color.WHITE);
 			g.fillArc(pieStart, pieStart, pieScale, pieScale, position, 360-position);
-		}*/
+		}
 	}
 	
+	/**
+     * The field view component needs to be redisplayed. Copy the
+     * internal image to screen.
+     */
 	public void paintComponent(Graphics g) 
 	{
 		if(fieldImage != null) {

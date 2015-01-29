@@ -49,4 +49,32 @@ public class Randomizer
             rand.setSeed(SEED);
         }
     }
+    
+    public static boolean getRandomZiekteGen() 
+    {
+        boolean ziekte = true;
+        int range = (10 - 1) + 1;     
+        int value = (int)(Math.random() * range) + 1;
+        if(value > 1) {
+            ziekte = true;
+        }
+        else if(value == 1) {
+            ziekte = false;
+        }
+        return ziekte;
+    }
+    
+    public static boolean getRandomZiekte()
+    {
+    	boolean ziekte = false;
+        int range = (10 - 1) + 1;     
+        int value = (int)(Math.random() * range) + 1;
+        if(value > 1) {
+            ziekte = false;
+        }
+        else if(value == 1) {
+            ziekte = true;
+        }
+        return ziekte;
+    }
 }

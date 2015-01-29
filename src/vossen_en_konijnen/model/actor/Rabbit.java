@@ -20,17 +20,25 @@ public class Rabbit extends Animal
     // Characteristics shared by all rabbits (class variables).
 
     // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 4;
+    private static final int BREEDING_AGE = 7;
     // The age to which a rabbit can live.
     private static final int MAX_AGE = 40;
+    
+    private static final int MAX_DISEASE_AGE = 5;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.12;
+    private static final double BREEDING_PROBABILITY = 0.2;
     // The maximum number of births.
     private static final int MAX_LITTER_SIZE = 4;
     
-    private static final int GRASS_FOOD_VALUE = 8;
+    private static final int GRASS_FOOD_VALUE = 6;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
+    
+    private final boolean ZIEKTE_GEN = Randomizer.getRandomZiekteGen();
+    
+    private boolean ziekte;
+    
+    private int ziekteAge = 0;
     
     // The fox's food level, which is increased by eating rabbits.
 
@@ -53,6 +61,7 @@ public class Rabbit extends Animal
             setAge(0);
             setFoodLevel(GRASS_FOOD_VALUE);
         }
+        ziekte = false;
     }
     
     /**
@@ -80,6 +89,12 @@ public class Rabbit extends Animal
                 // Overcrowding.
                 setDead();
             }
+            if(ziekte) {
+                if(ziekteAge >= MAX_DISEASE_AGE) {
+                    setDead();
+                }
+                ziekteAge++;
+            }
         }
     }
     
@@ -93,20 +108,32 @@ public class Rabbit extends Animal
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
+        Location goTo = null;
         while(it.hasNext()) {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
             if(animal instanceof Grass) {
                 Grass grass = (Grass) animal;
-                if(grass.isActive()) { 
+                if(grass.isActive() && goTo == null) { 
                     grass.setDead();
                     setFoodLevel(GRASS_FOOD_VALUE);
                     // Remove the dead rabbit from the field.
-                    return where;
+                    goTo = where;
                 }
             }
+            else if(animal instanceof Rabbit) {
+            	Rabbit r = (Rabbit) animal;
+            	if(getZiekte() && r.getZiekteGen()) {
+            		r.setZiekte(true);
+            	}
+            }
         }
-        return null;
+        return goTo;
+    }
+    
+    public void setZiekte(boolean ziekte)
+    {
+        this.ziekte = ziekte;
     }
         
     public int getBreedingAge()
@@ -127,5 +154,15 @@ public class Rabbit extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public boolean getZiekteGen()
+    {
+        return ZIEKTE_GEN;
+    }
+    
+    public boolean getZiekte()
+    {
+        return ziekte;
     }
 }

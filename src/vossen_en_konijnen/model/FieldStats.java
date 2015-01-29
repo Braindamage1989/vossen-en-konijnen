@@ -54,7 +54,7 @@ public class FieldStats
         return buffer.toString();
     }
     
-    /*
+    /**
      * 
      */
     public HashMap<Class, Counter> getCounters()
@@ -62,7 +62,7 @@ public class FieldStats
     	return counters;
     }
     
-    /*
+    /**
      * 
      */
     public HashMap<Class, LinkedList<Integer>> getHistory()
@@ -107,6 +107,9 @@ public class FieldStats
         countsValid = true;
     }
 
+    /**
+     * 
+     */
     public void addHistory()
     {
     	for(Class animal: counters.keySet()) {
@@ -120,6 +123,14 @@ public class FieldStats
     			countHistory.get(animal).remove();
     		}
     	}
+    }
+    
+    /**
+     * 
+     */
+    public void clearHistory()
+    {
+    	countHistory.clear();
     }
     
     /**

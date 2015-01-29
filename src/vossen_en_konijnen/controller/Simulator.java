@@ -12,7 +12,7 @@ import vossen_en_konijnen.model.Field;
 import vossen_en_konijnen.model.Location;
 import vossen_en_konijnen.model.Randomizer;
 import vossen_en_konijnen.model.actor.*;
-import vossen_en_konijnen.view.TextView;
+//import vossen_en_konijnen.view.TextView;
 
 /**
  * A simple predator-prey simulator, based on a rectangular field
@@ -50,7 +50,7 @@ public class Simulator extends AbstractController
     // A graphical view of the simulation.
     private SimulatorView view;
     // TextField with current population
-    private TextView textView;
+    //private TextView textView;
     
     /*public static void main(String[] args) {
         new Simulator();
@@ -187,11 +187,11 @@ public class Simulator extends AbstractController
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-                else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
+               /* else if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    //Lion lion = new Lion(true, field, location);
-                    //actors.add(lion);
-                }
+                    Lion lion = new Lion(true, field, location);
+                    actors.add(lion);
+                }*/
                 else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rock rock = new Rock(field, location);

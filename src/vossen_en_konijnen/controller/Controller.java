@@ -9,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 
+import sun.applet.Main;
 import vossen_en_konijnen.model.*;
 import vossen_en_konijnen.model.actor.*;
 import vossen_en_konijnen.view.*;
@@ -35,7 +37,7 @@ public class Controller extends AbstractController
     
     private static final double ROCK_CREATION_PROBABILITY = 0.05;
     
-    private static final double GRASS_CREATION_PROBABILITY = 0.15;
+    private static final double GRASS_CREATION_PROBABILITY = 0.14;
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -52,17 +54,17 @@ public class Controller extends AbstractController
 
     private final String STEP_PREFIX = "Step: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JButton oneStep, hundredStep, reset;
+    private JButton oneStep, hundredStep, reset, disease, start, stop;
     private JLabel stepLabel, population;
-    private FieldView fieldView;
-    private PieView pieView;
-    private LineView lineView;
-    private BarView barView;
+    
+    private ArrayList<AbstractView> views;
     
     // A map for storing colors for participants in the simulation
     private Map<Class, Color> colors;
     // A statistics object computing and storing simulation information
     private FieldStats stats;
+    
+    private static boolean run;
     
     public Controller()
     {
@@ -85,6 +87,7 @@ public class Controller extends AbstractController
         
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
+        views = new ArrayList<AbstractView>();
 
         // Create a view of the state of each location in the field.
         /*this.addStepOneListener(new SimulationActionListeners());
@@ -92,14 +95,13 @@ public class Controller extends AbstractController
         this.addResetListener(new SimulationActionListeners());
         */
         Color brown = new Color(169, 39, 19);
-        Color darkViolet = new Color(148, 0, 211);
+        //Color darkViolet = new Color(148, 0, 211);
         
         makeFrame(depth, width);
         setColor(Rabbit.class, Color.yellow);
         setColor(Fox.class, Color.blue);
         setColor(Lynx.class, Color.red);
         setColor(Hunter.class, Color.black);
-        //setColor(Lion.class, darkViolet);
         setColor(Rock.class, brown);
         setColor(Grass.class, Color.green);
         
@@ -139,7 +141,7 @@ public class Controller extends AbstractController
 
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();        
-        // Let all rabbits act.
+        // Let all animals act.
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
             actor.act(newActors);
@@ -153,6 +155,17 @@ public class Controller extends AbstractController
 
         showStatus(step, field);
     }
+    
+    public void start()
+    {
+        SimulatorThread thread = new SimulatorThread();
+        thread.start();
+    }
+    
+    public void stop()
+    {
+        run = false;
+    }
         
     /**
      * Reset the simulation to a starting position.
@@ -161,6 +174,7 @@ public class Controller extends AbstractController
     {
         step = 0;
         actors.clear();
+        stats.clearHistory();
         populate();
         
         // Show the starting state in the view.
@@ -223,7 +237,10 @@ public class Controller extends AbstractController
 			
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
-			if(s.equals("reset")) {reset(); }
+			if(s.equals("reset")) {reset(); ; playSound("reset.wav"); }
+                        if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
+                        if(s.equals("Start")) {start(); }
+                        if(s.equals("Stop")) {stop(); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -239,15 +256,20 @@ public class Controller extends AbstractController
         
         setLocation(100, 50);
         
-        fieldView = new FieldView(this, stats, height, width);
-        pieView = new PieView(this, stats, height, width);
-        lineView = new LineView(this, stats, height, width);
-        barView = new BarView(this, stats, height, width);
+        AbstractView fieldView = new FieldView(this, stats, height, width);
+        AbstractView pieView = new PieView(this, stats, height, width);
+        AbstractView lineView = new LineView(this, stats, height, width);
+        AbstractView barView = new BarView(this, stats, height, width);
+        
+        views.add(fieldView);
+        views.add(pieView);
+        views.add(lineView);
+        views.add(barView);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
         Container buttonViewSub = new JPanel();
-        buttonViewSub.setLayout(new GridLayout(4, 1));
+        buttonViewSub.setLayout(new GridLayout(8, 1));
         oneStep = new JButton("1 step");
         buttonViewSub.add(oneStep, 0);
         hundredStep = new JButton("100 steps");
@@ -255,13 +277,20 @@ public class Controller extends AbstractController
         buttonViewSub.add(new JLabel(""), 2);
         reset = new JButton("reset");
         buttonViewSub.add(reset, 3);
+        disease = new JButton("Disease");
+        buttonViewSub.add(disease, 4);
+        buttonViewSub.add(new JLabel(""), 5);
+        start = new JButton("Start");
+        buttonViewSub.add(start, 6);
+        stop = new JButton("Stop");
+        buttonViewSub.add(stop, 7);
         buttonView.add(buttonViewSub);
 
         JTabbedPane viewContainer = new JTabbedPane();
         viewContainer.addTab("fieldView", null, fieldView, "The field in wich it all dies...");
         viewContainer.addTab("pieView", null, pieView, "The chart representing all that still lifes. :)");
-        viewContainer.addTab("lineView", null, lineView, "Shows the last 100 steps");
-        viewContainer.addTab("barView", null, barView, "Shows how many there are right now...");
+        viewContainer.addTab("lineView", null, lineView, "Here you see how many there are alive");
+        viewContainer.addTab("barView", null, barView, "This shows some statistics");
         
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -272,6 +301,9 @@ public class Controller extends AbstractController
         addStepOneListener(new SimulationActionListeners());
         addStepHundredListener(new SimulationActionListeners());
         addResetListener(new SimulationActionListeners());
+        addDiseaseListener(new SimulationActionListeners());
+        addStartListener(new SimulationActionListeners());
+        addStopListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -284,6 +316,17 @@ public class Controller extends AbstractController
     public void setColor(Class animalClass, Color color)
     {
         colors.put(animalClass, color);
+    }
+    
+    public void startDisease()
+    {
+        Color darkViolet = new Color(148, 0, 211);
+        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
+            if(actor instanceof Rabbit) {
+            	((Rabbit) actor).setZiekte(Randomizer.getRandomZiekte());
+            }
+        }
     }
 
     /**
@@ -316,6 +359,20 @@ public class Controller extends AbstractController
         reset.addActionListener(listenForStepHundred);
     }
     
+    public void addDiseaseListener(ActionListener listenForDisease)
+    {
+        disease.addActionListener(listenForDisease);
+    }
+    public void addStartListener(ActionListener listenForStart)
+    {
+        start.addActionListener(listenForStart);
+    }
+    
+    public void addStopListener(ActionListener listenForStop)
+    {
+        stop.addActionListener(listenForStop);
+    }
+    
     /**
      * Show the current status of the field.
      * @param step Which iteration step it is.
@@ -330,35 +387,56 @@ public class Controller extends AbstractController
         stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
         
-        fieldView.preparePaint();
-        pieView.preparePaint();
-        lineView.preparePaint();
-        barView.preparePaint();
-
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                Object animal = field.getObjectAt(row, col);
-                if(animal != null) {
-                    stats.incrementCount(animal.getClass());
-                    fieldView.drawMark(col, row, getColor(animal.getClass()));
-                }
-                else {
-                    fieldView.drawMark(col, row, EMPTY_COLOR);
-                }
-            }
+        Iterator it = views.iterator();
+        
+        while(it.hasNext()) {
+        	AbstractView view = (AbstractView) it.next();
+        	view.preparePaint();
         }
-        stats.countFinished();
-        stats.addHistory();
-        pieView.paintChart();
-        lineView.paintChart();
-        barView.paintChart();
+
+        it = views.iterator();
+        
+        while(it.hasNext()) {
+        	AbstractView view = (AbstractView) it.next();
+	        if(view instanceof FieldView) {
+	        	FieldView fieldView = (FieldView) view;
+		        for(int row = 0; row < field.getDepth(); row++) {
+		            for(int col = 0; col < field.getWidth(); col++) {
+		                Object animal = field.getObjectAt(row, col);
+		                if(animal != null) {
+		                    stats.incrementCount(animal.getClass());
+		                    Color c;
+		                    if(animal instanceof Rabbit) {
+		                    	Rabbit r = (Rabbit) animal;
+		                    	if(r.getZiekte()){
+		                    		c = new Color(255,95,1);
+		                    	}
+		                    	else { c = getColor(animal.getClass()); }
+		                    }
+		                    else { c =getColor(animal.getClass()); }
+		                    fieldView.drawMark(col, row, c);
+		                }
+		                else {
+		                    fieldView.drawMark(col, row, EMPTY_COLOR);
+		                }
+		            }
+		        }
+		        stats.countFinished();
+		        stats.addHistory();
+	        }
+	        else {
+	        	view.paintChart();
+	        }
+        }
 
         population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
-        //pieView.updateStats(stats, colors);
-        fieldView.repaint();
-        pieView.repaint();
-        lineView.repaint();
-        barView.repaint();
+        
+        it = views.iterator();
+        
+        while(it.hasNext()) {
+        	AbstractView view = (AbstractView) it.next();
+        	view.repaint();
+        }
     }
 
     /**
@@ -369,4 +447,39 @@ public class Controller extends AbstractController
     {
         return stats.isViable(field);
     }
+    
+    public static synchronized void playSound(final String url)
+    {
+		new Thread(new Runnable() {
+			public void run()
+			{
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+					Main.class.getResourceAsStream("../../sounds/" + url));
+			        clip.open(inputStream);
+			        clip.start();
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+		}).start();
+	}
+    
+    class SimulatorThread extends Thread {
+         SimulatorThread() {
+         }
+
+         public void run() {
+            run = true;
+            while(run) {
+                simulateOneStep();
+                try {
+                    sleep(150);
+                }
+                catch (InterruptedException e){}
+            }
+         }
+     }
+    
 }
