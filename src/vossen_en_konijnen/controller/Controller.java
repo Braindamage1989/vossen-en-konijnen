@@ -74,6 +74,10 @@ public class Controller extends AbstractController
     
     private static boolean run;
     
+    SimulatorThread thread = new SimulatorThread();
+    
+    private boolean threadStarted = false;
+    
     public Controller()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
@@ -166,8 +170,10 @@ public class Controller extends AbstractController
     
     public void start()
     {
-        SimulatorThread thread = new SimulatorThread();
-        thread.start();
+        if(!threadStarted) {
+            thread.start();
+            threadStarted = true; 
+        }      
     }
     
     public void stop()
@@ -346,7 +352,6 @@ public class Controller extends AbstractController
     
     public void startDisease()
     {
-        Color darkViolet = new Color(148, 0, 211);
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
             Actor actor = it.next();
             if(actor instanceof Rabbit) {
@@ -515,6 +520,7 @@ public class Controller extends AbstractController
     
     class SimulatorThread extends Thread {
          SimulatorThread() {
+             super("thread1");
          }
 
          public void run() {
