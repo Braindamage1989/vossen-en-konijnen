@@ -1,8 +1,12 @@
 package vossen_en_konijnen.controller;
 
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -13,15 +17,17 @@ import vossen_en_konijnen.model.actor.*;
 
 public class SliderController extends AbstractController
 {
+	private JFrame settings;
 	private JPanel sliderPanel;
 	private ChangeListener listener;
+	private ActionListener actionListener;
 	private JTextField textField;
 	
 	public SliderController()
 	{
-		JFrame settings = new JFrame("Settings");
+		settings = new JFrame("Settings");
         sliderPanel = new JPanel();
-        sliderPanel.setLayout(new GridLayout(5, 1, 5, 10));
+        sliderPanel.setLayout(new BorderLayout());
         sliderPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         
         JTabbedPane settingsTab = new JTabbedPane();
@@ -50,8 +56,9 @@ public class SliderController extends AbstractController
         //**************************************Age sliders
         
         //Slider to change max age of rabbits
-        JSlider rabbitAgeSlider = new JSlider(0, 200);
-        rabbitAgeSlider.setValue(Fox.getMaxFoxAge());
+        JSlider rabbitAgeSlider = new JSlider(10, 100);
+        rabbitAgeSlider.setValue(Rabbit.getMaxRabbitAge());
+        addSlider(rabbitPanel, rabbitAgeSlider, "Maximum age of rabbits", 10, 10);
         rabbitAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -59,12 +66,12 @@ public class SliderController extends AbstractController
         		Rabbit.setMaxAge(source.getValue());
         	}
         });
-        addSlider(rabbitPanel, rabbitAgeSlider, "Maximum age of rabbits", 50, 25);
+        
         
         //Slider to change max age of foxes
-        JSlider foxAgeSlider = new JSlider(0, 200);
+        JSlider foxAgeSlider = new JSlider(100, 200);
         foxAgeSlider.setValue(Fox.getMaxFoxAge());
-        addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 50, 25);
+        addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 50, 10);
         foxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -74,9 +81,9 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change max age of lynxes
-        JSlider lynxAgeSlider = new JSlider(0, 200);
+        JSlider lynxAgeSlider = new JSlider(100, 200);
         lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
-        addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 50, 25);
+        addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 50, 10);
         lynxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -237,13 +244,20 @@ public class SliderController extends AbstractController
         	}
         });
         
-        
-        
         settingsTab.addTab("Rabbit", rabbitPanel);
         settingsTab.addTab("Fox", foxPanel);
         settingsTab.addTab("Lynx", lynxPanel);
         
-        settings.add(settingsTab);
+        JPanel settingsButtons = new JPanel();
+        settingsButtons.setLayout(new FlowLayout());
+        
+        JButton ok = new JButton("Ok");
+        ok.addActionListener(new ButtonActionListener());
+        
+        settingsButtons.add(ok);
+        
+        settings.add(settingsTab, BorderLayout.CENTER);
+        settings.add(settingsButtons, BorderLayout.SOUTH);
         settings.pack();
         settings.setVisible(true);
 	}
@@ -255,10 +269,20 @@ public class SliderController extends AbstractController
         s.setMajorTickSpacing(majorTick);
         s.setMinorTickSpacing(minorTick);
         
-        //JPanel panel = new JPanel();
-        
         panel.add(new JLabel(description));
         panel.add(s);
         sliderPanel.add(panel);
+    }
+    
+    class ButtonActionListener implements ActionListener
+    {
+		public void actionPerformed(ActionEvent e)
+		{
+			JButton source = (JButton) e.getSource();
+			String buttonText = source.getText();
+			if (buttonText.equals("Ok")){
+				settings.dispose();
+			}
+		}
     }
 }
