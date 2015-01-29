@@ -60,7 +60,7 @@ public class SliderController extends AbstractController
         //Slider to change max age of rabbits
         JSlider rabbitAgeSlider = new JSlider(10, 100);
         rabbitAgeSlider.setValue(Rabbit.getMaxRabbitAge());
-        addSlider(rabbitPanel, rabbitAgeSlider, "Maximum age of rabbits", 10, 10);
+        addSlider(rabbitPanel, rabbitAgeSlider, "Maximum age of rabbits", 10, 5);
         rabbitAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -73,7 +73,7 @@ public class SliderController extends AbstractController
         //Slider to change max age of foxes
         JSlider foxAgeSlider = new JSlider(100, 200);
         foxAgeSlider.setValue(Fox.getMaxFoxAge());
-        addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 20, 10);
+        addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 20, 5);
         foxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -85,7 +85,7 @@ public class SliderController extends AbstractController
         //Slider to change max age of lynxes
         JSlider lynxAgeSlider = new JSlider(100, 200);
         lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
-        addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 20, 10);
+        addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 20, 5);
         lynxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -137,7 +137,7 @@ public class SliderController extends AbstractController
         //Slider to change the chance of breeding for rabbits (in %)
         JSlider rabbitBreedingProbability = new JSlider(0, 100);
         rabbitBreedingProbability.setValue((int) (Rabbit.getRabbitBreedingProbability()*100));
-        addSlider(rabbitPanel, rabbitBreedingProbability, "The probability a rabbit will breed", 50, 25);
+        addSlider(rabbitPanel, rabbitBreedingProbability, "The probability a rabbit will breed", 20, 5);
         rabbitBreedingProbability.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -149,7 +149,7 @@ public class SliderController extends AbstractController
         //Slider to change the chance of breeding for foxes (in %)
         JSlider foxBreedingProbability = new JSlider(0, 100);
         foxBreedingProbability.setValue((int) (Fox.getFoxBreedingProbability()*100));
-        addSlider(foxPanel, foxBreedingProbability, "The probability a fox will breed", 50, 25);
+        addSlider(foxPanel, foxBreedingProbability, "The probability a fox will breed", 20, 5);
         foxBreedingProbability.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -161,7 +161,7 @@ public class SliderController extends AbstractController
         //Slider to change the chance of breeding for lynxes (in %)
         JSlider lynxBreedingProbability = new JSlider(0, 100);
         lynxBreedingProbability.setValue((int) (Lynx.getLynxBreedingProbability()*100));
-        addSlider(lynxPanel, lynxBreedingProbability, "The probability a lynx will breed", 50, 25);
+        addSlider(lynxPanel, lynxBreedingProbability, "The probability a lynx will breed", 20, 5);
         lynxBreedingProbability.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -249,9 +249,9 @@ public class SliderController extends AbstractController
         //********************************************************Grass sliders
         
         //Slider to change max age of grass
-        JSlider grassAgeSlider = new JSlider(10, 100);
+        JSlider grassAgeSlider = new JSlider(5, 50);
         grassAgeSlider.setValue(Grass.getMaxAge());
-        addSlider(grassPanel, grassAgeSlider, "Maximum age of grass", 10, 10);
+        addSlider(grassPanel, grassAgeSlider, "Maximum age of grass", 5, 5);
         grassAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -275,7 +275,7 @@ public class SliderController extends AbstractController
         //Slider to change the chance of multiplying for grass (in %)
         JSlider grassMultiplyingProbability = new JSlider(0, 100);
         grassMultiplyingProbability.setValue((int) (Grass.getMultiplyingProbability()*100));
-        addSlider(grassPanel, grassMultiplyingProbability, "The probability grass will multiply", 50, 25);
+        addSlider(grassPanel, grassMultiplyingProbability, "The probability grass will multiply", 20, 5);
         grassMultiplyingProbability.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -304,16 +304,24 @@ public class SliderController extends AbstractController
         settingsTab.addTab("Lynx", lynxPanel);
         settingsTab.addTab("Grass", grassPanel);
         
-        JPanel settingsButtons = new JPanel();
+        /*JPanel settingsButtons = new JPanel();
         settingsButtons.setLayout(new FlowLayout());
         
         JButton ok = new JButton("Ok");
         ok.addActionListener(new ButtonActionListener());
         
-        settingsButtons.add(ok);
+        settingsButtons.add(ok);*/
+        
+        JPanel messagePanel = new JPanel();
+        messagePanel.setLayout(new FlowLayout());
+        
+        JLabel message = new JLabel("The settings applied as soon as a slider is changed.");
+        
+        messagePanel.add(message);
         
         settings.add(settingsTab, BorderLayout.CENTER);
-        settings.add(settingsButtons, BorderLayout.SOUTH);
+        settings.add(messagePanel, BorderLayout.SOUTH);
+        settings.setMinimumSize(new Dimension(400, 400));
         settings.pack();
         settings.setVisible(true);
 	}
