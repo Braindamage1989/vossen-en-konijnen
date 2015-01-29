@@ -245,7 +245,7 @@ public class Controller extends AbstractController
 			
 			if(s.equals("1 step")) {simulateOneStep(); }
 			if(s.equals("100 steps")) {simulate(100); }
-			if(s.equals("reset")) {reset(); ; playSound("reset.wav"); }
+			if(s.equals("Reset")) {reset(); ; playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
             if(s.equals("About")) { showAbout(); }
             if(s.equals("Settings")) { new SliderController(); }
@@ -280,21 +280,24 @@ public class Controller extends AbstractController
         buttonView.setLayout(new FlowLayout());
         Container buttonViewSub = new JPanel();
         buttonViewSub.setLayout(new GridLayout(8, 1));
-        oneStep = new JButton("1 step");
-        buttonViewSub.add(oneStep, 0);
-        hundredStep = new JButton("100 steps");
-        buttonViewSub.add(hundredStep, 1);
-        buttonViewSub.add(new JLabel(""), 2);
-        reset = new JButton("reset");
-        buttonViewSub.add(reset, 3);
-        disease = new JButton("Disease");
-        buttonViewSub.add(disease, 4);
-        buttonViewSub.add(new JLabel(""), 5);
+        
         start = new JButton("Start");
-        buttonViewSub.add(start, 6);
+        buttonViewSub.add(start, 0);
         stop = new JButton("Stop");
-        buttonViewSub.add(stop, 7);
+        buttonViewSub.add(stop, 1);
         buttonView.add(buttonViewSub);
+        buttonViewSub.add(new JLabel(""), 2);
+        oneStep = new JButton("1 step");
+        buttonViewSub.add(oneStep, 3);
+        hundredStep = new JButton("100 steps");
+        buttonViewSub.add(hundredStep, 4);
+        buttonViewSub.add(new JLabel(""), 5);
+        disease = new JButton("Disease");
+        buttonViewSub.add(disease, 6);
+        reset = new JButton("Reset");
+        buttonViewSub.add(reset, 7);
+        
+        
         
         menubar = new JMenuBar();
         setJMenuBar(menubar);
