@@ -76,8 +76,6 @@ public class Controller extends AbstractController
     
     SimulatorThread thread = new SimulatorThread();
     
-    private boolean threadStarted = false;
-    
     public Controller()
     {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
@@ -122,15 +120,6 @@ public class Controller extends AbstractController
     }
     
     /**
-     * Run the simulation from its current state for a reasonably long period,
-     * (4000 steps).
-     */
-    public void runLongSimulation()
-    {
-        simulate(4000);
-    }
-    
-    /**
      * Run the simulation from its current state for the given number of steps.
      * Stop before the given number of steps if it ceases to be viable.
      * @param numSteps The number of steps to run for.
@@ -147,10 +136,10 @@ public class Controller extends AbstractController
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
      */
-    public void simulateOneStep()
+    public synchronized void simulateOneStep()
     {
         step++;
-
+        
         // Provide space for newborn animals.
         List<Actor> newActors = new ArrayList<Actor>();        
         // Let all animals act.
@@ -161,24 +150,30 @@ public class Controller extends AbstractController
                 it.remove();
             }
         }
-               
+                 
         // Add the newly born foxes and rabbits to the main lists.
         actors.addAll(newActors);
 
         showStatus(step, field);
     }
     
+    public synchronized void hunderdSteps()
+    {
+        HunderdStepsThread thread = new HunderdStepsThread();
+        thread.start();
+    }
+    
     public void start()
     {
-        if(!threadStarted) {
-            thread.start();
-            threadStarted = true; 
-        }      
+        if(!run) {
+            thread.start(); 
+        }
+        thread.resume();
     }
     
     public void stop()
     {
-        run = false;
+        thread.suspend();
     }
         
     /**
@@ -250,7 +245,7 @@ public class Controller extends AbstractController
 			String s = e.getActionCommand();
 			
 			if(s.equals("1 step")) {simulateOneStep(); }
-			if(s.equals("100 steps")) {simulate(100); }
+			if(s.equals("100 steps")) {hunderdSteps(); }
 			if(s.equals("Reset")) {reset(); ; playSound("reset.wav"); }
             if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
             if(s.equals("About")) { showAbout(); }
@@ -520,7 +515,7 @@ public class Controller extends AbstractController
     
     class SimulatorThread extends Thread {
          SimulatorThread() {
-             super("thread1");
+             super("onestepthread");
          }
 
          public void run() {
@@ -532,6 +527,18 @@ public class Controller extends AbstractController
                 }
                 catch (InterruptedException e){}
             }
+         }
+     }
+    
+    class HunderdStepsThread extends Thread {
+        HunderdStepsThread() {
+            super("hunderdstepsthread");
+        }
+
+        public void run() {
+            for(int i = 0; i<100; i++) {
+            simulateOneStep();
+        }
          }
      }
     
