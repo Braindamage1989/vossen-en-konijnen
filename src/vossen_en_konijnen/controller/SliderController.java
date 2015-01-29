@@ -304,16 +304,24 @@ public class SliderController extends AbstractController
         settingsTab.addTab("Lynx", lynxPanel);
         settingsTab.addTab("Grass", grassPanel);
         
-        JPanel settingsButtons = new JPanel();
+        /*JPanel settingsButtons = new JPanel();
         settingsButtons.setLayout(new FlowLayout());
         
         JButton ok = new JButton("Ok");
         ok.addActionListener(new ButtonActionListener());
         
-        settingsButtons.add(ok);
+        settingsButtons.add(ok);*/
+        
+        JPanel messagePanel = new JPanel();
+        messagePanel.setLayout(new FlowLayout());
+        
+        JLabel message = new JLabel("The settings applied as soon as a slider is changed.");
+        
+        messagePanel.add(message);
         
         settings.add(settingsTab, BorderLayout.CENTER);
-        settings.add(settingsButtons, BorderLayout.SOUTH);
+        settings.add(messagePanel, BorderLayout.SOUTH);
+        settings.setMinimumSize(new Dimension(400, 400));
         settings.pack();
         settings.setVisible(true);
 	}
