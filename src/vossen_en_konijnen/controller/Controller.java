@@ -523,7 +523,7 @@ public class Controller extends AbstractController
             while(run) {
                 simulateOneStep();
                 try {
-                    sleep(150);
+                    sleep(100);
                 }
                 catch (InterruptedException e){}
             }
@@ -538,6 +538,10 @@ public class Controller extends AbstractController
         public void run() {
             for(int i = 0; i<100; i++) {
             simulateOneStep();
+            try {
+                    sleep(50);
+                }
+            catch (InterruptedException e){}
         }
          }
      }
