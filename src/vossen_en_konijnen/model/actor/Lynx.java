@@ -129,7 +129,7 @@ public class Lynx extends Animal
     	BREEDING_AGE = age;
     }
     
-    public static void setBreedingProbability(int chance)
+    public static void setBreedingProbability(double chance)
     {
     	BREEDING_PROBABILITY = chance;
     }
@@ -137,6 +137,11 @@ public class Lynx extends Animal
     public static void setFoodValue(int value)
     {
     	FOOD_VALUE = value;
+    }
+    
+    public static void setMaxLitterSize(int litterSize)
+    {
+    	MAX_LITTER_SIZE = litterSize;
     }
     
     public int getBreedingAge()

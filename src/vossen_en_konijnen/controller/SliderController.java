@@ -12,6 +12,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import vossen_en_konijnen.controller.Controller.SimulationActionListeners;
 import vossen_en_konijnen.model.actor.*;
 
 
@@ -21,7 +22,14 @@ public class SliderController extends AbstractController
 	private JPanel sliderPanel;
 	private ChangeListener listener;
 	private ActionListener actionListener;
+	private JSlider rabbitAgeSlider, foxAgeSlider, lynxAgeSlider,
+					rabbitBreedingSlider, foxBreedingSlider, lynxBreedingSlider,
+					rabbitBreedingProbability, foxBreedingProbability, lynxBreedingProbability,
+					rabbitMaxLitterSizeSlider, foxMaxLitterSizeSlider, lynxMaxLitterSizeSlider,
+					rabbitFoodLevelSlider, foxFoodLevelSlider, lynxFoodLevelSlider,
+					grassAgeSlider, grassMultiplyingSlider, grassMultiplyingProbability, grassMaxMultiplySize;
 	private JTextField textField;
+	private JButton defaultValues;
 	
 	public SliderController()
 	{
@@ -54,11 +62,15 @@ public class SliderController extends AbstractController
         lynxPanel.setLayout(new GridLayout(5, 1));
         grassPanel.setLayout(new GridLayout(5, 1));
         
+        defaultValues = new JButton("Default values");
+        
+        addDefaultListener(new ButtonActionListener());
+        
         
         //**************************************Age sliders
         
         //Slider to change max age of rabbits
-        JSlider rabbitAgeSlider = new JSlider(10, 100);
+        rabbitAgeSlider = new JSlider(10, 100);
         rabbitAgeSlider.setValue(Rabbit.getMaxRabbitAge());
         addSlider(rabbitPanel, rabbitAgeSlider, "Maximum age of rabbits", 10, 5);
         rabbitAgeSlider.addChangeListener(new ChangeListener(){
@@ -71,7 +83,7 @@ public class SliderController extends AbstractController
         
         
         //Slider to change max age of foxes
-        JSlider foxAgeSlider = new JSlider(100, 200);
+        foxAgeSlider = new JSlider(100, 200);
         foxAgeSlider.setValue(Fox.getMaxFoxAge());
         addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 20, 5);
         foxAgeSlider.addChangeListener(new ChangeListener(){
@@ -83,7 +95,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change max age of lynxes
-        JSlider lynxAgeSlider = new JSlider(100, 200);
+        lynxAgeSlider = new JSlider(100, 200);
         lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
         addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 20, 5);
         lynxAgeSlider.addChangeListener(new ChangeListener(){
@@ -97,7 +109,7 @@ public class SliderController extends AbstractController
         //*****************************************************Breeding age sliders
         
         //Slider to change minimum breeding age for rabbits
-        JSlider rabbitBreedingSlider = new JSlider(0, 50);
+        rabbitBreedingSlider = new JSlider(0, 50);
         rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingAge());
         addSlider(rabbitPanel, rabbitBreedingSlider, "Minimum breeding age for rabbits", 10, 5);
         rabbitBreedingSlider.addChangeListener(new ChangeListener(){
@@ -109,7 +121,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change minimum breeding age for foxes
-        JSlider foxBreedingSlider = new JSlider(0, 50);
+        foxBreedingSlider = new JSlider(0, 50);
         foxBreedingSlider.setValue(Fox.getFoxBreedingAge());
         addSlider(foxPanel, foxBreedingSlider, "Minimum breeding age for foxes", 10, 5);
         foxBreedingSlider.addChangeListener(new ChangeListener(){
@@ -121,7 +133,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change minimum breeding age for lynxes
-        JSlider lynxBreedingSlider = new JSlider(0, 50);
+        lynxBreedingSlider = new JSlider(0, 50);
         lynxBreedingSlider.setValue(Lynx.getLynxBreedingAge());
         addSlider(lynxPanel, lynxBreedingSlider, "Minimum breeding age for lynxes", 10, 5);
         lynxBreedingSlider.addChangeListener(new ChangeListener(){
@@ -135,7 +147,7 @@ public class SliderController extends AbstractController
         //*****************************************************Breeding probability sliders
         
         //Slider to change the chance of breeding for rabbits (in %)
-        JSlider rabbitBreedingProbability = new JSlider(0, 100);
+        rabbitBreedingProbability = new JSlider(0, 100);
         rabbitBreedingProbability.setValue((int) (Rabbit.getRabbitBreedingProbability()*100));
         addSlider(rabbitPanel, rabbitBreedingProbability, "The probability a rabbit will breed", 20, 5);
         rabbitBreedingProbability.addChangeListener(new ChangeListener(){
@@ -147,7 +159,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change the chance of breeding for foxes (in %)
-        JSlider foxBreedingProbability = new JSlider(0, 100);
+        foxBreedingProbability = new JSlider(0, 100);
         foxBreedingProbability.setValue((int) (Fox.getFoxBreedingProbability()*100));
         addSlider(foxPanel, foxBreedingProbability, "The probability a fox will breed", 20, 5);
         foxBreedingProbability.addChangeListener(new ChangeListener(){
@@ -159,7 +171,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change the chance of breeding for lynxes (in %)
-        JSlider lynxBreedingProbability = new JSlider(0, 100);
+        lynxBreedingProbability = new JSlider(0, 100);
         lynxBreedingProbability.setValue((int) (Lynx.getLynxBreedingProbability()*100));
         addSlider(lynxPanel, lynxBreedingProbability, "The probability a lynx will breed", 20, 5);
         lynxBreedingProbability.addChangeListener(new ChangeListener(){
@@ -173,45 +185,45 @@ public class SliderController extends AbstractController
         //*****************************************************************Max litter sizes
         
         //Max litter size for rabbits
-        JSlider rabbitMaxLitterSizeSlider = new JSlider(0, 8);
+        rabbitMaxLitterSizeSlider = new JSlider(0, 8);
         rabbitMaxLitterSizeSlider.setValue(Rabbit.getMaxRabbitLitterSize());
         addSlider(rabbitPanel, rabbitMaxLitterSizeSlider, "The maximum litter for rabbits", 2, 1);
         rabbitMaxLitterSizeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Rabbit.setBreedingProbability(source.getValue());
+        		Rabbit.setMaxLitterSize(source.getValue());
         	}
         });
         
         //Max litter size for foxes
-        JSlider foxMaxLitterSizeSlider = new JSlider(0, 8);
+        foxMaxLitterSizeSlider = new JSlider(0, 8);
         foxMaxLitterSizeSlider.setValue(Fox.getMaxFoxLitterSize());
         addSlider(foxPanel, foxMaxLitterSizeSlider, "The maximum litter for foxes", 2, 1);
         foxMaxLitterSizeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Fox.setBreedingProbability(source.getValue());
+        		Fox.setMaxLitterSize(source.getValue());
         	}
         });
         
         //Max litter size for lynxes
-        JSlider lynxMaxLitterSizeSlider = new JSlider(0, 8);
+        lynxMaxLitterSizeSlider = new JSlider(0, 8);
         lynxMaxLitterSizeSlider.setValue(Lynx.getMaxLynxLitterSize());
         addSlider(lynxPanel, lynxMaxLitterSizeSlider, "The maximum litter for lynxes", 2, 1);
         lynxMaxLitterSizeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Lynx.setBreedingProbability(source.getValue());
+        		Lynx.setMaxLitterSize(source.getValue());
         	}
         });
         
         //******************************************************************Food value sliders
         
         //Maximum food value for rabbits
-        JSlider rabbitFoodLevelSlider = new JSlider(0, 100);
+        rabbitFoodLevelSlider = new JSlider(0, 100);
         rabbitFoodLevelSlider.setValue(Rabbit.getGrassFoodValue());
         addSlider(rabbitPanel, rabbitFoodLevelSlider, "Steps a rabbit can go without food", 25, 5);
         rabbitFoodLevelSlider.addChangeListener(new ChangeListener(){
@@ -223,7 +235,7 @@ public class SliderController extends AbstractController
         });
         
         //Maximum food value for foxes
-        JSlider foxFoodLevelSlider = new JSlider(0, 100);
+        foxFoodLevelSlider = new JSlider(0, 100);
         foxFoodLevelSlider.setValue(Fox.getRabbitFoodValue());
         addSlider(foxPanel, foxFoodLevelSlider, "Steps a fox can go without food", 25, 5);
         foxFoodLevelSlider.addChangeListener(new ChangeListener(){
@@ -235,7 +247,7 @@ public class SliderController extends AbstractController
         });
         
         //Maximum food value for lynxes
-        JSlider lynxFoodLevelSlider = new JSlider(0, 100);
+        lynxFoodLevelSlider = new JSlider(0, 100);
         lynxFoodLevelSlider.setValue(Lynx.getFoodValue());
         addSlider(lynxPanel, lynxFoodLevelSlider, "Steps a lynx can go without food", 25, 5);
         lynxFoodLevelSlider.addChangeListener(new ChangeListener(){
@@ -249,7 +261,7 @@ public class SliderController extends AbstractController
         //********************************************************Grass sliders
         
         //Slider to change max age of grass
-        JSlider grassAgeSlider = new JSlider(5, 50);
+        grassAgeSlider = new JSlider(5, 50);
         grassAgeSlider.setValue(Grass.getMaxAge());
         addSlider(grassPanel, grassAgeSlider, "Maximum age of grass", 5, 5);
         grassAgeSlider.addChangeListener(new ChangeListener(){
@@ -261,7 +273,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change minimum multiplying age for grass
-        JSlider grassMultiplyingSlider = new JSlider(0, 50);
+        grassMultiplyingSlider = new JSlider(0, 50);
         grassMultiplyingSlider.setValue(Grass.getMultiplyingAge());
         addSlider(grassPanel, grassMultiplyingSlider, "Minimum age grass can multiply", 10, 5);
         grassMultiplyingSlider.addChangeListener(new ChangeListener(){
@@ -273,7 +285,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change the chance of multiplying for grass (in %)
-        JSlider grassMultiplyingProbability = new JSlider(0, 100);
+        grassMultiplyingProbability = new JSlider(0, 100);
         grassMultiplyingProbability.setValue((int) (Grass.getMultiplyingProbability()*100));
         addSlider(grassPanel, grassMultiplyingProbability, "The probability grass will multiply", 20, 5);
         grassMultiplyingProbability.addChangeListener(new ChangeListener(){
@@ -285,7 +297,7 @@ public class SliderController extends AbstractController
         });
         
         //Slider to change maximum grass multiplies
-        JSlider grassMaxMultiplySize = new JSlider(0, 8);
+        grassMaxMultiplySize = new JSlider(0, 8);
         grassMaxMultiplySize.setValue(Grass.getMaxMultiplyingSize());
         addSlider(grassPanel, grassMaxMultiplySize, "Amount of grass per multiply", 2, 1);
         grassMaxMultiplySize.addChangeListener(new ChangeListener(){
@@ -304,24 +316,19 @@ public class SliderController extends AbstractController
         settingsTab.addTab("Lynx", lynxPanel);
         settingsTab.addTab("Grass", grassPanel);
         
-        /*JPanel settingsButtons = new JPanel();
-        settingsButtons.setLayout(new FlowLayout());
+        JPanel lowerPanel = new JPanel();
+        lowerPanel.setLayout(new FlowLayout());
         
-        JButton ok = new JButton("Ok");
-        ok.addActionListener(new ButtonActionListener());
         
-        settingsButtons.add(ok);*/
         
-        JPanel messagePanel = new JPanel();
-        messagePanel.setLayout(new FlowLayout());
+        JLabel message = new JLabel("The settings are applied as soon as a slider is changed.");
         
-        JLabel message = new JLabel("The settings applied as soon as a slider is changed.");
-        
-        messagePanel.add(message);
+        lowerPanel.add(defaultValues);
+        lowerPanel.add(message);
         
         settings.add(settingsTab, BorderLayout.CENTER);
-        settings.add(messagePanel, BorderLayout.SOUTH);
-        settings.setMinimumSize(new Dimension(400, 400));
+        settings.add(lowerPanel, BorderLayout.SOUTH);
+        settings.setMinimumSize(new Dimension(415, 400));
         settings.pack();
         settings.setVisible(true);
 	}
@@ -338,14 +345,68 @@ public class SliderController extends AbstractController
         sliderPanel.add(panel);
     }
     
+    public void backToDefault()
+    {
+    	//defaults for rabbit
+    	Rabbit.setMaxAge(40);
+    	rabbitAgeSlider.setValue(Rabbit.getMaxRabbitAge());
+    	Rabbit.setBreedingAge(7);
+    	rabbitBreedingSlider.setValue(Rabbit.getRabbitBreedingAge());
+    	Rabbit.setBreedingProbability(0.2);
+    	rabbitBreedingProbability.setValue((int) (Rabbit.getRabbitBreedingProbability()*100));
+    	Rabbit.setGrassFoodValue(6);
+    	rabbitFoodLevelSlider.setValue(Rabbit.getGrassFoodValue());
+    	Rabbit.setMaxLitterSize(4);
+    	rabbitMaxLitterSizeSlider.setValue(Rabbit.getMaxRabbitLitterSize());
+    	
+    	//defaults for fox
+    	Fox.setMaxAge(150);
+    	foxAgeSlider.setValue(Fox.getMaxFoxAge());
+    	Fox.setBreedingAge(9);
+    	foxBreedingSlider.setValue(Fox.getFoxBreedingAge());
+    	Fox.setBreedingProbability(0.1);
+    	foxBreedingProbability.setValue((int) (Fox.getFoxBreedingProbability()*100));
+    	Fox.setRabbitFoodValue(14);
+    	foxFoodLevelSlider.setValue(Fox.getRabbitFoodValue());
+    	Fox.setMaxLitterSize(4);
+    	foxMaxLitterSizeSlider.setValue(Fox.getMaxFoxLitterSize());
+    	
+    	//defaults for lynx
+    	Lynx.setMaxAge(150);
+    	lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
+    	Lynx.setBreedingAge(20);
+    	lynxBreedingSlider.setValue(Lynx.getLynxBreedingAge());
+    	Lynx.setBreedingProbability(0.08);
+    	lynxBreedingProbability.setValue((int) (Lynx.getLynxBreedingProbability()*100));
+    	Lynx.setFoodValue(15);
+    	lynxFoodLevelSlider.setValue(Lynx.getFoodValue());
+    	Lynx.setMaxLitterSize(2);
+    	lynxMaxLitterSizeSlider.setValue(Lynx.getMaxLynxLitterSize());
+    	
+    	//defaults for grass
+    	Grass.setMaxAge(15);
+    	grassAgeSlider.setValue(Grass.getMaxAge());
+    	Grass.setMultiplyingAge(3);
+    	grassMultiplyingSlider.setValue(Grass.getMultiplyingAge());
+    	Grass.setMultiplyingProbability(0.5);
+    	grassMultiplyingProbability.setValue((int) (Grass.getMultiplyingProbability()*100));
+    	Grass.setMaxMultiplyingSize(8);
+    	grassMaxMultiplySize.setValue(Grass.getMaxMultiplyingSize());
+    }
+    
+    public void addDefaultListener(ActionListener listenForDefault)
+    {
+    	defaultValues.addActionListener(listenForDefault);
+    }
+    
     class ButtonActionListener implements ActionListener
     {
 		public void actionPerformed(ActionEvent e)
 		{
 			JButton source = (JButton) e.getSource();
 			String buttonText = source.getText();
-			if (buttonText.equals("Ok")){
-				settings.dispose();
+			if (buttonText.equals("Default values")){
+				backToDefault();
 			}
 		}
     }

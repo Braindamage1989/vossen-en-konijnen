@@ -120,7 +120,7 @@ public class Fox extends Animal
     	BREEDING_AGE = age;
     }
     
-    public static void setBreedingProbability(int chance)
+    public static void setBreedingProbability(double chance)
     {
     	BREEDING_PROBABILITY = chance;
     }
@@ -128,6 +128,11 @@ public class Fox extends Animal
     public static void setRabbitFoodValue(int value)
     {
     	RABBIT_FOOD_VALUE = value;
+    }
+    
+    public static void setMaxLitterSize(int litterSize)
+    {
+    	MAX_LITTER_SIZE = litterSize;
     }
     
     public int getBreedingAge()
