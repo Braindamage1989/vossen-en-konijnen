@@ -39,7 +39,7 @@ public class Controller extends AbstractController
     
     private static final double GRASS_CREATION_PROBABILITY = 0.14;
     
-    private static final String VERSION = "Version 0.0";
+    private static final String VERSION = "Version 0.8 Beta";
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -486,8 +486,8 @@ public class Controller extends AbstractController
     public void showAbout()
     {
 	    JOptionPane.showMessageDialog(this,
-	    "ImageViewer\n" + VERSION,
-	    "About ImageViewer",
+	    "Fox and Rabbit Simulation\n" + VERSION,
+	    "About Fox and Rabbit Simulation",
 	    JOptionPane.INFORMATION_MESSAGE
 	    );
     }
