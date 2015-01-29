@@ -47,10 +47,12 @@ public class SliderController extends AbstractController
         JPanel rabbitPanel = new JPanel();
         JPanel foxPanel = new JPanel();
         JPanel lynxPanel = new JPanel();
+        JPanel grassPanel = new JPanel();
         
         rabbitPanel.setLayout(new GridLayout(5, 1));
         foxPanel.setLayout(new GridLayout(5, 1));
         lynxPanel.setLayout(new GridLayout(5, 1));
+        grassPanel.setLayout(new GridLayout(5, 1));
         
         
         //**************************************Age sliders
@@ -244,9 +246,63 @@ public class SliderController extends AbstractController
         	}
         });
         
+        //********************************************************Grass sliders
+        
+        //Slider to change max age of grass
+        JSlider grassAgeSlider = new JSlider(10, 100);
+        grassAgeSlider.setValue(Grass.getMaxAge());
+        addSlider(grassPanel, grassAgeSlider, "Maximum age of grass", 10, 10);
+        grassAgeSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Grass.setMaxAge(source.getValue());
+        	}
+        });
+        
+        //Slider to change minimum multiplying age for grass
+        JSlider grassMultiplyingSlider = new JSlider(0, 50);
+        grassMultiplyingSlider.setValue(Grass.getMultiplyingAge());
+        addSlider(grassPanel, grassMultiplyingSlider, "Minimum age grass can multiply", 10, 5);
+        grassMultiplyingSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Grass.setMultiplyingAge(source.getValue());
+        	}
+        });
+        
+        //Slider to change the chance of multiplying for grass (in %)
+        JSlider grassMultiplyingProbability = new JSlider(0, 100);
+        grassMultiplyingProbability.setValue((int) (Grass.getMultiplyingProbability()*100));
+        addSlider(grassPanel, grassMultiplyingProbability, "The probability grass will multiply", 50, 25);
+        grassMultiplyingProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Grass.setMultiplyingProbability(source.getValue() / 100);
+        	}
+        });
+        
+        //Slider to change maximum grass multiplies
+        JSlider grassMaxMultiplySize = new JSlider(0, 8);
+        grassMaxMultiplySize.setValue(Grass.getMaxMultiplyingSize());
+        addSlider(grassPanel, grassMaxMultiplySize, "Amount of grass per multiply", 2, 1);
+        grassMaxMultiplySize.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Grass.setMaxMultiplyingSize(source.getValue());
+        	}
+        });
+        
+        
+        
+        
         settingsTab.addTab("Rabbit", rabbitPanel);
         settingsTab.addTab("Fox", foxPanel);
         settingsTab.addTab("Lynx", lynxPanel);
+        settingsTab.addTab("Grass", grassPanel);
         
         JPanel settingsButtons = new JPanel();
         settingsButtons.setLayout(new FlowLayout());

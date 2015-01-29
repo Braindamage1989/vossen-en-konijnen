@@ -28,13 +28,13 @@ public class Grass implements Actor
     private int age;
     
     // The age grass can multiply
-    private static final int MULTIPLYING_AGE = 3;
+    private static int MULTIPLYING_AGE = 3;
     // The age to which a grass can live.
-    private static final int MAX_AGE = 15;
+    private static int MAX_AGE = 15;
     // The likelihood of a grass breeding.
-    private static final double MULTIPLYING_PROBABILITY = 0.5;
+    private static double MULTIPLYING_PROBABILITY = 0.5;
     // The maximum number of multiplies.
-    private static final int MAX_MULTIPLYING_SIZE = 8;
+    private static int MAX_MULTIPLYING_SIZE = 8;
     // A shared random number generator to control multiplying.
     private static final Random rand = Randomizer.getRandom();
 
@@ -69,6 +69,26 @@ public class Grass implements Actor
         if(isActive()) {
             goMultiply(newGrass);            
         }
+    }
+    
+    public static void setMultiplyingAge(int age)
+    {
+    	MULTIPLYING_AGE = age;
+    }
+    
+    public static void setMaxAge(int age)
+    {
+    	MAX_AGE = age;
+    }
+    
+    public static void setMultiplyingProbability(double chance)
+    {
+    	MULTIPLYING_PROBABILITY = chance;
+    }
+    
+    public static void setMaxMultiplyingSize(int size)
+    {
+    	MAX_MULTIPLYING_SIZE = size;
     }
     
     /**
@@ -107,6 +127,26 @@ public class Grass implements Actor
         this.age = age;
     }
     
+    public static int getMultiplyingAge()
+    {
+    	return MULTIPLYING_AGE;
+    }
+    
+    public static int getMaxAge()
+    {
+    	return MAX_AGE;
+    }
+    
+    public static double getMultiplyingProbability()
+    {
+    	return MULTIPLYING_PROBABILITY;
+    }
+    
+    public static int getMaxMultiplyingSize()
+    {
+    	return MAX_MULTIPLYING_SIZE;
+    }
+    
     /**
      * Return the grasses field.
      * @return The grasses field.
@@ -114,6 +154,15 @@ public class Grass implements Actor
     private Field getField()
     {
         return field;
+    }
+    
+    /**
+     * Return the grasses location.
+     * @return The grasses location.
+     */
+    private Location getLocation()
+    {
+        return location;
     }
     
     /**
@@ -158,15 +207,6 @@ public class Grass implements Actor
             Grass young = new Grass(false, field, loc);
             newGrass.add(young);
         }
-    }
-    
-    /**
-     * Return the grasses location.
-     * @return The grasses location.
-     */
-    private Location getLocation()
-    {
-        return location;
     }
     
     /**
