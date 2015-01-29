@@ -71,7 +71,7 @@ public class SliderController extends AbstractController
         //Slider to change max age of foxes
         JSlider foxAgeSlider = new JSlider(100, 200);
         foxAgeSlider.setValue(Fox.getMaxFoxAge());
-        addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 50, 10);
+        addSlider(foxPanel, foxAgeSlider, "Maximum age of foxes", 20, 10);
         foxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
@@ -83,7 +83,7 @@ public class SliderController extends AbstractController
         //Slider to change max age of lynxes
         JSlider lynxAgeSlider = new JSlider(100, 200);
         lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
-        addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 50, 10);
+        addSlider(lynxPanel, lynxAgeSlider, "Maximum age of lynxes", 20, 10);
         lynxAgeSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
