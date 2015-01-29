@@ -125,12 +125,13 @@ public class Controller extends AbstractController
      * Stop before the given number of steps if it ceases to be viable.
      * @param numSteps The number of steps to run for.
      */
+    /*
     public void simulate(int numSteps)
     {
         for(int step = 1; step <= numSteps && isViable(field); step++) {
             simulateOneStep();
         }
-    }
+    }*/
     
     /**
      * Run the simulation from its current state for a single step.
@@ -515,9 +516,9 @@ public class Controller extends AbstractController
 	}
     
     class SimulatorThread extends Thread {
-         SimulatorThread() {
-             super("onestepthread");
-         }
+        SimulatorThread() {
+            super("onestepthread");
+        }
 
         public void run() {
             while (true) {
