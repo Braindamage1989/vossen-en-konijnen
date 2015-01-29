@@ -20,16 +20,16 @@ public class Lynx extends Animal
     // Characteristics shared by all Lynxes (class variables).
     
     // The age at which a lynx can start to breed.
-    private static final int BREEDING_AGE = 20;
+    private static int BREEDING_AGE = 20;
     // The age to which a lynx can live.
-    private static final int MAX_AGE = 150;
+    private static int MAX_AGE = 150;
     // The likelihood of a lynx breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static double BREEDING_PROBABILITY = 0.08;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static int MAX_LITTER_SIZE = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a lynx can go before it has to eat again.
-    private static final int FOOD_VALUE = 15;
+    private static int FOOD_VALUE = 15;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -119,7 +119,32 @@ public class Lynx extends Animal
         return null;
     }
     
+    public static void setMaxAge(int age)
+    {
+    	MAX_AGE = age;
+    }
+    
+    public static void setBreedingAge(int age)
+    {
+    	BREEDING_AGE = age;
+    }
+    
+    public static void setBreedingProbability(int chance)
+    {
+    	BREEDING_PROBABILITY = chance;
+    }
+    
+    public static void setFoodValue(int value)
+    {
+    	FOOD_VALUE = value;
+    }
+    
     public int getBreedingAge()
+    {
+        return BREEDING_AGE;
+    }
+    
+    public static int getLynxBreedingAge()
     {
         return BREEDING_AGE;
     }
@@ -129,7 +154,17 @@ public class Lynx extends Animal
         return MAX_AGE;
     }
     
+    public static int getMaxLynxAge()
+    {
+        return MAX_AGE;
+    }
+    
     public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+    public static double getLynxBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
@@ -137,5 +172,15 @@ public class Lynx extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public static int getMaxLynxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public static int getFoodValue()
+    {
+    	return FOOD_VALUE;
     }
 }

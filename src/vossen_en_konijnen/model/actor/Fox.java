@@ -20,16 +20,16 @@ public class Fox extends Animal
     // Characteristics shared by all foxes (class variables).
     
     // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 9;
+    private static int BREEDING_AGE = 9;
     // The age to which a fox can live.
-    private static final int MAX_AGE = 150;
+    private static int MAX_AGE = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.1;
+    private static double BREEDING_PROBABILITY = 0.1;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
+    private static int MAX_LITTER_SIZE = 4;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 14;
+    private static int RABBIT_FOOD_VALUE = 14;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -110,7 +110,32 @@ public class Fox extends Animal
         return null;
     }
     
+    public static void setMaxAge(int age)
+    {
+    	MAX_AGE = age;
+    }
+    
+    public static void setBreedingAge(int age)
+    {
+    	BREEDING_AGE = age;
+    }
+    
+    public static void setBreedingProbability(int chance)
+    {
+    	BREEDING_PROBABILITY = chance;
+    }
+    
+    public static void setRabbitFoodValue(int value)
+    {
+    	RABBIT_FOOD_VALUE = value;
+    }
+    
     public int getBreedingAge()
+    {
+        return BREEDING_AGE;
+    }
+    
+    public static int getFoxBreedingAge()
     {
         return BREEDING_AGE;
     }
@@ -120,7 +145,17 @@ public class Fox extends Animal
         return MAX_AGE;
     }
     
+    public static int getMaxFoxAge()
+    {
+        return MAX_AGE;
+    }
+    
     public double getBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
+    public static double getFoxBreedingProbability()
     {
         return BREEDING_PROBABILITY;
     }
@@ -128,5 +163,15 @@ public class Fox extends Animal
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public static int getMaxFoxLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public static int getRabbitFoodValue()
+    {
+        return RABBIT_FOOD_VALUE;
     }
 }

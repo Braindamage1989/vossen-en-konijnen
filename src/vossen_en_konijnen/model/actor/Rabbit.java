@@ -20,17 +20,17 @@ public class Rabbit extends Animal
     // Characteristics shared by all rabbits (class variables).
 
     // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 7;
+    private static int BREEDING_AGE = 7;
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 40;
+    private static int MAX_AGE = 40;
     
     private static final int MAX_DISEASE_AGE = 5;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.2;
+    private static double BREEDING_PROBABILITY = 0.2;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
+    private static int MAX_LITTER_SIZE = 4;
     
-    private static final int GRASS_FOOD_VALUE = 6;
+    private static int GRASS_FOOD_VALUE = 6;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -131,6 +131,26 @@ public class Rabbit extends Animal
         return goTo;
     }
     
+    public static void setMaxAge(int age)
+    {
+    	MAX_AGE = age;
+    }
+    
+    public static void setBreedingAge(int age)
+    {
+    	BREEDING_AGE = age;
+    }
+    
+    public static void setBreedingProbability(int chance)
+    {
+    	BREEDING_PROBABILITY = chance;
+    }
+    
+    public static void setGrassFoodValue(int value)
+    {
+    	GRASS_FOOD_VALUE = value;
+    }
+    
     public void setZiekte(boolean ziekte)
     {
         this.ziekte = ziekte;
@@ -141,7 +161,17 @@ public class Rabbit extends Animal
         return BREEDING_AGE;
     }
     
+    public static int getRabbitBreedingAge()
+    {
+        return BREEDING_AGE;
+    }
+    
     public int getMaxAge()
+    {
+        return MAX_AGE;
+    }
+    
+    public static int getMaxRabbitAge()
     {
         return MAX_AGE;
     }
@@ -151,9 +181,24 @@ public class Rabbit extends Animal
         return BREEDING_PROBABILITY;
     }
     
+    public static double getRabbitBreedingProbability()
+    {
+        return BREEDING_PROBABILITY;
+    }
+    
     public int getMaxLitterSize()
     {
         return MAX_LITTER_SIZE;
+    }
+    
+    public static int getMaxRabbitLitterSize()
+    {
+        return MAX_LITTER_SIZE;
+    }
+    
+    public static int getGrassFoodValue()
+    {
+        return GRASS_FOOD_VALUE;
     }
     
     public boolean getZiekteGen()
