@@ -72,7 +72,8 @@ public class Controller extends AbstractController
     // A statistics object computing and storing simulation information
     private FieldStats stats;
     
-    private static boolean run;
+    private volatile boolean testrun;
+    private boolean started;
     
     SimulatorThread thread = new SimulatorThread();
     
@@ -159,21 +160,21 @@ public class Controller extends AbstractController
     
     public synchronized void hunderdSteps()
     {
-        HunderdStepsThread thread = new HunderdStepsThread();
-        thread.start();
+        /*HunderdStepsThread thread = new HunderdStepsThread();
+        thread.start();*/
     }
     
     public void start()
     {
-        if(!run) {
-            thread.start(); 
+        if(!started){
+            thread.start();
+            started = true;
         }
-        thread.resume();
     }
     
     public void stop()
     {
-        thread.suspend();
+        thread.ruk();
     }
         
     /**
@@ -251,7 +252,7 @@ public class Controller extends AbstractController
             if(s.equals("About")) { showAbout(); }
             if(s.equals("Settings")) { new SliderController(); }
             if(s.equals("Start")) {start(); }
-            if(s.equals("Stop")) {stop(); }
+            if(s.equals("Stop/Resume")) {stop(); }
 		}
     }
     public void makeFrame(int height, int width)
@@ -284,7 +285,7 @@ public class Controller extends AbstractController
         
         start = new JButton("Start");
         buttonViewSub.add(start, 0);
-        stop = new JButton("Stop");
+        stop = new JButton("Stop/Resume");
         buttonViewSub.add(stop, 1);
         buttonView.add(buttonViewSub);
         buttonViewSub.add(new JLabel(""), 2);
@@ -518,32 +519,49 @@ public class Controller extends AbstractController
              super("onestepthread");
          }
 
-         public void run() {
-            run = true;
-            while(run) {
-                simulateOneStep();
-                try {
-                    sleep(100);
+        public void run() {
+            while (true) {
+            try {
+                Thread.sleep(100);
+
+                synchronized(this) {
+                    while (testrun)
+                        wait();
+                        simulateOneStep();
                 }
-                catch (InterruptedException e){}
+            } catch (InterruptedException e){}
             }
-         }
-     }
+        }
+        
+        public synchronized void ruk() {
+            testrun = !testrun;
+
+            if (!testrun)
+            notify();
+        }
+    }
     
-    class HunderdStepsThread extends Thread {
+    /*class HunderdStepsThread extends Thread {
         HunderdStepsThread() {
             super("hunderdstepsthread");
         }
 
         public void run() {
-            for(int i = 0; i<100; i++) {
-            simulateOneStep();
+            while (true) {
             try {
-                    sleep(50);
+                Thread.sleep(100);
+
+                synchronized(this) {
+                    while (testrun)
+                        wait();
+                        for(int i = 0; i<100; i++) {
+                            simulateOneStep();
+                        }
                 }
-            catch (InterruptedException e){}
-        }
+            } catch (InterruptedException e){
+            }
          }
      }
+     }*/
     
 }
