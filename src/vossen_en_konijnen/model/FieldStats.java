@@ -9,8 +9,8 @@ import java.util.LinkedList;
  * of a field. It is flexible: it will create and maintain a counter 
  * for any class of object that is found within the field.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author David Bor, David J. Barnes and Michael Kölling
+ * @version 2015.01.30
  */
 public class FieldStats
 {
@@ -54,8 +54,8 @@ public class FieldStats
     }
     
     /**
-     * 
-     * @return 
+     * Returns a map with the counters of the current simulation
+     * @return The counters of the current simulation
      */
     public HashMap<Class, Counter> getCounters()
     {
@@ -63,8 +63,8 @@ public class FieldStats
     }
     
     /**
-     * 
-     * @return 
+     * Returns a map which contains the history of the current simulation.
+     * @return the history of the current simulation
      */
     public HashMap<Class, LinkedList<Integer>> getHistory()
     {
@@ -109,7 +109,7 @@ public class FieldStats
     }
 
     /**
-     * 
+     * Adds the current counts of the actors to the history map
      */
     public void addHistory()
     {
@@ -127,7 +127,7 @@ public class FieldStats
     }
     
     /**
-     * 
+     * Resets countHistory
      */
     public void clearHistory()
     {
