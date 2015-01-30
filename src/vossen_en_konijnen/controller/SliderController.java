@@ -360,7 +360,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Grass.setMultiplyingProbability(source.getValue() / 100);
+        		Grass.setMultiplyingProbability(((double)source.getValue()) / 100);
         	}
         });
         
