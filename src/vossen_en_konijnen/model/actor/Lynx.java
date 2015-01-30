@@ -12,7 +12,7 @@ import vossen_en_konijnen.model.Randomizer;
  * A simple model of a lynx.
  * Lynxes age, move, eat rabbits and foxes, and die.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling, Ronald Scholten, 
  * @version 2011.07.31
  */
 public class Lynx extends Animal
@@ -20,16 +20,16 @@ public class Lynx extends Animal
     // Characteristics shared by all Lynxes (class variables).
     
     // The age at which a lynx can start to breed.
-    private static int BREEDING_AGE = 20;
+    private static int breedingAge = 20;
     // The age to which a lynx can live.
-    private static int MAX_AGE = 150;
+    private static int maxAge = 150;
     // The likelihood of a lynx breeding.
-    private static double BREEDING_PROBABILITY = 0.08;
+    private static double breedingProbability = 0.08;
     // The maximum number of births.
-    private static int MAX_LITTER_SIZE = 2;
+    private static int maxLitterSize = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a lynx can go before it has to eat again.
-    private static int FOOD_VALUE = 15;
+    private static int foodValue = 15;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -45,12 +45,12 @@ public class Lynx extends Animal
     {
         super(field, location, gender);
         if(randomAge) {
-            setAge(rand.nextInt(MAX_AGE));
-            setFoodLevel(rand.nextInt(FOOD_VALUE));
+            setAge(rand.nextInt(maxAge));
+            setFoodLevel(rand.nextInt(foodValue));
         }
         else {
             setAge(0);
-            setFoodLevel(FOOD_VALUE);
+            setFoodLevel(foodValue);
         }
     }
     
@@ -101,7 +101,7 @@ public class Lynx extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    setFoodLevel(FOOD_VALUE);
+                    setFoodLevel(foodValue);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -110,7 +110,7 @@ public class Lynx extends Animal
                 Fox fox = (Fox) animal;
                 if(fox.isActive()) { 
                     fox.setDead();
-                    setFoodLevel(FOOD_VALUE);
+                    setFoodLevel(foodValue);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -121,71 +121,71 @@ public class Lynx extends Animal
     
     public static void setMaxAge(int age)
     {
-    	MAX_AGE = age;
+    	maxAge = age;
     }
     
     public static void setBreedingAge(int age)
     {
-    	BREEDING_AGE = age;
+    	breedingAge = age;
     }
     
     public static void setBreedingProbability(double chance)
     {
-    	BREEDING_PROBABILITY = chance;
+    	breedingProbability = chance;
     }
     
     public static void setFoodValue(int value)
     {
-    	FOOD_VALUE = value;
+    	foodValue = value;
     }
     
     public static void setMaxLitterSize(int litterSize)
     {
-    	MAX_LITTER_SIZE = litterSize;
+    	maxLitterSize = litterSize;
     }
     
     public int getBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
     public static int getLynxBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
     public int getMaxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
     public static int getMaxLynxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
     public double getBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
     public static double getLynxBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
     public int getMaxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
     }
     
     public static int getMaxLynxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
     }
     
     public static int getFoodValue()
     {
-    	return FOOD_VALUE;
+    	return foodValue;
     }
 }
