@@ -291,19 +291,25 @@ public class Controller extends AbstractController
         buttonViewSub.setLayout(new GridLayout(8, 1));
         
         start = new JButton("Start");
+        start.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(start, 0);
         stop = new JButton("Stop/Resume");
+        stop.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(stop, 1);
         buttonView.add(buttonViewSub);
         buttonViewSub.add(new JLabel(""), 2);
         oneStep = new JButton("1 step");
+        oneStep.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(oneStep, 3);
         hundredStep = new JButton("100 steps");
+        hundredStep.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(hundredStep, 4);
         buttonViewSub.add(new JLabel(""), 5);
         disease = new JButton("Disease");
+        disease.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(disease, 6);
         reset = new JButton("Reset");
+        reset.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(reset, 7);
         
         
@@ -313,10 +319,12 @@ public class Controller extends AbstractController
         fileMenu = new JMenu("File");
         menubar.add(fileMenu);
         settingsItem = new JMenuItem("Settings");
+        settingsItem.addActionListener((new SimulationActionListeners()));
         fileMenu.add(settingsItem);
         helpMenu = new JMenu("Help");
         menubar.add(helpMenu);
         aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener((new SimulationActionListeners()));
         helpMenu.add(aboutItem);
 
         JTabbedPane viewContainer = new JTabbedPane();
@@ -331,14 +339,6 @@ public class Controller extends AbstractController
         contents.add(population, BorderLayout.SOUTH);
         contents.add(buttonView, BorderLayout.WEST);
         
-        addStepOneListener(new SimulationActionListeners());
-        addStepHundredListener(new SimulationActionListeners());
-        addResetListener(new SimulationActionListeners());
-        addDiseaseListener(new SimulationActionListeners());
-        addAboutListener(new SimulationActionListeners());
-        addSettingsListener(new SimulationActionListeners());
-        addStartListener(new SimulationActionListeners());
-        addStopListener(new SimulationActionListeners());
         pack();
         setVisible(true);
     }
@@ -501,47 +501,6 @@ public class Controller extends AbstractController
     public void setColor(Class animalClass, Color color)
     {
         colors.put(animalClass, color);
-    }
-    
-    public void addStepOneListener(ActionListener listenForStepOne)
-    {
-    	oneStep.addActionListener(listenForStepOne);
-    }
-    
-    public void addStepHundredListener(ActionListener listenForStepHundred)
-    {
-        hundredStep.addActionListener(listenForStepHundred);
-    }
-    
-    public void addResetListener(ActionListener listenForStepHundred)
-    {
-        reset.addActionListener(listenForStepHundred);
-    }
-    
-    public void addDiseaseListener(ActionListener listenForDisease)
-    {
-        disease.addActionListener(listenForDisease);
-    }
-    
-    public void addAboutListener(ActionListener listenForAbout)
-    {
-        helpMenu.addActionListener(listenForAbout);
-        aboutItem.addActionListener(listenForAbout);
-    }
-    
-    public void addSettingsListener(ActionListener listenForAbout)
-    {
-        settingsItem.addActionListener(listenForAbout);
-    }
-    
-    public void addStartListener(ActionListener listenForStart)
-    {
-        start.addActionListener(listenForStart);
-    }
-    
-    public void addStopListener(ActionListener listenForStop)
-    {
-        stop.addActionListener(listenForStop);
     }
     
     class SimulationActionListeners implements ActionListener
