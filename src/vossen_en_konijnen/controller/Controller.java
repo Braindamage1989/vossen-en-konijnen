@@ -39,7 +39,7 @@ public class Controller extends AbstractController
     // The probability that grass will be created in any given grid position.
     private static double GRASS_CREATION_PROBABILITY = 0.14;
     
-    private static final String VERSION = "Version 0.8 Beta";
+    private static final String VERSION = "Version 1.0";
     
     private ArrayList<AbstractView> views;
     
