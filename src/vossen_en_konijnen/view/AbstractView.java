@@ -13,7 +13,7 @@ import vossen_en_konijnen.model.FieldStats;
  * This class gives a skeletal implementation for the different views.
  * 
  * @author David Bor
- * @version 30-01-2015
+ * @version 2015.01.30
  */
 public abstract class AbstractView extends JPanel
 {

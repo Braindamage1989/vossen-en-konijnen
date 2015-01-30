@@ -11,7 +11,7 @@ import vossen_en_konijnen.model.FieldStats;
  * This class creates a view of a pie graph representing statistics from an FieldStats instance.
  * 
  * @author David Bor
- * @version 30-01-2015
+ * @version 2015.01.30
  */
 public class PieView extends AbstractView
 {

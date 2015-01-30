@@ -9,7 +9,7 @@ import vossen_en_konijnen.model.FieldStats;
  * This class creates a view of a Field representing a field in which animals and other actors exist.
  * 
  * @author David Bor
- * @version 30-01-2015
+ * @version 2015.01.30
  */
 public class FieldView extends AbstractView
 {
