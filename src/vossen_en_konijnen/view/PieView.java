@@ -8,6 +8,12 @@ import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
 @SuppressWarnings({"serial", "rawtypes"})
+/**
+ * This class creates a view of a pie graph representing statistics from an FieldStats instance.
+ * 
+ * @author David Bor
+ * @version 30-01-2015
+ */
 public class PieView extends AbstractView
 {
 	private int scale;
@@ -21,8 +27,11 @@ public class PieView extends AbstractView
 	}
 	
 	/**
-	 * Update the statistics.
-	 * @param stats Statistics form current field
+	 * Create a new PieView component.
+	 * @param model The currently used model
+	 * @param stats The statistics of the current model
+	 * @param height The height of the grid
+	 * @param width The width of the grid
 	 */
 	public void updateStats(FieldStats stats)
 	{
