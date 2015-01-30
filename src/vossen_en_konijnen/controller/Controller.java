@@ -19,7 +19,7 @@ import vossen_en_konijnen.view.*;
 
 public class Controller extends AbstractController
 {
-	// Constants representing configuration information for the simulation.
+    // Constants representing configuration information for the simulation.
     // The default width for the grid.
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
