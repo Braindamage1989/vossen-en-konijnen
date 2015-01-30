@@ -40,6 +40,13 @@ public class Controller extends AbstractController
     private static double GRASS_CREATION_PROBABILITY = 0.14;
     
     private static final String VERSION = "Version 0.8 Beta";
+    
+    private ArrayList<AbstractView> views;
+    
+    // A map for storing colors for participants in the simulation
+    private Map<Class, Color> colors;
+    // A statistics object computing and storing simulation information
+    private FieldStats stats;
 
     // List of animals in the field.
     private List<Actor> actors;
@@ -47,6 +54,12 @@ public class Controller extends AbstractController
     private Field field;
     // The current step of the simulation.
     private int step;
+    
+    private volatile boolean simulatorRun;
+    
+    private volatile boolean hunderdstepRun;
+    
+    private volatile boolean started;
     
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
@@ -64,19 +77,6 @@ public class Controller extends AbstractController
     private JMenuItem aboutItem;
     private JMenu fileMenu;
     private JMenuItem settingsItem;
-    
-    private ArrayList<AbstractView> views;
-    
-    // A map for storing colors for participants in the simulation
-    private Map<Class, Color> colors;
-    // A statistics object computing and storing simulation information
-    private FieldStats stats;
-    
-    private volatile boolean simulatorRun;
-    
-    private volatile boolean hunderdstepRun;
-    
-    private volatile boolean started;
     
     SimulatorThread thread = new SimulatorThread();
     
@@ -103,11 +103,6 @@ public class Controller extends AbstractController
         field = new Field(depth, width);
         views = new ArrayList<AbstractView>();
 
-        // Create a view of the state of each location in the field.
-        /*this.addStepOneListener(new SimulationActionListeners());
-        this.addStepHundredListener(new SimulationActionListeners());
-        this.addResetListener(new SimulationActionListeners());
-        */
         Color brown = new Color(169, 39, 19);
         
         makeFrame(depth, width);
@@ -120,79 +115,6 @@ public class Controller extends AbstractController
         
         // Setup a valid starting point.
         reset();
-    }
-    
-    /**
-     * Run the simulation from its current state for the given number of steps.
-     * Stop before the given number of steps if it ceases to be viable.
-     * @param numSteps The number of steps to run for.
-     */
-    /*
-    public void simulate(int numSteps)
-    {
-        for(int step = 1; step <= numSteps && isViable(field); step++) {
-            simulateOneStep();
-        }
-    }*/
-    
-    public static void setRabbitCreationProbability(double probability)
-    {
-    	RABBIT_CREATION_PROBABILITY = probability;
-    }
-    
-    public static void setFoxCreationProbability(double probability)
-    {
-    	FOX_CREATION_PROBABILITY = probability;
-    }
-    
-    public static void setLynxCreationProbability(double probability)
-    {
-    	LYNX_CREATION_PROBABILITY = probability;
-    }
-    
-    public static void setGrassCreationProbability(double probability)
-    {
-    	GRASS_CREATION_PROBABILITY = probability;
-    }
-    
-    public static void setHunterCreationProbability(double probability)
-    {
-    	HUNTER_CREATION_PROBABILITY = probability;
-    }
-    
-    public static void setRockCreationProbability(double probability)
-    {
-    	ROCK_CREATION_PROBABILITY = probability;
-    }
-    
-    public static double getRabbitCreationProbability()
-    {
-    	return RABBIT_CREATION_PROBABILITY;
-    }
-    
-    public static double getFoxCreationProbability()
-    {
-    	return FOX_CREATION_PROBABILITY;
-    }
-    
-    public static double getLynxCreationProbability()
-    {
-    	return LYNX_CREATION_PROBABILITY;
-    }
-    
-    public static double getGrassCreationProbability()
-    {
-    	return GRASS_CREATION_PROBABILITY;
-    }
-    
-    public static double getHunterCreationProbability()
-    {
-    	return HUNTER_CREATION_PROBABILITY;
-    }
-    
-    public static double getRockCreationProbability()
-    {
-    	return ROCK_CREATION_PROBABILITY;
     }
     
     /**
@@ -257,6 +179,45 @@ public class Controller extends AbstractController
         showStatus(step, field);
     }
     
+    public void showAbout()
+    {
+	JOptionPane.showMessageDialog(this,
+	"Fox and Rabbit Simulation\n" + VERSION,
+	"About Fox and Rabbit Simulation",
+	JOptionPane.INFORMATION_MESSAGE
+	);
+    }
+    
+    public static double getRabbitCreationProbability()
+    {
+    	return RABBIT_CREATION_PROBABILITY;
+    }
+    
+    public static double getFoxCreationProbability()
+    {
+    	return FOX_CREATION_PROBABILITY;
+    }
+    
+    public static double getLynxCreationProbability()
+    {
+    	return LYNX_CREATION_PROBABILITY;
+    }
+    
+    public static double getGrassCreationProbability()
+    {
+    	return GRASS_CREATION_PROBABILITY;
+    }
+    
+    public static double getHunterCreationProbability()
+    {
+    	return HUNTER_CREATION_PROBABILITY;
+    }
+    
+    public static double getRockCreationProbability()
+    {
+    	return ROCK_CREATION_PROBABILITY;
+    }
+    
     /**
      * Randomly populate the field with foxes and rabbits.
      */
@@ -287,10 +248,6 @@ public class Controller extends AbstractController
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-                /*         Location location = new Location(row, col);
-                    Lion lion = new Lion(true, field, location);
-                    actors.add(lion);
-                }*/
                 else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Rock rock = new Rock(field, location);
@@ -304,23 +261,6 @@ public class Controller extends AbstractController
                 // else leave the location empty.
             }
         }
-    }
-    
-    class SimulationActionListeners implements ActionListener
-    {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String s = e.getActionCommand();
-			
-			if(s.equals("1 step")) {simulateOneStep(); }
-			if(s.equals("100 steps")) {hunderdSteps(); }
-			if(s.equals("Reset")) {reset(); ; playSound("reset.wav"); }
-            if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
-            if(s.equals("About")) { showAbout(); }
-            if(s.equals("Settings")) { new SliderController(); }
-            if(s.equals("Start")) {start(); }
-            if(s.equals("Stop/Resume")) {stop(); }
-		}
     }
     public void makeFrame(int height, int width)
     {
@@ -402,26 +342,6 @@ public class Controller extends AbstractController
         pack();
         setVisible(true);
     }
-    
-    /**
-     * Define a color to be used for a given class of animal.
-     * @param animalClass The animal's Class object.
-     * @param color The color to be used for the given class.
-     */
-    public void setColor(Class animalClass, Color color)
-    {
-        colors.put(animalClass, color);
-    }
-    
-    public void startDisease()
-    {
-        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
-            Actor actor = it.next();
-            if(actor instanceof Rabbit) {
-            	((Rabbit) actor).setZiekte(Randomizer.getRandomZiekte());
-            }
-        }
-    }
 
     /**
      * @return The color to be used for a given class of animal.
@@ -437,46 +357,15 @@ public class Controller extends AbstractController
             return col;
         }
     }
-
-    public void addStepOneListener(ActionListener listenForStepOne)
-    {
-    	oneStep.addActionListener(listenForStepOne);
-    }
     
-    public void addStepHundredListener(ActionListener listenForStepHundred)
+    public void startDisease()
     {
-        hundredStep.addActionListener(listenForStepHundred);
-    }
-    
-    public void addResetListener(ActionListener listenForStepHundred)
-    {
-        reset.addActionListener(listenForStepHundred);
-    }
-    
-    public void addDiseaseListener(ActionListener listenForDisease)
-    {
-        disease.addActionListener(listenForDisease);
-    }
-    
-    public void addAboutListener(ActionListener listenForAbout)
-    {
-    helpMenu.addActionListener(listenForAbout);
-    aboutItem.addActionListener(listenForAbout);
-    }
-    
-    public void addSettingsListener(ActionListener listenForAbout)
-    {
-    settingsItem.addActionListener(listenForAbout);
-    }
-    
-    public void addStartListener(ActionListener listenForStart)
-    {
-        start.addActionListener(listenForStart);
-    }
-    
-    public void addStopListener(ActionListener listenForStop)
-    {
-        stop.addActionListener(listenForStop);
+        for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
+            Actor actor = it.next();
+            if(actor instanceof Rabbit) {
+            	((Rabbit) actor).setZiekte(Randomizer.getRandomZiekte());
+            }
+        }
     }
     
     /**
@@ -554,32 +443,123 @@ public class Controller extends AbstractController
         return stats.isViable(field);
     }
     
-    public void showAbout()
+    public static void setRabbitCreationProbability(double probability)
     {
-	    JOptionPane.showMessageDialog(this,
-	    "Fox and Rabbit Simulation\n" + VERSION,
-	    "About Fox and Rabbit Simulation",
-	    JOptionPane.INFORMATION_MESSAGE
-	    );
+    	RABBIT_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setFoxCreationProbability(double probability)
+    {
+    	FOX_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setLynxCreationProbability(double probability)
+    {
+    	LYNX_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setGrassCreationProbability(double probability)
+    {
+    	GRASS_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setHunterCreationProbability(double probability)
+    {
+    	HUNTER_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setRockCreationProbability(double probability)
+    {
+    	ROCK_CREATION_PROBABILITY = probability;
     }
     
     public static synchronized void playSound(final String url)
     {
-		new Thread(new Runnable() {
-			public void run()
-			{
-				try {
-					Clip clip = AudioSystem.getClip();
-					AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-					Main.class.getResourceAsStream("../../sounds/" + url));
-			        clip.open(inputStream);
-			        clip.start();
-				} catch (Exception e) {
-					System.err.println(e.getMessage());
-				}
-			}
-		}).start();
-	}
+        new Thread(new Runnable() 
+        {
+            public void run()
+            {
+                try {
+                    Clip clip = AudioSystem.getClip();
+                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+                    Main.class.getResourceAsStream("../../sounds/" + url));
+                    clip.open(inputStream);
+                    clip.start();
+                }
+                catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+	}).start();
+    }
+    
+    /**
+     * Define a color to be used for a given class of animal.
+     * @param animalClass The animal's Class object.
+     * @param color The color to be used for the given class.
+     */
+    public void setColor(Class animalClass, Color color)
+    {
+        colors.put(animalClass, color);
+    }
+    
+    public void addStepOneListener(ActionListener listenForStepOne)
+    {
+    	oneStep.addActionListener(listenForStepOne);
+    }
+    
+    public void addStepHundredListener(ActionListener listenForStepHundred)
+    {
+        hundredStep.addActionListener(listenForStepHundred);
+    }
+    
+    public void addResetListener(ActionListener listenForStepHundred)
+    {
+        reset.addActionListener(listenForStepHundred);
+    }
+    
+    public void addDiseaseListener(ActionListener listenForDisease)
+    {
+        disease.addActionListener(listenForDisease);
+    }
+    
+    public void addAboutListener(ActionListener listenForAbout)
+    {
+        helpMenu.addActionListener(listenForAbout);
+        aboutItem.addActionListener(listenForAbout);
+    }
+    
+    public void addSettingsListener(ActionListener listenForAbout)
+    {
+        settingsItem.addActionListener(listenForAbout);
+    }
+    
+    public void addStartListener(ActionListener listenForStart)
+    {
+        start.addActionListener(listenForStart);
+    }
+    
+    public void addStopListener(ActionListener listenForStop)
+    {
+        stop.addActionListener(listenForStop);
+    }
+    
+    class SimulationActionListeners implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+	String s = e.getActionCommand();
+			
+	if(s.equals("1 step")) {simulateOneStep(); }
+	if(s.equals("100 steps")) {hunderdSteps(); }
+        if(s.equals("Reset")) {reset(); ; playSound("reset.wav"); }
+        if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
+        if(s.equals("About")) { showAbout(); }
+        if(s.equals("Settings")) { new SliderController(); }
+        if(s.equals("Start")) {start(); }
+        if(s.equals("Stop/Resume")) {stop(); }
+		}
+    }
     
     class SimulatorThread extends Thread {
         SimulatorThread() {
@@ -629,5 +609,5 @@ public class Controller extends AbstractController
                     catch (InterruptedException e){}
                 }
         }
-    }  
+    }
 }
