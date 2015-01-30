@@ -7,7 +7,6 @@ import java.awt.Image;
 
 import javax.swing.*;
 
-import vossen_en_konijnen.controller.SimulatorView;
 import vossen_en_konijnen.model.FieldStats;
 
 @SuppressWarnings({"serial"})
