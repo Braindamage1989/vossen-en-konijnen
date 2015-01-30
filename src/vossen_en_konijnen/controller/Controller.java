@@ -172,6 +172,7 @@ public class Controller extends AbstractController
         started = false;
         step = 0;
         actors.clear();
+        Randomizer.reset();
         stats.clearHistory();
         populate();
         
