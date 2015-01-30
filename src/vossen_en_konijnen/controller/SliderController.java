@@ -71,7 +71,58 @@ public class SliderController extends AbstractController
         addDefaultListener(new ButtonActionListener());
         
         
-        //**************************************Age sliders
+        //*********************************************************************Probability sliders
+        
+        //Slider to change rabbit creation probability
+        rabbitCreationProbability = new JSlider(0, 20);
+        rabbitCreationProbability.setValue((int) (Controller.getRabbitCreationProbability()*100));
+        addSlider(rabbitPanel, rabbitCreationProbability, "Rabbit creation probability", 10, 1);
+        rabbitCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setRabbitCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //Slider to change fox creation probability
+        foxCreationProbability = new JSlider(0, 20);
+        foxCreationProbability.setValue((int) (Controller.getFoxCreationProbability()*100));
+        addSlider(foxPanel, foxCreationProbability, "Fox creation probability", 10, 1);
+        foxCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setFoxCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //Slider to change lynx creation probability
+        lynxCreationProbability = new JSlider(0, 20);
+        lynxCreationProbability.setValue((int) (Controller.getLynxCreationProbability()*100));
+        addSlider(lynxPanel, lynxCreationProbability, "Lynx creation probability", 10, 1);
+        lynxCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setLynxCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //Slider to change hunter creation probability
+        hunterCreationProbability = new JSlider(0, 20);
+        hunterCreationProbability.setValue((int) (Controller.getHunterCreationProbability()*1000));
+        addSlider(hunterPanel, hunterCreationProbability, "Hunter creation probability", 10, 1);
+        hunterCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setHunterCreationProbability((double) (source.getValue()/1000));
+        	}
+        });
+        
+        
+        //********************************************************************Age sliders
         
         //Slider to change max age of rabbits
         rabbitAgeSlider = new JSlider(10, 100);
@@ -110,7 +161,7 @@ public class SliderController extends AbstractController
         	}
         });
         
-        //*****************************************************Breeding age sliders
+        //**********************************************************************Breeding age sliders
         
         //Slider to change minimum breeding age for rabbits
         rabbitBreedingSlider = new JSlider(0, 50);
@@ -148,7 +199,7 @@ public class SliderController extends AbstractController
         	}
         });
         
-        //*****************************************************Breeding probability sliders
+        //*****************************************************************Breeding probability sliders
         
         //Slider to change the chance of breeding for rabbits (in %)
         rabbitBreedingProbability = new JSlider(0, 100);
@@ -186,7 +237,7 @@ public class SliderController extends AbstractController
         	}
         });
         
-        //*****************************************************************Max litter sizes
+        //*************************************************************************Max litter sizes
         
         //Max litter size for rabbits
         rabbitMaxLitterSizeSlider = new JSlider(0, 8);
@@ -264,6 +315,18 @@ public class SliderController extends AbstractController
         
         //********************************************************Grass sliders
         
+        //Slider to change grass creation probability
+        grassCreationProbability = new JSlider(0, 40);
+        grassCreationProbability.setValue((int) (Controller.getGrassCreationProbability()*100));
+        addSlider(grassPanel, grassCreationProbability, "Grass creation probability", 10, 5);
+        grassCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setGrassCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
         //Slider to change max age of grass
         grassAgeSlider = new JSlider(5, 50);
         grassAgeSlider.setValue(Grass.getMaxAge());
@@ -312,69 +375,6 @@ public class SliderController extends AbstractController
         	}
         });
         
-        //Slider to change grass creation probability
-        grassCreationProbability = new JSlider(0, 20);
-        grassCreationProbability.setValue((int) (Controller.getGrassCreationProbability()*100));
-        addSlider(grassPanel, grassCreationProbability, "Grass creation probability", 10, 5);
-        grassCreationProbability.addChangeListener(new ChangeListener(){
-        	@Override
-        	public void stateChanged(ChangeEvent e) {
-        		JSlider source = (JSlider) e.getSource();
-        		Controller.setGrassCreationProbability((double) (source.getValue()/100));
-        	}
-        });
-        
-        //*********************************************************************Probability sliders
-        
-        //Slider to change rabbit creation probability
-        rabbitCreationProbability = new JSlider(0, 20);
-        rabbitCreationProbability.setValue((int) (Controller.getRabbitCreationProbability()*100));
-        addSlider(rabbitPanel, rabbitCreationProbability, "Rabbit creation probability", 10, 5);
-        rabbitCreationProbability.addChangeListener(new ChangeListener(){
-        	@Override
-        	public void stateChanged(ChangeEvent e) {
-        		JSlider source = (JSlider) e.getSource();
-        		Controller.setRabbitCreationProbability((double) (source.getValue()/100));
-        	}
-        });
-        
-        //Slider to change fox creation probability
-        foxCreationProbability = new JSlider(0, 20);
-        foxCreationProbability.setValue((int) (Controller.getFoxCreationProbability()*100));
-        addSlider(foxPanel, foxCreationProbability, "Fox creation probability", 10, 5);
-        foxCreationProbability.addChangeListener(new ChangeListener(){
-        	@Override
-        	public void stateChanged(ChangeEvent e) {
-        		JSlider source = (JSlider) e.getSource();
-        		Controller.setFoxCreationProbability((double) (source.getValue()/100));
-        	}
-        });
-        
-        //Slider to change lynx creation probability
-        lynxCreationProbability = new JSlider(0, 20);
-        lynxCreationProbability.setValue((int) (Controller.getLynxCreationProbability()*100));
-        addSlider(lynxPanel, lynxCreationProbability, "Lynx creation probability", 10, 5);
-        lynxCreationProbability.addChangeListener(new ChangeListener(){
-        	@Override
-        	public void stateChanged(ChangeEvent e) {
-        		JSlider source = (JSlider) e.getSource();
-        		Controller.setLynxCreationProbability((double) (source.getValue()/100));
-        	}
-        });
-        
-        //Slider to change hunter creation probability
-        hunterCreationProbability = new JSlider(0, 20);
-        hunterCreationProbability.setValue((int) (Controller.getHunterCreationProbability()*100));
-        addSlider(hunterPanel, hunterCreationProbability, "Hunter creation probability", 10, 5);
-        hunterCreationProbability.addChangeListener(new ChangeListener(){
-        	@Override
-        	public void stateChanged(ChangeEvent e) {
-        		JSlider source = (JSlider) e.getSource();
-        		Controller.setHunterCreationProbability((double) (source.getValue()/100));
-        	}
-        });
-        
-        
         
         
         settingsTab.addTab("Rabbit", rabbitPanel);
@@ -415,6 +415,8 @@ public class SliderController extends AbstractController
     public void backToDefault()
     {
     	//defaults for rabbit
+    	Controller.setRabbitCreationProbability(0.08);
+    	rabbitCreationProbability.setValue((int) (Controller.getRabbitCreationProbability()*100));
     	Rabbit.setMaxAge(40);
     	rabbitAgeSlider.setValue(Rabbit.getMaxRabbitAge());
     	Rabbit.setBreedingAge(7);
@@ -427,6 +429,8 @@ public class SliderController extends AbstractController
     	rabbitMaxLitterSizeSlider.setValue(Rabbit.getMaxRabbitLitterSize());
     	
     	//defaults for fox
+    	Controller.setFoxCreationProbability(0.02);
+    	foxCreationProbability.setValue((int) (Controller.getFoxCreationProbability()*100));
     	Fox.setMaxAge(150);
     	foxAgeSlider.setValue(Fox.getMaxFoxAge());
     	Fox.setBreedingAge(9);
@@ -439,6 +443,8 @@ public class SliderController extends AbstractController
     	foxMaxLitterSizeSlider.setValue(Fox.getMaxFoxLitterSize());
     	
     	//defaults for lynx
+    	Controller.setLynxCreationProbability(0.01);
+    	lynxCreationProbability.setValue((int) (Controller.getLynxCreationProbability()*100));
     	Lynx.setMaxAge(150);
     	lynxAgeSlider.setValue(Lynx.getMaxLynxAge());
     	Lynx.setBreedingAge(20);
@@ -451,6 +457,8 @@ public class SliderController extends AbstractController
     	lynxMaxLitterSizeSlider.setValue(Lynx.getMaxLynxLitterSize());
     	
     	//defaults for grass
+    	Controller.setGrassCreationProbability(0.14);
+    	grassCreationProbability.setValue((int) (Controller.getGrassCreationProbability()*100));
     	Grass.setMaxAge(15);
     	grassAgeSlider.setValue(Grass.getMaxAge());
     	Grass.setMultiplyingAge(3);
@@ -459,6 +467,10 @@ public class SliderController extends AbstractController
     	grassMultiplyingProbability.setValue((int) (Grass.getMultiplyingProbability()*100));
     	Grass.setMaxMultiplyingSize(8);
     	grassMaxMultiplySize.setValue(Grass.getMaxMultiplyingSize());
+    	
+    	//defaults for hunter
+    	Controller.setHunterCreationProbability(0.005);
+    	hunterCreationProbability.setValue((int) (Controller.getHunterCreationProbability()*1000));
     }
     
     public void addDefaultListener(ActionListener listenForDefault)
