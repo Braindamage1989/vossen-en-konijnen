@@ -41,9 +41,9 @@ public class Fox extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public Fox(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field, location);
+        super(field, location, gender);
         if(randomAge) {
             setAge(rand.nextInt(MAX_AGE));
             setFoodLevel(rand.nextInt(RABBIT_FOOD_VALUE));
