@@ -214,7 +214,7 @@ public abstract class Animal implements Actor
         return age;
     }
     
-    protected boolean getGender()
+    public boolean getGender()
     {
     	return gender;
     }

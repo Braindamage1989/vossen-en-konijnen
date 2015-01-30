@@ -263,11 +263,13 @@ public class Controller extends AbstractController
         AbstractView pieView = new PieView(this, stats, height, width);
         AbstractView lineView = new LineView(this, stats, height, width);
         AbstractView barView = new BarView(this, stats, height, width);
+        AbstractView tempBarView = new TempBarView(this, stats, height, width);
         
         views.add(fieldView);
         views.add(pieView);
         views.add(lineView);
         views.add(barView);
+        views.add(tempBarView);
         
         Container buttonView = new JPanel();
         buttonView.setLayout(new FlowLayout());
@@ -294,6 +296,7 @@ public class Controller extends AbstractController
         viewContainer.addTab("pieView", null, pieView, "The chart representing all that still lifes. :)");
         viewContainer.addTab("lineView", null, lineView, "Here you see how many there are alive");
         viewContainer.addTab("barView", null, barView, "This shows some statistics");
+        viewContainer.addTab("tempBarView", null, tempBarView, "This shows how many of gender");
         
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -485,4 +488,8 @@ public class Controller extends AbstractController
          }
      }
     
+    public List<Actor> tempGetActors()
+    {
+    	return actors;
+    }
 }
