@@ -82,7 +82,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Controller.setRabbitCreationProbability((double) (source.getValue()/100));
+        		Controller.setRabbitCreationProbability(((double) source.getValue()) / 100);
         	}
         });
         
@@ -94,7 +94,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Controller.setFoxCreationProbability((double) (source.getValue()/100));
+        		Controller.setFoxCreationProbability(((double)source.getValue())/100);
         	}
         });
         
@@ -106,7 +106,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Controller.setLynxCreationProbability((double) (source.getValue()/100));
+        		Controller.setLynxCreationProbability(((double)source.getValue())/100);
         	}
         });
         
@@ -118,7 +118,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Controller.setHunterCreationProbability((double) (source.getValue()/1000));
+        		Controller.setHunterCreationProbability(((double)source.getValue())/1000);
         	}
         });
         
@@ -210,7 +210,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Rabbit.setBreedingProbability(source.getValue() / 100);
+        		Rabbit.setBreedingProbability(((double)source.getValue()) / 100);
         	}
         });
         
@@ -222,7 +222,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Fox.setBreedingProbability(source.getValue() / 100);
+        		Fox.setBreedingProbability(((double)source.getValue()) / 100);
         	}
         });
         
@@ -234,7 +234,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Lynx.setBreedingProbability(source.getValue() / 100);
+        		Lynx.setBreedingProbability(((double)source.getValue()) / 100);
         	}
         });
         
@@ -324,7 +324,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Controller.setGrassCreationProbability((double) (source.getValue()/100));
+        		Controller.setGrassCreationProbability(((double)source.getValue())/100);
         	}
         });
         
@@ -384,7 +384,7 @@ public class SliderController extends AbstractController
         	@Override
         	public void stateChanged(ChangeEvent e) {
         		JSlider source = (JSlider) e.getSource();
-        		Controller.setRockCreationProbability((double) (source.getValue()/100));
+        		Controller.setRockCreationProbability(((double)source.getValue())/100);
         	}
         });
         
