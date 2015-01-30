@@ -22,7 +22,7 @@ public class PieView extends AbstractView
 	
 	/**
 	 * Update the statistics.
-	 * @param stats
+	 * @param stats Statistics form current field
 	 */
 	public void updateStats(FieldStats stats)
 	{
