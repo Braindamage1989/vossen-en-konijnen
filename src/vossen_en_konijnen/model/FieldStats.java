@@ -1,6 +1,5 @@
 package vossen_en_konijnen.model; 
 
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -18,6 +17,7 @@ public class FieldStats
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, Counter> counters;
     
+    // Counters for each type of entity, going back 100 steps (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, LinkedList<Integer>> countHistory;
     // Whether the counters are currently up to date.
     private boolean countsValid;

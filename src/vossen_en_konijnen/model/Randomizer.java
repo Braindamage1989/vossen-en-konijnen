@@ -50,6 +50,10 @@ public class Randomizer
         }
     }
     
+    /**
+     * Determine if a rabbit has a disease gen
+     * @return if a rabbit has a disease gen
+     */
     public static boolean getRandomZiekteGen() 
     {
         boolean ziekte = true;
@@ -64,6 +68,10 @@ public class Randomizer
         return ziekte;
     }
     
+    /**
+     * Determine if a rabbit gets sick
+     * @return Will the rabbit get sick when disease got released?
+     */
     public static boolean getRandomZiekte()
     {
     	boolean ziekte = false;
