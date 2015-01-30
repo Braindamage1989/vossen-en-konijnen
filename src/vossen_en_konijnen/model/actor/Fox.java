@@ -20,16 +20,16 @@ public class Fox extends Animal
     // Characteristics shared by all foxes (class variables).
     
     // The age at which a fox can start to breed.
-    private static int BREEDING_AGE = 9;
+    private static int breedingAge = 9;
     // The age to which a fox can live.
-    private static int MAX_AGE = 150;
+    private static int maxAge = 150;
     // The likelihood of a fox breeding.
-    private static double BREEDING_PROBABILITY = 0.1;
+    private static double breedingProbability = 0.1;
     // The maximum number of births.
-    private static int MAX_LITTER_SIZE = 4;
+    private static int maxLitterSize = 4;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static int RABBIT_FOOD_VALUE = 14;
+    private static int rabbitFoodValue = 14;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -45,12 +45,12 @@ public class Fox extends Animal
     {
         super(field, location, gender);
         if(randomAge) {
-            setAge(rand.nextInt(MAX_AGE));
-            setFoodLevel(rand.nextInt(RABBIT_FOOD_VALUE));
+            setAge(rand.nextInt(maxAge));
+            setFoodLevel(rand.nextInt(rabbitFoodValue));
         }
         else {
             setAge(0);
-            setFoodLevel(RABBIT_FOOD_VALUE);
+            setFoodLevel(rabbitFoodValue);
         }
     }
     
@@ -101,7 +101,7 @@ public class Fox extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    setFoodLevel(RABBIT_FOOD_VALUE);
+                    setFoodLevel(rabbitFoodValue);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -110,74 +110,89 @@ public class Fox extends Animal
         return null;
     }
     
-    
+    /**
+     * Setter for the maximum age of foxes
+     * @param age the maximum age for foxes
+     */
     public static void setMaxAge(int age)
     {
-    	MAX_AGE = age;
+    	maxAge = age;
     }
     
+    /**
+     * Setter for the breeding age of foxes
+     * @param age the breeding age for foxes
+     */
     public static void setBreedingAge(int age)
     {
-    	BREEDING_AGE = age;
+    	breedingAge = age;
     }
     
+    /**
+     * Setter for the chance foxes will breed
+     * @param chance The chance a fox will breed
+     */
     public static void setBreedingProbability(double chance)
     {
-    	BREEDING_PROBABILITY = chance;
+    	breedingProbability = chance;
     }
     
+    /**
+     * Setter for the chance foxes will breed
+     * @param chance The chance a fox will breed
+     */
     public static void setRabbitFoodValue(int value)
     {
-    	RABBIT_FOOD_VALUE = value;
+    	rabbitFoodValue = value;
     }
     
     public static void setMaxLitterSize(int litterSize)
     {
-    	MAX_LITTER_SIZE = litterSize;
+    	maxLitterSize = litterSize;
     }
     
     public int getBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
     public static int getFoxBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
     public int getMaxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
     public static int getMaxFoxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
     public double getBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
     public static double getFoxBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
     public int getMaxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
     }
     
     public static int getMaxFoxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
     }
     
     public static int getRabbitFoodValue()
     {
-        return RABBIT_FOOD_VALUE;
+        return rabbitFoodValue;
     }
 }
