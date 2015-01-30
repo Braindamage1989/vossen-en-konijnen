@@ -16,7 +16,6 @@ public class FieldStats
 {
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, Counter> counters;
-    
     // Counters for each type of entity, going back 100 steps (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, LinkedList<Integer>> countHistory;
     // Whether the counters are currently up to date.
@@ -56,6 +55,7 @@ public class FieldStats
     
     /**
      * 
+     * @return 
      */
     public HashMap<Class, Counter> getCounters()
     {
@@ -64,6 +64,7 @@ public class FieldStats
     
     /**
      * 
+     * @return 
      */
     public HashMap<Class, LinkedList<Integer>> getHistory()
     {
@@ -136,6 +137,7 @@ public class FieldStats
     /**
      * Determine whether the simulation is still viable.
      * I.e., should it continue to run.
+     * @param field
      * @return true If there is more than one species alive.
      */
     public boolean isViable(Field field)
