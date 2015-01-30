@@ -20,6 +20,10 @@ public class PieView extends AbstractView
 
 	/**
 	 * Create a new PieView component.
+	 * @param model The currently used model
+	 * @param stats The statistics of the current model
+	 * @param height The height of the grid
+	 * @param width The width of the grid
 	 */
 	public PieView(Controller model, FieldStats stats, int height, int width) 
 	{
@@ -27,11 +31,8 @@ public class PieView extends AbstractView
 	}
 	
 	/**
-	 * Create a new PieView component.
-	 * @param model The currently used model
-	 * @param stats The statistics of the current model
-	 * @param height The height of the grid
-	 * @param width The width of the grid
+	 * Update the statistics
+	 * @param stats Statistics form current field
 	 */
 	public void updateStats(FieldStats stats)
 	{
