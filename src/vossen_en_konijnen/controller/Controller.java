@@ -328,10 +328,10 @@ public class Controller extends AbstractController
         helpMenu.add(aboutItem);
 
         JTabbedPane viewContainer = new JTabbedPane();
-        viewContainer.addTab("fieldView", null, fieldView, "The field in wich it all dies...");
-        viewContainer.addTab("pieView", null, pieView, "The chart representing all that still lifes. :)");
-        viewContainer.addTab("lineView", null, lineView, "Here you see how many there are alive");
-        viewContainer.addTab("barView", null, barView, "This shows some statistics");
+        viewContainer.addTab("Field Chart", null, fieldView);
+        viewContainer.addTab("Pie Chart", null, pieView);
+        viewContainer.addTab("Line Chart", null, lineView);
+        viewContainer.addTab("Bar Chart", null, barView);
         
         Container contents = getContentPane();
         contents.add(stepLabel, BorderLayout.NORTH);
@@ -511,7 +511,7 @@ public class Controller extends AbstractController
 			
 	if(s.equals("1 step")) {simulateOneStep(); }
 	if(s.equals("100 steps")) {hunderdSteps(); }
-        if(s.equals("Reset")) {reset(); ; playSound("reset.wav"); }
+        if(s.equals("Reset")) {reset(); playSound("rewind.wav"); }
         if(s.equals("Disease")) {startDisease(); playSound("disease.wav"); }
         if(s.equals("About")) { showAbout(); }
         if(s.equals("Settings")) { new SliderController(); }
