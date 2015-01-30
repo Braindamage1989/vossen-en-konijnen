@@ -148,7 +148,6 @@ public class Controller extends AbstractController
     	LYNX_CREATION_PROBABILITY = probability;
     }
     
-    
     public static void setGrassCreationProbability(double probability)
     {
     	GRASS_CREATION_PROBABILITY = probability;
@@ -157,6 +156,11 @@ public class Controller extends AbstractController
     public static void setHunterCreationProbability(double probability)
     {
     	HUNTER_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setRockCreationProbability(double probability)
+    {
+    	ROCK_CREATION_PROBABILITY = probability;
     }
     
     public static double getRabbitCreationProbability()
@@ -182,6 +186,11 @@ public class Controller extends AbstractController
     public static double getHunterCreationProbability()
     {
     	return HUNTER_CREATION_PROBABILITY;
+    }
+    
+    public static double getRockCreationProbability()
+    {
+    	return ROCK_CREATION_PROBABILITY;
     }
     
     /**
