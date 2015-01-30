@@ -261,19 +261,20 @@ public class Controller extends AbstractController
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
+            	boolean gender = rand.nextBoolean();
                 if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
+                    Fox fox = new Fox(true, field, location, gender);
                     actors.add(fox);
                 }
                 else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location);
+                    Rabbit rabbit = new Rabbit(true, field, location, gender);
                     actors.add(rabbit);
                 }
                 else if(rand.nextDouble() <= LYNX_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Lynx lynx = new Lynx(true, field, location);
+                    Lynx lynx = new Lynx(true, field, location, gender);
                     actors.add(lynx);
                 }
                 else if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
