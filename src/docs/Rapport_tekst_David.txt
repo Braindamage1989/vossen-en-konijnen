@@ -1,0 +1,7 @@
+2.1.1 Diagrammen
+Om de statistieken van de simulatie overzichtelijk weer te geven, zijn er verschillende diagrammen toegevoegd. De gebruikte diagrammen zijn:
+Cirkeldiagram
+Staafdiagram
+Lijndiagram
+De cirkeldiagram en staafdiagram geven op twee verschillende manieren de verhouding weer tussen de actoren. Dit maakt het inzichtelijk wat er op het veld gebeurt en hoe het veld er op dat moment uitziet.
+De lijndiagram geeft een korte geschiedenis van de aantallen van de verschillende actoren weer. Daardoor word er een duidelijk beeld gecreëerd van de ontwikkelingen die plaats vinden op het veld.
