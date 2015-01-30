@@ -8,11 +8,21 @@ import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
 @SuppressWarnings({"serial","rawtypes","unused"})
+/**
+ * This class creates a view of a bar graph representing statistics from an FieldStats instance.
+ * 
+ * @author David Bor
+ * @version 30-01-2015
+ */
 public class BarView extends AbstractView
 {
 
 	/**
 	 * Create a new BarView component.
+	 * @param model The currently used model
+	 * @param stats The statistics of the current model
+	 * @param height The height of the grid
+	 * @param width The width of the grid
 	 */
 	public BarView(Controller model, FieldStats stats, int height, int width) 
 	{
@@ -20,8 +30,8 @@ public class BarView extends AbstractView
 	}
 	
 	/**
-	 * Update the stats
-	 * @param stats
+	 * Update the statistics
+	 * @param stats Statistics form current field
 	 */
 	public void updateStats(FieldStats stats)
 	{

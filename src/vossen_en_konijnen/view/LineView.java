@@ -5,15 +5,24 @@ import java.awt.*;
 //import java.math.*;
 
 import vossen_en_konijnen.controller.Controller;
-import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
 @SuppressWarnings({"serial","rawtypes"})
+/**
+ * This class creates a view of a line graph representing statistics from an FieldStats instance.
+ * 
+ * @author David Bor
+ * @version 30-01-2015
+ */
 public class LineView extends AbstractView
 {
 
 	/**
 	 * Create a new LineView component.
+	 * @param model The currently used model
+	 * @param stats The statistics of the current model
+	 * @param height The height of the grid
+	 * @param width The width of the grid
 	 */
 	public LineView(Controller model, FieldStats stats, int height, int width) 
 	{
@@ -22,7 +31,7 @@ public class LineView extends AbstractView
 	
 	/**
 	 * Update the statistics.
-	 * @param stats
+	 * @param stats Statistics form current field
 	 */
 	public void updateStats(FieldStats stats)
 	{
