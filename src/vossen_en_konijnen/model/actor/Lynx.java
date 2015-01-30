@@ -41,9 +41,9 @@ public class Lynx extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Lynx(boolean randomAge, Field field, Location location)
+    public Lynx(boolean randomAge, Field field, Location location, boolean gender)
     {
-        super(field, location);
+        super(field, location, gender);
         if(randomAge) {
             setAge(rand.nextInt(MAX_AGE));
             setFoodLevel(rand.nextInt(FOOD_VALUE));
