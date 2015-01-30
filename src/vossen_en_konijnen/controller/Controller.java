@@ -25,19 +25,19 @@ public class Controller extends AbstractController
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a lynx will be created in any given grid position.
-    private static final double LYNX_CREATION_PROBABILITY = 0.01;
+    private static double LYNX_CREATION_PROBABILITY = 0.01;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    private static double FOX_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;
+    private static double RABBIT_CREATION_PROBABILITY = 0.08;
     // The probability that a lion will be created in any given grid position.
     //private static final double LION_CREATION_PROBABILITY = 0.005;
-    
-    private static final double HUNTER_CREATION_PROBABILITY = 0.005;
-    
-    private static final double ROCK_CREATION_PROBABILITY = 0.05;
-    
-    private static final double GRASS_CREATION_PROBABILITY = 0.14;
+    // The probability that a hunter will be created in any given grid position.
+    private static double HUNTER_CREATION_PROBABILITY = 0.005;
+    // The probability that a rock will be created in any given grid position.
+    private static double ROCK_CREATION_PROBABILITY = 0.05;
+    // The probability that grass will be created in any given grid position.
+    private static double GRASS_CREATION_PROBABILITY = 0.14;
     
     private static final String VERSION = "Version 0.8 Beta";
 
@@ -132,6 +132,57 @@ public class Controller extends AbstractController
             simulateOneStep();
         }
     }*/
+    
+    public static void setRabbitCreationProbability(double probability)
+    {
+    	RABBIT_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setFoxCreationProbability(double probability)
+    {
+    	FOX_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setLynxCreationProbability(double probability)
+    {
+    	LYNX_CREATION_PROBABILITY = probability;
+    }
+    
+    
+    public static void setGrassCreationProbability(double probability)
+    {
+    	GRASS_CREATION_PROBABILITY = probability;
+    }
+    
+    public static void setHunterCreationProbability(double probability)
+    {
+    	HUNTER_CREATION_PROBABILITY = probability;
+    }
+    
+    public static double getRabbitCreationProbability()
+    {
+    	return RABBIT_CREATION_PROBABILITY;
+    }
+    
+    public static double getFoxCreationProbability()
+    {
+    	return FOX_CREATION_PROBABILITY;
+    }
+    
+    public static double getLynxCreationProbability()
+    {
+    	return LYNX_CREATION_PROBABILITY;
+    }
+    
+    public static double getGrassCreationProbability()
+    {
+    	return GRASS_CREATION_PROBABILITY;
+    }
+    
+    public static double getHunterCreationProbability()
+    {
+    	return HUNTER_CREATION_PROBABILITY;
+    }
     
     /**
      * Run the simulation from its current state for a single step.

@@ -22,12 +22,14 @@ public class SliderController extends AbstractController
 	private JPanel sliderPanel;
 	private ChangeListener listener;
 	private ActionListener actionListener;
-	private JSlider rabbitAgeSlider, foxAgeSlider, lynxAgeSlider,
+	private JSlider rabbitCreationProbability, foxCreationProbability, lynxCreationProbability, hunterCreationProbability,
+					rabbitAgeSlider, foxAgeSlider, lynxAgeSlider,
 					rabbitBreedingSlider, foxBreedingSlider, lynxBreedingSlider,
 					rabbitBreedingProbability, foxBreedingProbability, lynxBreedingProbability,
 					rabbitMaxLitterSizeSlider, foxMaxLitterSizeSlider, lynxMaxLitterSizeSlider,
 					rabbitFoodLevelSlider, foxFoodLevelSlider, lynxFoodLevelSlider,
-					grassAgeSlider, grassMultiplyingSlider, grassMultiplyingProbability, grassMaxMultiplySize;
+					grassCreationProbability, grassAgeSlider, grassMultiplyingSlider, grassMultiplyingProbability, grassMaxMultiplySize;
+					
 	private JTextField textField;
 	private JButton defaultValues;
 	
@@ -56,11 +58,13 @@ public class SliderController extends AbstractController
         JPanel foxPanel = new JPanel();
         JPanel lynxPanel = new JPanel();
         JPanel grassPanel = new JPanel();
+        JPanel hunterPanel = new JPanel();
         
-        rabbitPanel.setLayout(new GridLayout(5, 1));
-        foxPanel.setLayout(new GridLayout(5, 1));
-        lynxPanel.setLayout(new GridLayout(5, 1));
-        grassPanel.setLayout(new GridLayout(5, 1));
+        rabbitPanel.setLayout(new GridLayout(6, 1));
+        foxPanel.setLayout(new GridLayout(6, 1));
+        lynxPanel.setLayout(new GridLayout(6, 1));
+        grassPanel.setLayout(new GridLayout(6, 1));
+        hunterPanel.setLayout(new GridLayout(1, 1));
         
         defaultValues = new JButton("Default values");
         
@@ -308,6 +312,68 @@ public class SliderController extends AbstractController
         	}
         });
         
+        //Slider to change grass creation probability
+        grassCreationProbability = new JSlider(0, 20);
+        grassCreationProbability.setValue((int) (Controller.getGrassCreationProbability()*100));
+        addSlider(grassPanel, grassCreationProbability, "Grass creation probability", 10, 5);
+        grassCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setGrassCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //*********************************************************************Probability sliders
+        
+        //Slider to change rabbit creation probability
+        rabbitCreationProbability = new JSlider(0, 20);
+        rabbitCreationProbability.setValue((int) (Controller.getRabbitCreationProbability()*100));
+        addSlider(rabbitPanel, rabbitCreationProbability, "Rabbit creation probability", 10, 5);
+        rabbitCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setRabbitCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //Slider to change fox creation probability
+        foxCreationProbability = new JSlider(0, 20);
+        foxCreationProbability.setValue((int) (Controller.getFoxCreationProbability()*100));
+        addSlider(foxPanel, foxCreationProbability, "Fox creation probability", 10, 5);
+        foxCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setFoxCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //Slider to change lynx creation probability
+        lynxCreationProbability = new JSlider(0, 20);
+        lynxCreationProbability.setValue((int) (Controller.getLynxCreationProbability()*100));
+        addSlider(lynxPanel, lynxCreationProbability, "Lynx creation probability", 10, 5);
+        lynxCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setLynxCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
+        //Slider to change hunter creation probability
+        hunterCreationProbability = new JSlider(0, 20);
+        hunterCreationProbability.setValue((int) (Controller.getHunterCreationProbability()*100));
+        addSlider(hunterPanel, hunterCreationProbability, "Hunter creation probability", 10, 5);
+        hunterCreationProbability.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setHunterCreationProbability((double) (source.getValue()/100));
+        	}
+        });
+        
         
         
         
@@ -315,6 +381,7 @@ public class SliderController extends AbstractController
         settingsTab.addTab("Fox", foxPanel);
         settingsTab.addTab("Lynx", lynxPanel);
         settingsTab.addTab("Grass", grassPanel);
+        settingsTab.addTab("Hunter", hunterPanel);
         
         JPanel lowerPanel = new JPanel();
         lowerPanel.setLayout(new FlowLayout());
