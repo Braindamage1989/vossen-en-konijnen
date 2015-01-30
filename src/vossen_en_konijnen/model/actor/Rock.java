@@ -1,17 +1,15 @@
 package vossen_en_konijnen.model.actor; 
 
 import java.util.List;
-import java.util.Random;
 
 import vossen_en_konijnen.model.Field;
 import vossen_en_konijnen.model.Location;
 
 /**
- * A simple model of a hunter.
- * Hunters kill everything, and won't die.
+ * A class representing shared characteristics of animals.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author Ronald Scholten
+ * @version 2015.01.30
  */
 public class Rock implements Actor
 {    
@@ -22,10 +20,8 @@ public class Rock implements Actor
     private Location location;
 
     /**
-     * Create a hunter. A hunter can be created as a new born (age zero
-     * and not hungry) or with a random age and food level.
-     * 
-     * @param randomAge If true, the hunter will have random age and hunger level.
+     * Create a rock. A rock only has a location and
+     * is always active
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
@@ -35,22 +31,20 @@ public class Rock implements Actor
         setLocation(location);
     }
     
+    /**
+     * Overrides act methode from actor
+     * does nothing
+     * @param newRock override
+     */
+    @Override
     public void act(List<Actor> newRock)
     {
-            /*Location newLocation = findFood();
-            if(newLocation == null) { 
-                // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
-            // See if it was possible to move.
-            if(newLocation != null) {
-                setLocation(newLocation);
-            }*/
+        //Do nothing
     }
     
     /**
-     * Return the hunters location.
-     * @return The hunters location.
+     * Return the rocks location.
+     * @return The rocks location.
      */
     protected Location getLocation()
     {
@@ -58,8 +52,8 @@ public class Rock implements Actor
     }
     
     /**
-     * Place the hunter at the new location in the given field.
-     * @param newLocation The hunters new location.
+     * Place the rock at the new location in the given field.
+     * @param newLocation The rocks new location.
      */
     protected void setLocation(Location newLocation)
     {
@@ -71,14 +65,20 @@ public class Rock implements Actor
     }
     
     /**
-     * Return the hunters field.
-     * @return The hunters field.
+     * Return the rocks field.
+     * @return The rocks field.
      */
     protected Field getField()
     {
         return field;
     }
+   
     
+    /**
+     * Return if the rock is active
+     * @return true (rocks are always active)
+     */
+    @Override
     public boolean isActive()
     {
         return true;

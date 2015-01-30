@@ -10,8 +10,8 @@ import vossen_en_konijnen.model.Randomizer;
 /**
  * A class representing shared characteristics of animals.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author Ronald Scholten
+ * @version 2015.01.30
  */
 public abstract class Animal implements Actor
 {
@@ -21,11 +21,11 @@ public abstract class Animal implements Actor
     private Field field;
     // The animal's position in the field.
     private Location location;
-    
+     // The animal's age.
     private int age;
     // true is male, false is female
     private boolean gender;
-    
+     // The animal's food level
     private int foodLevel;
     
     private static final Random rand = Randomizer.getRandom();
@@ -42,6 +42,7 @@ public abstract class Animal implements Actor
      * 
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param gender The gender of an animal
      */
     public Animal(Field field, Location location, boolean gender)
     {
@@ -53,42 +54,40 @@ public abstract class Animal implements Actor
     }
     
     /**
-     * Check whether or not this fox is to give birth at this step.
+     * Check whether or not this animal is to give birth at this step.
      * New births will be made into free adjacent locations.
-     * @param newFoxes A list to return newly born foxes.
+     * @param newAnimals A list to return newly born animals.
      */
     protected void giveBirth(List<Actor> newAnimals)
     {
-    	if(findMate(this)) {
-	        // New foxes are born into adjacent locations.
-	        // Get a list of adjacent free locations.
-	        Animal animal = this;
-	        Field field = getField();
-	        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-	        int births = breed();
-	        boolean gender = rand.nextBoolean();
-	        for(int b = 0; b < births && free.size() > 0; b++) {
-	            Location loc = free.remove(0);
-	            if(animal instanceof Fox) {
-	                Fox young = new Fox(false, field, loc, gender);
-	                newAnimals.add(young);
-	            }
-	            else if(animal instanceof Rabbit) {
-	                Rabbit young = new Rabbit(false, field, loc, gender);
-	                newAnimals.add(young);
-	            }
-	            else if(animal instanceof Lynx) {
-	                Lynx young = new Lynx(false, field, loc, gender);
-	                newAnimals.add(young);
-	            }
-	           /* else if(animal instanceof Lion) {
-	                Lion young = new Lion(false, field, loc);
-	                newAnimals.add(young);
-	            }*/
+        if(findMate(this)) {
+	    Animal animal = this;
+	    Field field = getField();
+	    List<Location> free = field.getFreeAdjacentLocations(getLocation());
+	    int births = breed();
+	    boolean gender = rand.nextBoolean();
+	    for(int b = 0; b < births && free.size() > 0; b++) {
+	        Location loc = free.remove(0);
+	        if(animal instanceof Fox) {
+	            Fox young = new Fox(false, field, loc, gender);
+	            newAnimals.add(young);
 	        }
+	        else if(animal instanceof Rabbit) {
+	            Rabbit young = new Rabbit(false, field, loc, gender);
+	            newAnimals.add(young);
+	        }
+                else if(animal instanceof Lynx) {
+	            Lynx young = new Lynx(false, field, loc, gender);
+	            newAnimals.add(young);
+	        }
+	    }
     	}
     }
     
+    /**
+     * Find a mate to breed with
+     * @param Animal The animal that wants to find a mate.
+     */
     protected boolean findMate(Animal animal)
     {
         List<Location> adjacent = field.adjacentLocations(location);
@@ -110,6 +109,10 @@ public abstract class Animal implements Actor
     	return false;
     }
     
+    /**
+     * Setter for age of the animal
+     * @param age The age of the animal
+     */
     protected void setAge(int age)
     {
         this.age = age;
@@ -141,7 +144,7 @@ public abstract class Animal implements Actor
     }
         
     /**
-     * Increase the age. This could result in the fox's death.
+     * Increase the age. This could result in the animals death.
      */
     protected void incrementAge()
     {
@@ -151,6 +154,10 @@ public abstract class Animal implements Actor
         }
     }
     
+    /**
+     * Set the animals food level.
+     * @param foodLevel int The value of the animals food level
+     */
     protected void setFoodLevel(int foodLevel)
     {
         this.foodLevel = foodLevel;
@@ -209,14 +216,22 @@ public abstract class Animal implements Actor
         return births;
     }
     
+    /**
+     * Getter for age of the animal
+     * @return The age of the animal
+     */
     protected int getAge()
     {
         return age;
     }
     
+    /**
+     * Getter for gender of the animal
+     * @return The gender of the animal
+     */
     public boolean getGender()
     {
-    	return gender;
+        return gender;
     }
     
     /**

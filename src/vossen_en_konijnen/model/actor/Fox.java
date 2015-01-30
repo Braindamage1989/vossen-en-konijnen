@@ -12,8 +12,8 @@ import vossen_en_konijnen.model.Randomizer;
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author David J. Barnes, Michael Kölling, Frank Mulder, Ronald Scholten
+ * @version 2015.01.30
  */
 public class Fox extends Animal
 {
@@ -109,6 +109,7 @@ public class Fox extends Animal
         }
         return null;
     }
+    
     
     public static void setMaxAge(int age)
     {
