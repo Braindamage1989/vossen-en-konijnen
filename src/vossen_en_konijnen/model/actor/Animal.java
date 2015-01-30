@@ -23,6 +23,8 @@ public abstract class Animal implements Actor
     private Location location;
     
     private int age;
+    // true is male, false is female
+    private boolean gender;
     
     private int foodLevel;
     
@@ -41,12 +43,13 @@ public abstract class Animal implements Actor
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location)
+    public Animal(Field field, Location location, boolean gender)
     {
         alive = true;
         this.field = field;
         setLocation(location);
         age = 0;
+        this.gender = gender;
     }
     
     /**
@@ -56,31 +59,55 @@ public abstract class Animal implements Actor
      */
     protected void giveBirth(List<Actor> newAnimals)
     {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Animal animal = this;
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            Location loc = free.remove(0);
-            if(animal instanceof Fox) {
-                Fox young = new Fox(false, field, loc);
-                newAnimals.add(young);
+    	if(findMate(this)) {
+	        // New foxes are born into adjacent locations.
+	        // Get a list of adjacent free locations.
+	        Animal animal = this;
+	        Field field = getField();
+	        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+	        int births = breed();
+	        boolean gender = rand.nextBoolean();
+	        for(int b = 0; b < births && free.size() > 0; b++) {
+	            Location loc = free.remove(0);
+	            if(animal instanceof Fox) {
+	                Fox young = new Fox(false, field, loc, gender);
+	                newAnimals.add(young);
+	            }
+	            else if(animal instanceof Rabbit) {
+	                Rabbit young = new Rabbit(false, field, loc, gender);
+	                newAnimals.add(young);
+	            }
+	            else if(animal instanceof Lynx) {
+	                Lynx young = new Lynx(false, field, loc, gender);
+	                newAnimals.add(young);
+	            }
+	           /* else if(animal instanceof Lion) {
+	                Lion young = new Lion(false, field, loc);
+	                newAnimals.add(young);
+	            }*/
+	        }
+    	}
+    }
+    
+    protected boolean findMate(Animal animal)
+    {
+        List<Location> adjacent = field.adjacentLocations(location);
+        for(Location next : adjacent) {
+        	Object c = field.getObjectAt(next);
+            if(c instanceof Rabbit && animal instanceof Rabbit) {
+            	Animal a = (Animal) c;
+            	return (!a.getGender()||!animal.getGender())&&(a.getGender()||animal.getGender());
             }
-            else if(animal instanceof Rabbit) {
-                Rabbit young = new Rabbit(false, field, loc);
-                newAnimals.add(young);
+            if(c instanceof Fox && animal instanceof Fox) {
+            	Animal a = (Animal) c;
+            	return (!a.getGender()||!animal.getGender())&&(a.getGender()||animal.getGender());
             }
-            else if(animal instanceof Lynx) {
-                Lynx young = new Lynx(false, field, loc);
-                newAnimals.add(young);
+            if(c instanceof Lynx && animal instanceof Lynx) {
+            	Animal a = (Animal) c;
+            	return (!a.getGender()||!animal.getGender())&&(a.getGender()||animal.getGender());
             }
-           /* else if(animal instanceof Lion) {
-                Lion young = new Lion(false, field, loc);
-                newAnimals.add(young);
-            }*/
         }
+    	return false;
     }
     
     protected void setAge(int age)
@@ -185,6 +212,11 @@ public abstract class Animal implements Actor
     protected int getAge()
     {
         return age;
+    }
+    
+    public boolean getGender()
+    {
+    	return gender;
     }
     
     /**
