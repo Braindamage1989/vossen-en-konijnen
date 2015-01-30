@@ -5,7 +5,6 @@ import java.awt.*;
 import vossen_en_konijnen.controller.*;
 import vossen_en_konijnen.model.FieldStats;
 
-@SuppressWarnings({"serial"})
 /**
  * This class creates a view of a Field representing a field in which animals and other actors exist.
  * 

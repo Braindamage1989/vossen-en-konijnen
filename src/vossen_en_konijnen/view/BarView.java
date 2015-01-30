@@ -7,7 +7,6 @@ import vossen_en_konijnen.controller.Controller;
 import vossen_en_konijnen.model.Counter;
 import vossen_en_konijnen.model.FieldStats;
 
-@SuppressWarnings({"serial","rawtypes","unused"})
 /**
  * This class creates a view of a bar graph representing statistics from an FieldStats instance.
  * 

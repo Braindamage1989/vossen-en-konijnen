@@ -9,7 +9,6 @@ import javax.swing.*;
 
 import vossen_en_konijnen.model.FieldStats;
 
-@SuppressWarnings({"serial"})
 /**
  * This class gives a skeletal implementation for the different views.
  * 

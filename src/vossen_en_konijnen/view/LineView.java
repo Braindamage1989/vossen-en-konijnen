@@ -7,7 +7,6 @@ import java.awt.*;
 import vossen_en_konijnen.controller.Controller;
 import vossen_en_konijnen.model.FieldStats;
 
-@SuppressWarnings({"serial","rawtypes"})
 /**
  * This class creates a view of a line graph representing statistics from an FieldStats instance.
  * 
