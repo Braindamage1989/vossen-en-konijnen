@@ -72,8 +72,11 @@ public class Controller extends AbstractController
     // A statistics object computing and storing simulation information
     private FieldStats stats;
     
-    private volatile boolean testrun;
-    private boolean started;
+    private volatile boolean simulatorRun;
+    
+    private volatile boolean hunderdstepRun;
+    
+    private volatile boolean started;
     
     SimulatorThread thread = new SimulatorThread();
     
@@ -106,7 +109,6 @@ public class Controller extends AbstractController
         this.addResetListener(new SimulationActionListeners());
         */
         Color brown = new Color(169, 39, 19);
-        //Color darkViolet = new Color(148, 0, 211);
         
         makeFrame(depth, width);
         setColor(Rabbit.class, Color.yellow);
@@ -212,21 +214,22 @@ public class Controller extends AbstractController
     
     public synchronized void hunderdSteps()
     {
-        /*HunderdStepsThread thread = new HunderdStepsThread();
-        thread.start();*/
+        HunderdStepsThread thread2 = new HunderdStepsThread();
+        thread2.start();
+        hunderdstepRun = true;
     }
     
     public void start()
-    {
+    {        
         if(!started){
-            thread.start();
             started = true;
+            thread.start();
         }
     }
     
     public void stop()
     {
-        thread.ruk();
+        thread.stopResume();
     }
         
     /**
@@ -234,6 +237,8 @@ public class Controller extends AbstractController
      */
     public void reset()
     {
+        hunderdstepRun = false;
+        started = false;
         step = 0;
         actors.clear();
         stats.clearHistory();
@@ -572,48 +577,47 @@ public class Controller extends AbstractController
         }
 
         public void run() {
-            while (true) {
+            Thread thisThread = Thread.currentThread();
+            while (thread == thisThread) {
             try {
                 Thread.sleep(100);
 
                 synchronized(this) {
-                    while (testrun)
+                    while (simulatorRun)
                         wait();
-                        simulateOneStep();
+                        if(started) {
+                            simulateOneStep();
+                        }
                 }
             } catch (InterruptedException e){}
             }
         }
         
-        public synchronized void ruk() {
-            testrun = !testrun;
+        public synchronized void stopResume() {
+            simulatorRun = !simulatorRun;
 
-            if (!testrun)
+            if (!simulatorRun)
             notify();
         }
     }
     
-    /*class HunderdStepsThread extends Thread {
+    class HunderdStepsThread extends Thread {
         HunderdStepsThread() {
             super("hunderdstepsthread");
         }
 
-        public void run() {
-            while (true) {
-            try {
-                Thread.sleep(100);
-
-                synchronized(this) {
-                    while (testrun)
-                        wait();
-                        for(int i = 0; i<100; i++) {
-                            simulateOneStep();
-                        }
+        @Override
+        public synchronized void run() {
+            
+                for (int i = 0; i<100; i++) {
+                    if(hunderdstepRun) {
+                        simulateOneStep();
+                    }
+                    try {
+                        sleep(150);
+                    }
+                    catch (InterruptedException e){}
                 }
-            } catch (InterruptedException e){
-            }
-         }
-     }
-     }*/
-    
+        }
+    }  
 }
