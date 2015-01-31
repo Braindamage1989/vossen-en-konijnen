@@ -12,24 +12,24 @@ import vossen_en_konijnen.model.Randomizer;
  * A simple model of a fox.
  * Foxes age, move, eat rabbits, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author David J. Barnes, Michael Kölling, Frank Mulder, Ronald Scholten
+ * @version 2015.01.30
  */
 public class Fox extends Animal
 {
     // Characteristics shared by all foxes (class variables).
     
     // The age at which a fox can start to breed.
-    private static final int BREEDING_AGE = 9;
+    private static int breedingAge = 9;
     // The age to which a fox can live.
-    private static final int MAX_AGE = 150;
+    private static int maxAge = 150;
     // The likelihood of a fox breeding.
-    private static final double BREEDING_PROBABILITY = 0.1;
+    private static double breedingProbability = 0.1;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
+    private static int maxLitterSize = 4;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a fox can go before it has to eat again.
-    private static final int RABBIT_FOOD_VALUE = 14;
+    private static int rabbitFoodValue = 14;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -45,12 +45,12 @@ public class Fox extends Animal
     {
         super(field, location, gender);
         if(randomAge) {
-            setAge(rand.nextInt(MAX_AGE));
-            setFoodLevel(rand.nextInt(RABBIT_FOOD_VALUE));
+            setAge(rand.nextInt(maxAge));
+            setFoodLevel(rand.nextInt(rabbitFoodValue));
         }
         else {
             setAge(0);
-            setFoodLevel(RABBIT_FOOD_VALUE);
+            setFoodLevel(rabbitFoodValue);
         }
     }
     
@@ -101,7 +101,7 @@ public class Fox extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    setFoodLevel(RABBIT_FOOD_VALUE);
+                    setFoodLevel(rabbitFoodValue);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -110,23 +110,133 @@ public class Fox extends Animal
         return null;
     }
     
+    /**
+     * Setter for the maximum age of foxes
+     * @param age the maximum age for foxes
+     */
+    public static void setMaxAge(int age)
+    {
+    	maxAge = age;
+    }
+    
+    /**
+     * Setter for the breeding age of foxes
+     * @param age the breeding age for foxes
+     */
+    public static void setBreedingAge(int age)
+    {
+    	breedingAge = age;
+    }
+    
+    /**
+     * Setter for the chance foxes will breed
+     * @param chance The chance a fox will breed
+     */
+    public static void setBreedingProbability(double chance)
+    {
+    	breedingProbability = chance;
+    }
+    
+    /**
+     * Setter for the food value of foxes
+     * @param value The food value of a fox
+     */
+    public static void setRabbitFoodValue(int value)
+    {
+    	rabbitFoodValue = value;
+    }
+    
+    /**
+     * Setter for the max litter size of foxes
+     * @param litterSize The maximum of births a fox can give
+     */
+    public static void setMaxLitterSize(int litterSize)
+    {
+    	maxLitterSize = litterSize;
+    }
+    
+    /**
+     * Getter for the breeding age of foxes
+     * @return breedingAge The breeding age of foxes
+     */
+    @Override
     public int getBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
+    /**
+     * Getter for the breeding age of foxes
+     * @return breedingAge The breeding age of foxes
+     */
+    public static int getFoxBreedingAge()
+    {
+        return breedingAge;
+    }
+    
+    /**
+     * Getter for the maximum age of foxes
+     * @return maxAge The maximum age of foxes
+     */
+    @Override
     public int getMaxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
+     /**
+     * Getter for the maximum age of foxes
+     * @return maxAge The maximum age of foxes
+     */
+    public static int getMaxFoxAge()
+    {
+        return maxAge;
+    }
+    
+    /**
+     * Getter for the chance foxes will breed
+     * @return breedingProbability The chance a fox will breed
+     */
+    @Override
     public double getBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
+    /**
+     * Getter for the chance foxes will breed
+     * @return breedingProbability The chance a fox will breed
+     */
+    public static double getFoxBreedingProbability()
+    {
+        return breedingProbability;
+    }
+    
+    /**
+     * Getter for the max litter size of foxes
+     * @return maxLitterSize The maximum of births a fox can give
+     */
+    @Override
     public int getMaxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
+    }
+    
+    /**
+     * Getter for the max litter size of foxes
+     * @return maxLitterSize The maximum of births a fox can give
+     */
+    public static int getMaxFoxLitterSize()
+    {
+        return maxLitterSize;
+    }
+    
+    /**
+     * Getter for the food value of foxes
+     * @return rabbitFoodValue The food value of a fox
+     */
+    public static int getRabbitFoodValue()
+    {
+        return rabbitFoodValue;
     }
 }

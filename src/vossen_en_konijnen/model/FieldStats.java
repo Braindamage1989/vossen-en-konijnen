@@ -1,6 +1,5 @@
 package vossen_en_konijnen.model; 
 
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -10,14 +9,14 @@ import java.util.LinkedList;
  * of a field. It is flexible: it will create and maintain a counter 
  * for any class of object that is found within the field.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author David Bor, David J. Barnes and Michael Kölling
+ * @version 2015.01.30
  */
 public class FieldStats
 {
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, Counter> counters;
-    
+    // Counters for each type of entity, going back 100 steps (fox, rabbit, etc.) in the simulation.
     private HashMap<Class, LinkedList<Integer>> countHistory;
     // Whether the counters are currently up to date.
     private boolean countsValid;
@@ -36,6 +35,7 @@ public class FieldStats
 
     /**
      * Get details of what is in the field.
+     * @param field The field of the running simulation
      * @return A string describing what is in the field.
      */
     public String getPopulationDetails(Field field)
@@ -55,7 +55,8 @@ public class FieldStats
     }
     
     /**
-     * 
+     * Returns a map with the counters of the current simulation
+     * @return The counters of the current simulation
      */
     public HashMap<Class, Counter> getCounters()
     {
@@ -63,7 +64,8 @@ public class FieldStats
     }
     
     /**
-     * 
+     * Returns a map which contains the history of the current simulation.
+     * @return the history of the current simulation
      */
     public HashMap<Class, LinkedList<Integer>> getHistory()
     {
@@ -108,7 +110,7 @@ public class FieldStats
     }
 
     /**
-     * 
+     * Adds the current counts of the actors to the history map
      */
     public void addHistory()
     {
@@ -126,7 +128,7 @@ public class FieldStats
     }
     
     /**
-     * 
+     * Resets countHistory
      */
     public void clearHistory()
     {
@@ -136,6 +138,7 @@ public class FieldStats
     /**
      * Determine whether the simulation is still viable.
      * I.e., should it continue to run.
+     * @param field The field of the running simulation
      * @return true If there is more than one species alive.
      */
     public boolean isViable(Field field)

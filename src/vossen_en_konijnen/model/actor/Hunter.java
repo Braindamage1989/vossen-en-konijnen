@@ -81,6 +81,10 @@ public class Hunter implements Actor
         }
     }
     
+    /**
+     * Return if hunter is still active
+     * @return alive if hunter is still active.
+     */
     @Override
     public boolean isActive()
     {
@@ -127,14 +131,6 @@ public class Hunter implements Actor
                     return where;
                 }
             }
-            /*else if(animal instanceof Lion) {
-                Lion lion = (Lion) animal;
-                if(lion.isActive()) { 
-                    lion.setDead();
-                    // Remove the dead rabbit from the field.
-                    return where;
-                }
-            }*/
         }
         return null;
     }

@@ -12,25 +12,25 @@ import vossen_en_konijnen.model.Randomizer;
  * A simple model of a rabbit.
  * Rabbits age, move, breed, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2011.07.31
+ * @author David J. Barnes, Michael Kölling, Ronald Scholten
+ * @version 2015.01.31
  */
 public class Rabbit extends Animal
 {
     // Characteristics shared by all rabbits (class variables).
 
     // The age at which a rabbit can start to breed.
-    private static final int BREEDING_AGE = 7;
+    private static int breedingAge = 7;
     // The age to which a rabbit can live.
-    private static final int MAX_AGE = 40;
+    private static int maxAge = 40;
     
-    private static final int MAX_DISEASE_AGE = 5;
+    private static final int maxDiseaseAge = 5;
     // The likelihood of a rabbit breeding.
-    private static final double BREEDING_PROBABILITY = 0.2;
+    private static double breedingProbability = 0.2;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 4;
+    private static int maxLitterSize = 4;
     
-    private static final int GRASS_FOOD_VALUE = 6;
+    private static int grassFoodValue = 6;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
@@ -54,12 +54,12 @@ public class Rabbit extends Animal
     {
         super(field, location, gender);
         if(randomAge) {
-            setAge(rand.nextInt(MAX_AGE));
-            setFoodLevel(rand.nextInt(GRASS_FOOD_VALUE));
+            setAge(rand.nextInt(maxAge));
+            setFoodLevel(rand.nextInt(grassFoodValue));
         }
         else {
             setAge(0);
-            setFoodLevel(GRASS_FOOD_VALUE);
+            setFoodLevel(grassFoodValue);
         }
         ziekte = false;
     }
@@ -69,6 +69,7 @@ public class Rabbit extends Animal
      * around. Sometimes it will breed or die of old age.
      * @param newRabbits A list to return newly born rabbits.
      */
+    @Override
     public void act(List<Actor> newRabbits)
     {
         incrementAge();
@@ -90,7 +91,7 @@ public class Rabbit extends Animal
                 setDead();
             }
             if(ziekte) {
-                if(ziekteAge >= MAX_DISEASE_AGE) {
+                if(ziekteAge >= maxDiseaseAge) {
                     setDead();
                 }
                 ziekteAge++;
@@ -116,7 +117,7 @@ public class Rabbit extends Animal
                 Grass grass = (Grass) animal;
                 if(grass.isActive() && goTo == null) { 
                     grass.setDead();
-                    setFoodLevel(GRASS_FOOD_VALUE);
+                    setFoodLevel(grassFoodValue);
                     // Remove the dead rabbit from the field.
                     goTo = where;
                 }
@@ -131,36 +132,158 @@ public class Rabbit extends Animal
         return goTo;
     }
     
+    /**
+     * Setter for the maximum age of foxes
+     * @param age the maximum age for foxes
+     */
+    public static void setMaxAge(int age)
+    {
+    	maxAge = age;
+    }
+    
+    /**
+     * Setter for the breeding age of foxes
+     * @param age the breeding age for foxes
+     */
+    public static void setBreedingAge(int age)
+    {
+    	breedingAge = age;
+    }
+    
+    /**
+     * Setter for the chance foxes will breed
+     * @param chance The chance a fox will breed
+     */
+    public static void setBreedingProbability(double chance)
+    {
+    	breedingProbability = chance;
+    }
+    
+    /**
+     * Setter for the food value of foxes
+     * @param value The food value of a fox
+     */
+    public static void setGrassFoodValue(int value)
+    {
+    	grassFoodValue = value;
+    }
+    
+    /**
+     * Setter for the max litter size of foxes
+     * @param litterSize The maximum of births a fox can give
+     */
+    public static void setMaxLitterSize(int litterSize)
+    {
+    	maxLitterSize = litterSize;
+    }
+    
+    /**
+     * Setter for the disease for rabbits
+     * @param ziekte Determine if the rabbit is sick
+     */
     public void setZiekte(boolean ziekte)
     {
         this.ziekte = ziekte;
     }
-        
+    
+    /**
+     * Getter for the breeding age of foxes
+     * @return breedingAge The breeding age of foxes
+     */
+    @Override
     public int getBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
+    /**
+     * Getter for the breeding age of foxes
+     * @return breedingAge The breeding age of foxes
+     */
+    public static int getRabbitBreedingAge()
+    {
+        return breedingAge;
+    }
+    
+    /**
+     * Getter for the maximum age of foxes
+     * @return maxAge The maximum age of foxes
+     */
+    @Override
     public int getMaxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
+    /**
+     * Getter for the maximum age of foxes
+     * @return maxAge The maximum age of foxes
+     */
+    public static int getMaxRabbitAge()
+    {
+        return maxAge;
+    }
+    
+    /**
+     * Getter for the chance foxes will breed
+     * @return breedingProbability The chance a fox will breed
+     */
+    @Override
     public double getBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
+    /**
+     * Getter for the chance foxes will breed
+     * @return breedingProbability The chance a fox will breed
+     */
+    public static double getRabbitBreedingProbability()
+    {
+        return breedingProbability;
+    }
+    
+    /**
+     * Getter for the max litter size of foxes
+     * @return maxLitterSize The maximum of births a fox can give
+     */
+    @Override
     public int getMaxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
     }
     
+    /**
+     * Getter for the max litter size of foxes
+     * @return maxLitterSize The maximum of births a fox can give
+     */
+    public static int getMaxRabbitLitterSize()
+    {
+        return maxLitterSize;
+    }
+    
+     /**
+     * Getter for the food value of foxes
+     * @return rabbitFoodValue The food value of a fox
+     */
+    public static int getGrassFoodValue()
+    {
+        return grassFoodValue;
+    }
+    
+    /**
+     * Getter for if a rabbit is prone for disease
+     * @return ZIEKTE_GEN Determine if a rabbit is prone for disease
+     */
     public boolean getZiekteGen()
     {
         return ZIEKTE_GEN;
     }
     
+    /**
+     * Getter for the disease of rabbits
+     * @return ziekte Determine if the rabbit is sick
+     */
     public boolean getZiekte()
     {
         return ziekte;

@@ -10,9 +10,9 @@ import vossen_en_konijnen.model.Randomizer;
 
 /**
  * A simple model of a lynx.
- * Lynxes age, move, eat rabbits and foxes, and die.
+ * Lynxes age, move, eat rabbits and lynxes, and die.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling, Ronald Scholten, 
  * @version 2011.07.31
  */
 public class Lynx extends Animal
@@ -20,16 +20,16 @@ public class Lynx extends Animal
     // Characteristics shared by all Lynxes (class variables).
     
     // The age at which a lynx can start to breed.
-    private static final int BREEDING_AGE = 20;
+    private static int breedingAge = 20;
     // The age to which a lynx can live.
-    private static final int MAX_AGE = 150;
+    private static int maxAge = 150;
     // The likelihood of a lynx breeding.
-    private static final double BREEDING_PROBABILITY = 0.08;
+    private static double breedingProbability = 0.08;
     // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 2;
+    private static int maxLitterSize = 2;
     // The food value of a single rabbit. In effect, this is the
     // number of steps a lynx can go before it has to eat again.
-    private static final int FOOD_VALUE = 15;
+    private static int foodValue = 15;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
 
@@ -40,17 +40,18 @@ public class Lynx extends Animal
      * @param randomAge If true, the lynx will have random age and hunger level.
      * @param field The field currently occupied.
      * @param location The location within the field.
+     * @param gender The gender of a lynx
      */
     public Lynx(boolean randomAge, Field field, Location location, boolean gender)
     {
         super(field, location, gender);
         if(randomAge) {
-            setAge(rand.nextInt(MAX_AGE));
-            setFoodLevel(rand.nextInt(FOOD_VALUE));
+            setAge(rand.nextInt(maxAge));
+            setFoodLevel(rand.nextInt(foodValue));
         }
         else {
             setAge(0);
-            setFoodLevel(FOOD_VALUE);
+            setFoodLevel(foodValue);
         }
     }
     
@@ -58,7 +59,6 @@ public class Lynx extends Animal
      * This is what the lynx does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
-     * @param field The field currently occupied.
      * @param newLynxes A list to return newly born lynxes.
      */
     public void act(List<Actor> newLynxes)
@@ -101,7 +101,7 @@ public class Lynx extends Animal
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isActive()) { 
                     rabbit.setDead();
-                    setFoodLevel(FOOD_VALUE);
+                    setFoodLevel(foodValue);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -110,7 +110,7 @@ public class Lynx extends Animal
                 Fox fox = (Fox) animal;
                 if(fox.isActive()) { 
                     fox.setDead();
-                    setFoodLevel(FOOD_VALUE);
+                    setFoodLevel(foodValue);
                     // Remove the dead rabbit from the field.
                     return where;
                 }
@@ -119,23 +119,133 @@ public class Lynx extends Animal
         return null;
     }
     
+    /**
+     * Setter for the maximum age of lynxes
+     * @param age the maximum age for lynxes
+     */
+    public static void setMaxAge(int age)
+    {
+    	maxAge = age;
+    }
+    
+    /**
+     * Setter for the breeding age of lynxes
+     * @param age the breeding age for lynxes
+     */
+    public static void setBreedingAge(int age)
+    {
+    	breedingAge = age;
+    }
+    
+    /**
+     * Setter for the chance lynxes will breed
+     * @param chance The chance a lynx will breed
+     */
+    public static void setBreedingProbability(double chance)
+    {
+    	breedingProbability = chance;
+    }
+    
+    /**
+     * Setter for the food value of lynxes
+     * @param value The food value of a lynx
+     */
+    public static void setFoodValue(int value)
+    {
+    	foodValue = value;
+    }
+    
+     /**
+     * Setter for the max litter size of lynxes
+     * @param litterSize The maximum of births a lynx can give
+     */
+    public static void setMaxLitterSize(int litterSize)
+    {
+    	maxLitterSize = litterSize;
+    }
+    
+    /**
+     * Getter for the breeding age of lynxes
+     * @return breedingAge The breeding age of lynxes
+     */
+    @Override
     public int getBreedingAge()
     {
-        return BREEDING_AGE;
+        return breedingAge;
     }
     
+    /**
+     * Getter for the breeding age of lynxes
+     * @return breedingAge The breeding age of lynxes
+     */
+    public static int getLynxBreedingAge()
+    {
+        return breedingAge;
+    }
+    
+    /**
+     * Getter for the maximum age of lynxes
+     * @return maxAge The maximum age of lynxes
+     */
+    @Override
     public int getMaxAge()
     {
-        return MAX_AGE;
+        return maxAge;
     }
     
+    /**
+     * Getter for the maximum age of lynxes
+     * @return maxAge The maximum age of lynxes
+     */
+    public static int getMaxLynxAge()
+    {
+        return maxAge;
+    }
+    
+    /**
+     * Getter for the chance lynxes will breed
+     * @return breedingProbability The chance a lynx will breed
+     */
+    @Override
     public double getBreedingProbability()
     {
-        return BREEDING_PROBABILITY;
+        return breedingProbability;
     }
     
+    /**
+     * Getter for the chance lynxes will breed
+     * @return breedingProbability The chance a lynx will breed
+     */
+    public static double getLynxBreedingProbability()
+    {
+        return breedingProbability;
+    }
+    
+    /**
+     * Getter for the max litter size of lynxes
+     * @return maxLitterSize The maximum of births a lynx can give
+     */
+    @Override
     public int getMaxLitterSize()
     {
-        return MAX_LITTER_SIZE;
+        return maxLitterSize;
+    }
+    
+    /**
+     * Getter for the max litter size of lynxes
+     * @return maxLitterSize The maximum of births a lynx can give
+     */
+    public static int getMaxLynxLitterSize()
+    {
+        return maxLitterSize;
+    }
+    
+     /**
+     * Getter for the food value of lynxes
+     * @return rabbitFoodValue The food value of a lynx
+     */
+    public static int getFoodValue()
+    {
+    	return foodValue;
     }
 }

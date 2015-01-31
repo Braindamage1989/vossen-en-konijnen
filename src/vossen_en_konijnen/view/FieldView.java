@@ -5,13 +5,22 @@ import java.awt.*;
 import vossen_en_konijnen.controller.*;
 import vossen_en_konijnen.model.FieldStats;
 
-@SuppressWarnings({"serial"})
+/**
+ * This class creates a view of a Field representing a field in which animals and other actors exist.
+ * 
+ * @author David Bor
+ * @version 2015.01.30
+ */
 public class FieldView extends AbstractView
 {
     
 
     /**
      * Create a new FieldView component.
+	 * @param model The currently used model
+	 * @param stats The statistics of the current model
+	 * @param height The height of the grid
+	 * @param width The width of the grid
      */
     public FieldView(Controller model, FieldStats stats, int height, int width)
     {
@@ -53,7 +62,7 @@ public class FieldView extends AbstractView
      * Paint on grid location on this field in a given color.
      * @param x coordinate
      * @param y coordinate
-     * @param color the mark has to become
+     * @param color Color the mark has to become
      */
     public void drawMark(int x, int y, Color color)
     {
