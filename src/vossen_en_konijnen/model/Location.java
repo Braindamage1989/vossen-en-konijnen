@@ -25,8 +25,8 @@ public class Location
     
     /**
      * Implement content equality.
-     * @param obj
-     * @return 
+     * @param obj The object this object should be compared to
+     * @return true if and only if both objects are instances of location and all field values are equal
      */
     @Override
     public boolean equals(Object obj)

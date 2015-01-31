@@ -35,6 +35,7 @@ public class FieldStats
 
     /**
      * Get details of what is in the field.
+     * @param field The field of the running simulation
      * @return A string describing what is in the field.
      */
     public String getPopulationDetails(Field field)
@@ -137,7 +138,7 @@ public class FieldStats
     /**
      * Determine whether the simulation is still viable.
      * I.e., should it continue to run.
-     * @param field
+     * @param field The field of the running simulation
      * @return true If there is more than one species alive.
      */
     public boolean isViable(Field field)
