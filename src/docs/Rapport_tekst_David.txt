@@ -5,3 +5,12 @@ Staafdiagram
 Lijndiagram
 De cirkeldiagram en staafdiagram geven op twee verschillende manieren de verhouding weer tussen de actoren. Dit maakt het inzichtelijk wat er op het veld gebeurt en hoe het veld er op dat moment uitziet.
 De lijndiagram geeft een korte geschiedenis van de aantallen van de verschillende actoren weer. Daardoor word er een duidelijk beeld gecreëerd van de ontwikkelingen die plaats vinden op het veld.
+
+
+4.1.5 Geslacht
+De toevoeging van geslacht houdt in dat de dieren (in de huidige simulatie vossen, konijnen en lynxen) een geslacht krijgen toegewezen en dat dieren nu een paringsmaat van het andere geslacht moeten zoeken om zich voort te kunnen planten.
+
+
+5.2 Geslacht
+Bij het programmeren van het geslacht moest er meer gebeuren dan in eerste instatie was verwacht. Dit heeft er toe geleidt dat het geslacht dus nog niet volledig is geïmplementeerd in de huidige versie van het applicatie. 
+In de huidige versie gaan dieren nog niet actief opzoek naar een paringsmaat, met als gevolg dat als er van een diersoort weinig zijn en deze verspreidt zijn over het veld, er geen paartjes gemaakt kunnen worden en het diersoort dus uitsterft. Dit zou in een latere versie van de applicatie nog geïmplementeerd moeten worden.
