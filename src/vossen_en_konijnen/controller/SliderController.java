@@ -1,27 +1,29 @@
 package vossen_en_konijnen.controller;
 
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import vossen_en_konijnen.controller.Controller.SimulationActionListeners;
 import vossen_en_konijnen.model.actor.*;
 
-
-public class SliderController extends AbstractController
+/**
+ * This class will create a frame with various settings
+ * 
+ * @author Frank Mulder
+ * @version 2015.01.30
+ */
+public class SliderController extends AbstractController implements ItemListener
 {
 	private JFrame settings;
 	private JPanel sliderPanel;
 	private ChangeListener listener;
-	private ActionListener actionListener;
+	private JCheckBox useGenderToggle;
 	private JSlider rabbitCreationProbability, foxCreationProbability, lynxCreationProbability, hunterCreationProbability,
 					rabbitAgeSlider, foxAgeSlider, lynxAgeSlider,
 					rabbitBreedingSlider, foxBreedingSlider, lynxBreedingSlider,
@@ -34,6 +36,10 @@ public class SliderController extends AbstractController
 	private JTextField textField;
 	private JButton defaultValues;
 	
+	/**
+	 * Constructor for SliderController.
+	 * All settings are created here.
+	 */
 	public SliderController()
 	{
 		settings = new JFrame("Settings");
@@ -55,12 +61,14 @@ public class SliderController extends AbstractController
         };
         
         
+        JPanel generalPanel = new JPanel();
         JPanel rabbitPanel = new JPanel();
         JPanel foxPanel = new JPanel();
         JPanel lynxPanel = new JPanel();
         JPanel environmentPanel = new JPanel();
         JPanel hunterPanel = new JPanel();
         
+        generalPanel.setLayout(new GridLayout(2, 1));
         rabbitPanel.setLayout(new GridLayout(6, 1));
         foxPanel.setLayout(new GridLayout(6, 1));
         lynxPanel.setLayout(new GridLayout(6, 1));
@@ -71,6 +79,13 @@ public class SliderController extends AbstractController
         
         addDefaultListener(new ButtonActionListener());
         
+        
+        //*********************************************************************General settings
+        
+        useGenderToggle = new JCheckBox("Use genders");
+        useGenderToggle.setSelected(false);
+        useGenderToggle.addItemListener(this);
+        generalPanel.add(useGenderToggle);
         
         //*********************************************************************Probability sliders
         
@@ -390,6 +405,7 @@ public class SliderController extends AbstractController
         
         
         
+        settingsTab.addTab("General", generalPanel);
         settingsTab.addTab("Rabbit", rabbitPanel);
         settingsTab.addTab("Fox", foxPanel);
         settingsTab.addTab("Lynx", lynxPanel);
@@ -413,6 +429,14 @@ public class SliderController extends AbstractController
         settings.setVisible(true);
 	}
     
+	/**
+	 * Method to add a slider to a panel
+	 * @param panel JPanel
+	 * @param s The JSlider to be added
+	 * @param description
+	 * @param majorTick
+	 * @param minorTick
+	 */
     public void addSlider(JPanel panel, JSlider s, String description, int majorTick, int minorTick)
     {
     	s.setPaintTicks(true);
@@ -425,8 +449,14 @@ public class SliderController extends AbstractController
         sliderPanel.add(panel);
     }
     
+    /**
+     * Set all values back to default values.
+     */
     public void backToDefault()
     {
+    	//defaults for general settings
+    	Animal.setUseGender(false);
+    	
     	//defaults for rabbit
     	Controller.setRabbitCreationProbability(0.08);
     	rabbitCreationProbability.setValue((int) (Controller.getRabbitCreationProbability()*100));
@@ -488,13 +518,33 @@ public class SliderController extends AbstractController
     	hunterCreationProbability.setValue((int) (Controller.getHunterCreationProbability()*1000));
     }
     
+    /**
+     * Listener when clicking on Default Values.
+     * @param listenForDefault
+     */
     public void addDefaultListener(ActionListener listenForDefault)
     {
     	defaultValues.addActionListener(listenForDefault);
     }
     
+    /**
+     * Listener when changing Use Genders checkbox.
+     * @param listenForGender
+     */
+    public void addGenderListener(ActionListener listenForGender)
+    {
+    	useGenderToggle.addActionListener(listenForGender);
+    }
+    
+    /**
+     * Listener when clicking the Default Values button.
+     */
     class ButtonActionListener implements ActionListener
     {
+    	/**
+    	 * Set to default values.
+    	 */
+    	@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			JButton source = (JButton) e.getSource();
@@ -504,4 +554,21 @@ public class SliderController extends AbstractController
 			}
 		}
     }
+    
+    /**
+     * Use genders when checkbox is checked.
+     */
+    @Override
+	public void itemStateChanged(ItemEvent e)
+	{
+		Object source = e.getItem();
+		if (source == useGenderToggle) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				Animal.setUseGender(true);
+			}
+			else if (e.getStateChange() == ItemEvent.DESELECTED) {
+				Animal.setUseGender(false);
+			}
+	    }
+	}
 }

@@ -25,6 +25,8 @@ public abstract class Animal implements Actor
     private int age;
     // true is male, false is female
     private boolean gender;
+    // if true, the simulation will use genders for animals
+    private static boolean useGender;
      // The animal's food level
     private int foodLevel;
     
@@ -61,26 +63,40 @@ public abstract class Animal implements Actor
     protected void giveBirth(List<Actor> newAnimals)
     {
         if(findMate(this)) {
-	    Animal animal = this;
-	    Field field = getField();
-	    List<Location> free = field.getFreeAdjacentLocations(getLocation());
-	    int births = breed();
-	    boolean gender = rand.nextBoolean();
-	    for(int b = 0; b < births && free.size() > 0; b++) {
-	        Location loc = free.remove(0);
-	        if(animal instanceof Fox) {
-	            Fox young = new Fox(false, field, loc, gender);
-	            newAnimals.add(young);
-	        }
-	        else if(animal instanceof Rabbit) {
-	            Rabbit young = new Rabbit(false, field, loc, gender);
-	            newAnimals.add(young);
-	        }
-                else if(animal instanceof Lynx) {
-	            Lynx young = new Lynx(false, field, loc, gender);
-	            newAnimals.add(young);
-	        }
-	    }
+		    Animal animal = this;
+		    Field field = getField();
+		    List<Location> free = field.getFreeAdjacentLocations(getLocation());
+		    int births = breed();
+		    boolean gender = rand.nextBoolean();
+		    for(int b = 0; b < births && free.size() > 0; b++) {
+		        Location loc = free.remove(0);
+		        if(animal instanceof Fox) {
+		            Fox young = new Fox(false, field, loc, gender);
+		            newAnimals.add(young);
+		        }
+		        else if(animal instanceof Rabbit) {
+		            Rabbit young = new Rabbit(false, field, loc, gender);
+		            newAnimals.add(young);
+		        }
+	                else if(animal instanceof Lynx) {
+		            Lynx young = new Lynx(false, field, loc, gender);
+		            newAnimals.add(young);
+		        }
+		    }
+    	}
+    }
+    
+    /**
+     * Determine whether the simulation should
+     * incorporate males and females for animals
+     * @param bool True when using genders
+     */
+    public static void setUseGender(boolean bool)
+    {
+    	if (bool) {
+    		useGender = true;
+    	} else {
+    		useGender = false;
     	}
     }
     
@@ -90,6 +106,9 @@ public abstract class Animal implements Actor
      */
     protected boolean findMate(Animal animal)
     {
+    	if (!useGender) {
+    		return true;
+    	}
         List<Location> adjacent = field.adjacentLocations(location);
         for(Location next : adjacent) {
         	Object c = field.getObjectAt(next);

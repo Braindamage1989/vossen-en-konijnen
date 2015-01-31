@@ -12,7 +12,7 @@ import vossen_en_konijnen.model.Randomizer;
  * A simple model of a lynx.
  * Lynxes age, move, eat rabbits and lynxes, and die.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author David J. Barnes, Michael Kölling, Ronald Scholten, 
  * @version 2011.07.31
  */
 public class Lynx extends Animal
@@ -107,9 +107,9 @@ public class Lynx extends Animal
                 }
             }
             else if(animal instanceof Fox) {
-                Fox lynx = (Fox) animal;
-                if(lynx.isActive()) { 
-                    lynx.setDead();
+                Fox fox = (Fox) animal;
+                if(fox.isActive()) { 
+                    fox.setDead();
                     setFoodLevel(foodValue);
                     // Remove the dead rabbit from the field.
                     return where;
