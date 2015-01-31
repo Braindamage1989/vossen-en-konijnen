@@ -102,16 +102,18 @@ public class Controller extends AbstractController
         actors = new ArrayList<Actor>();
         field = new Field(depth, width);
         views = new ArrayList<AbstractView>();
+        stats = new FieldStats();
+        colors = new LinkedHashMap<Class, Color>();
 
         Color brown = new Color(169, 39, 19);
         
-        makeFrame(depth, width);
         setColor(Rabbit.class, Color.yellow);
         setColor(Fox.class, Color.blue);
         setColor(Lynx.class, Color.red);
         setColor(Hunter.class, Color.black);
         setColor(Rock.class, brown);
         setColor(Grass.class, Color.green);
+        makeFrame(depth, width);
         
         // Setup a valid starting point.
         reset();
@@ -265,9 +267,6 @@ public class Controller extends AbstractController
     }
     public void makeFrame(int height, int width)
     {
-        stats = new FieldStats();
-        colors = new LinkedHashMap<Class, Color>();
-
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         setTitle("Fox and Rabbit Simulation");
@@ -287,9 +286,11 @@ public class Controller extends AbstractController
         views.add(barView);
         
         Container buttonView = new JPanel();
-        buttonView.setLayout(new FlowLayout());
+        buttonView.setLayout(new GridLayout(0,1, 0, 20));
         Container buttonViewSub = new JPanel();
         buttonViewSub.setLayout(new GridLayout(8, 1));
+        Container legendaView = new JPanel();
+        legendaView.setLayout(new GridLayout(colors.size()+1, 1));
         
         start = new JButton("Start");
         start.addActionListener((new SimulationActionListeners()));
@@ -297,7 +298,6 @@ public class Controller extends AbstractController
         stop = new JButton("Stop/Resume");
         stop.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(stop, 1);
-        buttonView.add(buttonViewSub);
         buttonViewSub.add(new JLabel(""), 2);
         oneStep = new JButton("1 step");
         oneStep.addActionListener((new SimulationActionListeners()));
@@ -313,7 +313,20 @@ public class Controller extends AbstractController
         reset.addActionListener((new SimulationActionListeners()));
         buttonViewSub.add(reset, 7);
         
+    	JLabel a = new JLabel("Legenda: ", SwingConstants.CENTER);
+    	legendaView.add(a);
         
+        for(Class actor: colors.keySet()) {
+        	Color c = colors.get(actor);
+        	JLabel l = new JLabel(actor.getSimpleName(), SwingConstants.CENTER);
+        	l.setForeground(c);
+        	l.setOpaque(true);
+        	l.setBackground(Color.GRAY);
+        	legendaView.add(l);
+        }
+
+        buttonView.add(buttonViewSub);
+        buttonView.add(legendaView);
         
         menubar = new JMenuBar();
         setJMenuBar(menubar);
