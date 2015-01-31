@@ -342,7 +342,7 @@ public class SliderController extends AbstractController implements ItemListener
         		Controller.setGrassCreationProbability(((double)source.getValue())/100);
         	}
         });
-        
+        /*
         //Slider to change max age of grass
         grassAgeSlider = new JSlider(5, 50);
         grassAgeSlider.setValue(Grass.getMaxAge());
@@ -365,7 +365,7 @@ public class SliderController extends AbstractController implements ItemListener
         		JSlider source = (JSlider) e.getSource();
         		Grass.setMultiplyingAge(source.getValue());
         	}
-        });
+        });*/
         
         //Slider to change the chance of multiplying for grass (in %)
         grassMultiplyingProbability = new JSlider(0, 100);
