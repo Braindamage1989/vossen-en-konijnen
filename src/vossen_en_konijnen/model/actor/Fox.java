@@ -138,59 +138,103 @@ public class Fox extends Animal
     }
     
     /**
-     * Setter for the chance foxes will breed
-     * @param chance The chance a fox will breed
+     * Setter for the food value of foxes
+     * @param value The food value of a fox
      */
     public static void setRabbitFoodValue(int value)
     {
     	rabbitFoodValue = value;
     }
     
+    /**
+     * Setter for the max litter size of foxes
+     * @param litterSize The maximum of births a fox can give
+     */
     public static void setMaxLitterSize(int litterSize)
     {
     	maxLitterSize = litterSize;
     }
     
+    /**
+     * Getter for the breeding age of foxes
+     * @return breedingAge The breeding age of foxes
+     */
+    @Override
     public int getBreedingAge()
     {
         return breedingAge;
     }
     
+    /**
+     * Getter for the breeding age of foxes
+     * @return breedingAge The breeding age of foxes
+     */
     public static int getFoxBreedingAge()
     {
         return breedingAge;
     }
     
+    /**
+     * Getter for the maximum age of foxes
+     * @return maxAge The maximum age of foxes
+     */
+    @Override
     public int getMaxAge()
     {
         return maxAge;
     }
     
+     /**
+     * Getter for the maximum age of foxes
+     * @return maxAge The maximum age of foxes
+     */
     public static int getMaxFoxAge()
     {
         return maxAge;
     }
     
+    /**
+     * Getter for the chance foxes will breed
+     * @return breedingProbability The chance a fox will breed
+     */
+    @Override
     public double getBreedingProbability()
     {
         return breedingProbability;
     }
     
+    /**
+     * Getter for the chance foxes will breed
+     * @return breedingProbability The chance a fox will breed
+     */
     public static double getFoxBreedingProbability()
     {
         return breedingProbability;
     }
     
+    /**
+     * Getter for the max litter size of foxes
+     * @return maxLitterSize The maximum of births a fox can give
+     */
+    @Override
     public int getMaxLitterSize()
     {
         return maxLitterSize;
     }
     
+    /**
+     * Getter for the max litter size of foxes
+     * @return maxLitterSize The maximum of births a fox can give
+     */
     public static int getMaxFoxLitterSize()
     {
         return maxLitterSize;
     }
     
+    /**
+     * Getter for the food value of foxes
+     * @return rabbitFoodValue The food value of a fox
+     */
     public static int getRabbitFoodValue()
     {
         return rabbitFoodValue;

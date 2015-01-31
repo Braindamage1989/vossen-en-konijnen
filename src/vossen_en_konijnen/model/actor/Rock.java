@@ -14,9 +14,9 @@ import vossen_en_konijnen.model.Location;
 public class Rock implements Actor
 {    
     // Individual characteristics (instance fields).
-    // The hunter his field
+    // The rock his field
     private Field field;
-    // The hunter's position in the field.
+    // The rocks position in the field.
     private Location location;
 
     /**

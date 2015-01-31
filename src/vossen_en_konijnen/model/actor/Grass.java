@@ -28,13 +28,13 @@ public class Grass implements Actor
     private int age;
     
     // The age grass can multiply
-    private static int MULTIPLYING_AGE = 3;
+    private static int multiplyingAge = 3;
     // The age to which a grass can live.
-    private static int MAX_AGE = 15;
+    private static int maxAge = 15;
     // The likelihood of a grass breeding.
-    private static double MULTIPLYING_PROBABILITY = 0.5;
+    private static double multiplyingProbability = 0.5;
     // The maximum number of multiplies.
-    private static int MAX_MULTIPLYING_SIZE = 8;
+    private static int maxMultiplyingSize = 8;
     // A shared random number generator to control multiplying.
     private static final Random rand = Randomizer.getRandom();
 
@@ -53,7 +53,7 @@ public class Grass implements Actor
         setLocation(location);
         setAge(0);
         if(randomAge) {
-            setAge(rand.nextInt(MAX_AGE));
+            setAge(rand.nextInt(maxAge));
         }
     }
     
@@ -71,24 +71,40 @@ public class Grass implements Actor
         }
     }
     
+    /**
+     * Setter for the multiplying age of grass
+     * @param age the multiplying age for grass
+     */
     public static void setMultiplyingAge(int age)
     {
-    	MULTIPLYING_AGE = age;
+    	multiplyingAge = age;
     }
     
+    /**
+     * Setter for the maximum age of grass
+     * @param age the maximum age for grass
+     */
     public static void setMaxAge(int age)
     {
-    	MAX_AGE = age;
+    	maxAge = age;
     }
     
+    /**
+     * Setter for the chance grass will multiply
+     * @param chance The chance grass will multply
+     */
     public static void setMultiplyingProbability(double chance)
     {
-    	MULTIPLYING_PROBABILITY = chance;
+    	multiplyingProbability = chance;
     }
     
+    /**
+     * Setter for the max multiply size of grass
+     * @param size The maximum of multiplies grass can give
+     */
     public static void setMaxMultiplyingSize(int size)
     {
-    	MAX_MULTIPLYING_SIZE = size;
+    	maxMultiplyingSize = size;
     }
     
     /**
@@ -127,24 +143,40 @@ public class Grass implements Actor
         this.age = age;
     }
     
+    /**
+     * Getter for the multiplying age of grass
+     * @return multiplyingAge the multiplying age for grass
+     */
     public static int getMultiplyingAge()
     {
-    	return MULTIPLYING_AGE;
+    	return multiplyingAge;
     }
     
+    /**
+     * Getter for the maximum age of grass
+     * @return maxAge the maximum age for grass
+     */
     public static int getMaxAge()
     {
-    	return MAX_AGE;
+    	return maxAge;
     }
     
+    /**
+     * Getter for the chance grass will multiply
+     * @return multiplyingProbability The chance grass will multply
+     */
     public static double getMultiplyingProbability()
     {
-    	return MULTIPLYING_PROBABILITY;
+    	return multiplyingProbability;
     }
     
+     /**
+     * Getter for the max multiply size of grass
+     * @return maxMultiplyingSize The maximum of multiplies grass can give
+     */
     public static int getMaxMultiplyingSize()
     {
-    	return MAX_MULTIPLYING_SIZE;
+    	return maxMultiplyingSize;
     }
     
     /**
@@ -171,7 +203,7 @@ public class Grass implements Actor
     private void incrementAge()
     {
         age++;
-        if(age > MAX_AGE) {
+        if(age > maxAge) {
             setDead();
         }
     }
@@ -184,8 +216,8 @@ public class Grass implements Actor
     private int multiply()
     {
         int newGrass = 0;
-        if(canMultiply() && rand.nextDouble() <= MULTIPLYING_PROBABILITY) {
-            newGrass = rand.nextInt(MAX_MULTIPLYING_SIZE) + 1;
+        if(canMultiply() && rand.nextDouble() <= multiplyingProbability) {
+            newGrass = rand.nextInt(maxMultiplyingSize) + 1;
         }
         return newGrass;
     }
@@ -215,7 +247,7 @@ public class Grass implements Actor
      */
     protected boolean canMultiply()
     {
-        return age >= MULTIPLYING_AGE;
+        return age >= multiplyingAge;
     }
     
     /**
