@@ -23,7 +23,7 @@ public class SliderController extends AbstractController implements ItemListener
 	private JFrame settings;
 	private JPanel sliderPanel;
 	private ChangeListener listener;
-	private JCheckBox useGenderToggle;
+	private JCheckBox useGenderToggle, muteToggle;
 	private JSlider rabbitCreationProbability, foxCreationProbability, lynxCreationProbability, hunterCreationProbability,
 					rabbitAgeSlider, foxAgeSlider, lynxAgeSlider,
 					rabbitBreedingSlider, foxBreedingSlider, lynxBreedingSlider,
@@ -68,7 +68,7 @@ public class SliderController extends AbstractController implements ItemListener
         JPanel environmentPanel = new JPanel();
         JPanel hunterPanel = new JPanel();
         
-        generalPanel.setLayout(new GridLayout(2, 1));
+        generalPanel.setLayout(new GridLayout(6, 1));
         rabbitPanel.setLayout(new GridLayout(6, 1));
         foxPanel.setLayout(new GridLayout(6, 1));
         lynxPanel.setLayout(new GridLayout(6, 1));
@@ -86,6 +86,11 @@ public class SliderController extends AbstractController implements ItemListener
         useGenderToggle.setSelected(false);
         useGenderToggle.addItemListener(this);
         generalPanel.add(useGenderToggle);
+        
+        muteToggle = new JCheckBox("Mute sounds");
+        muteToggle.setSelected(false);
+        muteToggle.addItemListener(this);
+        generalPanel.add(muteToggle);
         
         //*********************************************************************Probability sliders
         
@@ -536,6 +541,11 @@ public class SliderController extends AbstractController implements ItemListener
     	useGenderToggle.addActionListener(listenForGender);
     }
     
+    public void muteListener(ActionListener listenforMute)
+    {
+    	muteToggle.addActionListener(listenforMute);
+    }
+    
     /**
      * Listener when clicking the Default Values button.
      */
@@ -570,5 +580,13 @@ public class SliderController extends AbstractController implements ItemListener
 				Animal.setUseGender(false);
 			}
 	    }
+		else if(source == muteToggle) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				Controller.setMute(true);
+			}
+			else if (e.getStateChange() == ItemEvent.DESELECTED) {
+				Controller.setMute(false);
+			}
+		}
 	}
 }

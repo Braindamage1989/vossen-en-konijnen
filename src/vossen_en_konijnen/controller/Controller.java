@@ -61,6 +61,8 @@ public class Controller extends AbstractController
     
     private volatile boolean started;
     
+    private static boolean mute;
+    
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
 
@@ -487,24 +489,31 @@ public class Controller extends AbstractController
     	ROCK_CREATION_PROBABILITY = probability;
     }
     
+    public static void setMute(boolean useMute)
+    {
+    	mute = useMute;
+    }
+    
     public static synchronized void playSound(final String url)
     {
-        new Thread(new Runnable() 
-        {
-            public void run()
-            {
-                try {
-                    Clip clip = AudioSystem.getClip();
-                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                    Main.class.getResourceAsStream("../../sounds/" + url));
-                    clip.open(inputStream);
-                    clip.start();
-                }
-                catch (Exception e) {
-                    System.err.println(e.getMessage());
-                }
-            }
-	}).start();
+    	if (!mute) {
+	        new Thread(new Runnable() 
+	        {
+	            public void run()
+	            {
+	                try {
+	                    Clip clip = AudioSystem.getClip();
+	                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+	                    Main.class.getResourceAsStream("../../sounds/" + url));
+	                    clip.open(inputStream);
+	                    clip.start();
+	                }
+	                catch (Exception e) {
+	                    System.err.println(e.getMessage());
+	                }
+	            }
+			}).start();
+    	}
     }
     
     /**
