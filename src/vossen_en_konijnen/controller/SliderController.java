@@ -5,10 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import java.util.Hashtable;
 
 import vossen_en_konijnen.model.actor.*;
 
@@ -94,7 +99,20 @@ public class SliderController extends AbstractController implements ItemListener
         
         speedSlider = new JSlider(0, 200);
         speedSlider.setValue(Controller.getSimulationSpeed());
-        addSlider(generalPanel, speedSlider, "Change the speed of the simulation", 50, 25);
+        
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        labelTable.put(new Integer(0), new JLabel("Fast") );
+        labelTable.put(new Integer(100), new JLabel("Moderate") );
+        labelTable.put(new Integer(200), new JLabel("Slow") );
+        speedSlider.setLabelTable( labelTable );
+        speedSlider.setInverted(true);
+        speedSlider.setMajorTickSpacing(50);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setPaintLabels(true);
+        
+        generalPanel.add(new JLabel("Change the speed of the simulation"));
+        generalPanel.add(speedSlider);
+        sliderPanel.add(generalPanel);
         speedSlider.addChangeListener(new ChangeListener(){
         	@Override
         	public void stateChanged(ChangeEvent e) {
