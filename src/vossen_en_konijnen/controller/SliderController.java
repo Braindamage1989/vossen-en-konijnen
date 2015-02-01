@@ -31,7 +31,7 @@ public class SliderController extends AbstractController implements ItemListener
 					rabbitMaxLitterSizeSlider, foxMaxLitterSizeSlider, lynxMaxLitterSizeSlider,
 					rabbitFoodLevelSlider, foxFoodLevelSlider, lynxFoodLevelSlider,
 					grassCreationProbability, grassAgeSlider, grassMultiplyingSlider, grassMultiplyingProbability, grassMaxMultiplySize,
-					rockCreationProbability;
+					rockCreationProbability, speedSlider;
 					
 	private JTextField textField;
 	private JButton defaultValues;
@@ -73,7 +73,7 @@ public class SliderController extends AbstractController implements ItemListener
         foxPanel.setLayout(new GridLayout(6, 1));
         lynxPanel.setLayout(new GridLayout(6, 1));
         environmentPanel.setLayout(new GridLayout(6, 1));
-        hunterPanel.setLayout(new GridLayout(1, 1));
+        hunterPanel.setLayout(new GridLayout(6, 1));
         
         defaultValues = new JButton("Default values");
         
@@ -91,6 +91,17 @@ public class SliderController extends AbstractController implements ItemListener
         muteToggle.setSelected(false);
         muteToggle.addItemListener(this);
         generalPanel.add(muteToggle);
+        
+        speedSlider = new JSlider(0, 200);
+        speedSlider.setValue(Controller.getSimulationSpeed());
+        addSlider(generalPanel, speedSlider, "Change the speed of the simulation", 50, 25);
+        speedSlider.addChangeListener(new ChangeListener(){
+        	@Override
+        	public void stateChanged(ChangeEvent e) {
+        		JSlider source = (JSlider) e.getSource();
+        		Controller.setSimulationSpeed(source.getValue());
+        	}
+        });
         
         //*********************************************************************Probability sliders
         

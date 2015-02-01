@@ -39,6 +39,8 @@ public class Controller extends AbstractController
     // The probability that grass will be created in any given grid position.
     private static double GRASS_CREATION_PROBABILITY = 0.14;
     
+    private static int simulationSpeed = 100;
+    
     private static final String VERSION = "Version 1.0";
     
     private ArrayList<AbstractView> views;
@@ -221,6 +223,11 @@ public class Controller extends AbstractController
     public static double getRockCreationProbability()
     {
     	return ROCK_CREATION_PROBABILITY;
+    }
+    
+    public static int getSimulationSpeed()
+    {
+    	return simulationSpeed;
     }
     
     /**
@@ -494,6 +501,11 @@ public class Controller extends AbstractController
     	mute = useMute;
     }
     
+    public static void setSimulationSpeed(int speed)
+    {
+    	simulationSpeed = speed;
+    }
+    
     public static synchronized void playSound(final String url)
     {
     	if (!mute) {
@@ -552,7 +564,7 @@ public class Controller extends AbstractController
             Thread thisThread = Thread.currentThread();
             while (thread == thisThread) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(simulationSpeed);
 
                 synchronized(this) {
                     while (simulatorRun)
@@ -586,7 +598,7 @@ public class Controller extends AbstractController
                         simulateOneStep();
                     }
                     try {
-                        sleep(150);
+                        sleep(simulationSpeed);
                     }
                     catch (InterruptedException e){}
                 }
