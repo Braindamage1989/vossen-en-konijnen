@@ -32,12 +32,6 @@ public abstract class Animal implements Actor
     
     private static final Random rand = Randomizer.getRandom();
     
-    @Override
-    abstract public void act(List<Actor> newActors);
-    abstract double getBreedingProbability();
-    abstract int getMaxLitterSize();
-    abstract int getMaxAge();
-    abstract int getBreedingAge();
     
     /**
      * Create a new animal at location in field.
@@ -158,6 +152,36 @@ public abstract class Animal implements Actor
     {
     	return useGender;
     }
+    
+    /**
+     * Abstract method for returning breeding probability.
+     * @return breedingProbability
+     */
+    abstract double getBreedingProbability();
+    
+    /**
+     * Abstract method for returning max litter size.
+     * @return litterSize
+     */
+    abstract int getMaxLitterSize();
+    
+    /**
+     * Abstract method for returning max age.
+     * @return maxAge
+     */
+    abstract int getMaxAge();
+    
+    /**
+     * Abstract method for returning breeding age.
+     * @return breedingProbability
+     */
+    abstract int getBreedingAge();
+
+    /**
+     * Abstract method to put the behavior of different animals in.
+     */
+    @Override
+    abstract public void act(List<Actor> newActors);
     
     /**
      * Check whether or not this animal is to give birth at this step.
