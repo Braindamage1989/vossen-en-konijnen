@@ -487,6 +487,11 @@ public class SliderController extends JFrame implements ItemListener
     {
     	//defaults for general settings
     	Animal.setUseGender(false);
+    	useGenderToggle.setSelected(Animal.getUseGender());
+    	Controller.setMute(false);
+    	muteToggle.setSelected(Controller.isMuted());
+    	Controller.setSimulationSpeed(100);
+    	speedSlider.setValue(Controller.getSimulationSpeed());
     	
     	//defaults for rabbit
     	Controller.setRabbitCreationProbability(0.08);
@@ -533,10 +538,6 @@ public class SliderController extends JFrame implements ItemListener
     	//defaults for environment
     	Controller.setGrassCreationProbability(0.14);
     	grassCreationProbability.setValue((int) (Controller.getGrassCreationProbability()*100));
-    	Grass.setMaxAge(15);
-    	grassAgeSlider.setValue(Grass.getMaxAge());
-    	Grass.setMultiplyingAge(3);
-    	grassMultiplyingSlider.setValue(Grass.getMultiplyingAge());
     	Grass.setMultiplyingProbability(0.5);
     	grassMultiplyingProbability.setValue((int) (Grass.getMultiplyingProbability()*100));
     	Grass.setMaxMultiplyingSize(8);
