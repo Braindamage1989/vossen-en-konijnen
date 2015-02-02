@@ -5,9 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -23,7 +20,7 @@ import vossen_en_konijnen.model.actor.*;
  * @author Frank Mulder
  * @version 2015.01.30
  */
-public class SliderController extends AbstractController implements ItemListener
+public class SliderController extends JFrame implements ItemListener
 {
 	private JFrame settings;
 	private JPanel sliderPanel;

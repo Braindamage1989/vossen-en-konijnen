@@ -16,7 +16,7 @@ import vossen_en_konijnen.model.*;
 import vossen_en_konijnen.model.actor.*;
 import vossen_en_konijnen.view.*;
 
-public class Controller extends AbstractController
+public class Controller extends JFrame
 {
     // Constants representing configuration information for the simulation.
     // The default width for the grid.
