@@ -102,7 +102,8 @@ public abstract class Animal implements Actor
     
     /**
      * Find a mate to breed with
-     * @param Animal The animal that wants to find a mate.
+     * @param animal The animal that wants to find a mate.
+     * @return false
      */
     protected boolean findMate(Animal animal)
     {
@@ -215,6 +216,7 @@ public abstract class Animal implements Actor
     
     /**
      * An animal can breed if it has reached the breeding age.
+     * @return age The age an animal can breed
      */
     protected boolean canBreed()
     {
@@ -266,6 +268,7 @@ public abstract class Animal implements Actor
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
+    @Override
     public boolean isActive()
     {
         return alive;
