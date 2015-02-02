@@ -29,7 +29,9 @@ public class FieldView extends AbstractView
 
     /**
      * Tell the GUI manager how big we would like to be.
+     * @return the dimension from the field
      */
+    @Override
     public Dimension getPreferredSize()
     {
         return new Dimension(gridWidth * GRID_VIEW_SCALING_FACTOR,
