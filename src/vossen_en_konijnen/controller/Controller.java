@@ -3,7 +3,6 @@ package vossen_en_konijnen.controller;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,19 +24,17 @@ public class Controller extends AbstractController
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a lynx will be created in any given grid position.
-    private static double LYNX_CREATION_PROBABILITY = 0.01;
+    private static double lynxCreationProbability = 0.01;
     // The probability that a fox will be created in any given grid position.
-    private static double FOX_CREATION_PROBABILITY = 0.02;
+    private static double foxCreationProbability = 0.02;
     // The probability that a rabbit will be created in any given grid position.
-    private static double RABBIT_CREATION_PROBABILITY = 0.08;
-    // The probability that a lion will be created in any given grid position.
-    //private static final double LION_CREATION_PROBABILITY = 0.005;
+    private static double rabbitCreationProbability = 0.08;
     // The probability that a hunter will be created in any given grid position.
-    private static double HUNTER_CREATION_PROBABILITY = 0.005;
+    private static double hunterCreationProbability = 0.005;
     // The probability that a rock will be created in any given grid position.
-    private static double ROCK_CREATION_PROBABILITY = 0.05;
+    private static double rockCreationProbability = 0.05;
     // The probability that grass will be created in any given grid position.
-    private static double GRASS_CREATION_PROBABILITY = 0.14;
+    private static double grassCreationProbability = 0.14;
     
     private static int simulationSpeed = 100;
     
@@ -149,6 +146,9 @@ public class Controller extends AbstractController
         showStatus(step, field);
     }
     
+    /**
+     * Simulate one hundred steps.
+     */
     public synchronized void hunderdSteps()
     {
         HunderdStepsThread thread2 = new HunderdStepsThread();
@@ -156,6 +156,10 @@ public class Controller extends AbstractController
         hunderdstepRun = true;
     }
     
+    /**
+     * Set boolean started if simulation is not yet started.
+     * Thread will start.
+     */
     public void start()
     {        
         if(!started){
@@ -164,6 +168,9 @@ public class Controller extends AbstractController
         }
     }
     
+    /**
+     * Stop the simulation so thread will stop or resume.
+     */
     public void stop()
     {
         thread.stopResume();
@@ -195,36 +202,64 @@ public class Controller extends AbstractController
 	);
     }
     
+    /**
+     * Getter for rabbit creation probability.
+     * @return rabbitCreationProbability
+     */
     public static double getRabbitCreationProbability()
     {
-    	return RABBIT_CREATION_PROBABILITY;
+    	return rabbitCreationProbability;
     }
     
+    /**
+     * Getter for fox creation probability.
+     * @return foxCreationProbability
+     */
     public static double getFoxCreationProbability()
     {
-    	return FOX_CREATION_PROBABILITY;
+    	return foxCreationProbability;
     }
     
+    /**
+     * Getter for lynx creation probability.
+     * @return lynxCreationProbability
+     */
     public static double getLynxCreationProbability()
     {
-    	return LYNX_CREATION_PROBABILITY;
+    	return lynxCreationProbability;
     }
     
+    /**
+     * Getter for grass creation probability.
+     * @return grassCreationProbability
+     */
     public static double getGrassCreationProbability()
     {
-    	return GRASS_CREATION_PROBABILITY;
+    	return grassCreationProbability;
     }
     
+    /**
+     * Getter for hunter creation probability.
+     * @return hunterCreationProbability
+     */
     public static double getHunterCreationProbability()
     {
-    	return HUNTER_CREATION_PROBABILITY;
+    	return hunterCreationProbability;
     }
     
+    /**
+     * Getter for rock creation probability.
+     * @return rockCreationProbability
+     */
     public static double getRockCreationProbability()
     {
-    	return ROCK_CREATION_PROBABILITY;
+    	return rockCreationProbability;
     }
     
+    /**
+     * Getter for the simulation speed.
+     * @return simulationSpeed
+     */
     public static int getSimulationSpeed()
     {
     	return simulationSpeed;
@@ -240,32 +275,32 @@ public class Controller extends AbstractController
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
             	boolean gender = rand.nextBoolean();
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= foxCreationProbability) {
                     Location location = new Location(row, col);
                     Fox fox = new Fox(true, field, location, gender);
                     actors.add(fox);
                 }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= rabbitCreationProbability) {
                     Location location = new Location(row, col);
                     Rabbit rabbit = new Rabbit(true, field, location, gender);
                     actors.add(rabbit);
                 }
-                else if(rand.nextDouble() <= LYNX_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= lynxCreationProbability) {
                     Location location = new Location(row, col);
                     Lynx lynx = new Lynx(true, field, location, gender);
                     actors.add(lynx);
                 }
-                else if(rand.nextDouble() <= HUNTER_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= hunterCreationProbability) {
                     Location location = new Location(row, col);
                     Hunter hunter = new Hunter(field, location);
                     actors.add(hunter);
                 }
-                else if(rand.nextDouble() <= ROCK_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= rockCreationProbability) {
                     Location location = new Location(row, col);
                     Rock rock = new Rock(field, location);
                     actors.add(rock);
                 }
-                else if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
+                else if(rand.nextDouble() <= grassCreationProbability) {
                     Location location = new Location(row, col);
                     Grass grass = new Grass(true, field, location);
                     actors.add(grass);
@@ -274,6 +309,12 @@ public class Controller extends AbstractController
             }
         }
     }
+    
+    /**
+     * Make the GUI for the simulation.
+     * @param height
+     * @param width
+     */
     public void makeFrame(int height, int width)
     {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -381,6 +422,9 @@ public class Controller extends AbstractController
         }
     }
     
+    /**
+     * Start a disease so rabbits will get ill.
+     */
     public void startDisease()
     {
         for(Iterator<Actor> it = actors.iterator(); it.hasNext(); ) {
@@ -466,46 +510,82 @@ public class Controller extends AbstractController
         return stats.isViable(field);
     }
     
+    /**
+     * Setter for rabbit creation probability
+     * @param probability
+     */
     public static void setRabbitCreationProbability(double probability)
     {
-    	RABBIT_CREATION_PROBABILITY = probability;
+    	rabbitCreationProbability = probability;
     }
     
+    /**
+     * Setter for fox creation probability
+     * @param probability
+     */
     public static void setFoxCreationProbability(double probability)
     {
-    	FOX_CREATION_PROBABILITY = probability;
+    	foxCreationProbability = probability;
     }
     
+    /**
+     * Setter for creation probability
+     * @param probability
+     */
     public static void setLynxCreationProbability(double probability)
     {
-    	LYNX_CREATION_PROBABILITY = probability;
+    	lynxCreationProbability = probability;
     }
     
+    /**
+     * Setter for grass creation probability
+     * @param probability
+     */
     public static void setGrassCreationProbability(double probability)
     {
-    	GRASS_CREATION_PROBABILITY = probability;
+    	grassCreationProbability = probability;
     }
     
+    /**
+     * Setter for hunter creation probability
+     * @param probability
+     */
     public static void setHunterCreationProbability(double probability)
     {
-    	HUNTER_CREATION_PROBABILITY = probability;
+    	hunterCreationProbability = probability;
     }
     
+    /**
+     * Setter for rock creation probability
+     * @param probability
+     */
     public static void setRockCreationProbability(double probability)
     {
-    	ROCK_CREATION_PROBABILITY = probability;
+    	rockCreationProbability = probability;
     }
     
+    /**
+     * setter for using mute sounds
+     * @param useMute
+     */
     public static void setMute(boolean useMute)
     {
     	mute = useMute;
     }
     
+    /**
+     * Set the speed for the simulation flow
+     * @param speed
+     */
     public static void setSimulationSpeed(int speed)
     {
     	simulationSpeed = speed;
     }
     
+    /**
+     * If sounds not muted, play a sound effect
+     * @param url
+     */
     public static synchronized void playSound(final String url)
     {
     	if (!mute) {
@@ -538,6 +618,9 @@ public class Controller extends AbstractController
         colors.put(animalClass, color);
     }
     
+    /**
+     * Inner class for action listeners
+     */
     class SimulationActionListeners implements ActionListener
     {
         @Override
@@ -555,6 +638,9 @@ public class Controller extends AbstractController
 		}
     }
     
+    /**
+     * Inner class for one step thread
+     */
     class SimulatorThread extends Thread {
         SimulatorThread() {
             super("onestepthread");
@@ -585,6 +671,9 @@ public class Controller extends AbstractController
         }
     }
     
+    /**
+     * Inner class for hundred steps thread
+     */
     class HunderdStepsThread extends Thread {
         HunderdStepsThread() {
             super("hunderdstepsthread");
@@ -593,15 +682,15 @@ public class Controller extends AbstractController
         @Override
         public synchronized void run() {
             
-                for (int i = 0; i<100; i++) {
-                    if(hunderdstepRun) {
-                        simulateOneStep();
-                    }
-                    try {
-                        sleep(simulationSpeed);
-                    }
-                    catch (InterruptedException e){}
+            for (int i = 0; i<100; i++) {
+                if(hunderdstepRun) {
+                    simulateOneStep();
                 }
+                try {
+                    sleep(simulationSpeed);
+                }
+                catch (InterruptedException e){}
+            }
         }
     }
 }
