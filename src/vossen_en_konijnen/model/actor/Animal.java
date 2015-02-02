@@ -56,6 +56,110 @@ public abstract class Animal implements Actor
     }
     
     /**
+     * Set the animals food level.
+     * @param foodLevel int The value of the animals food level
+     */
+    protected void setFoodLevel(int foodLevel)
+    {
+        this.foodLevel = foodLevel;
+    }
+    
+    /**
+     * Place the animal at the new location in the given field.
+     * @param newLocation The animal's new location.
+     */
+    protected void setLocation(Location newLocation)
+    {
+        if(location != null) {
+            field.clear(location);
+        }
+        location = newLocation;
+        field.place(this, newLocation);
+    }
+    
+    /**
+     * Determine whether the simulation should
+     * incorporate males and females for animals
+     * @param bool True when using genders
+     */
+    public static void setUseGender(boolean bool)
+    {
+    	if (bool) {
+    		useGender = true;
+    	} else {
+    		useGender = false;
+    	}
+    }
+    
+    /**
+     * Setter for age of the animal
+     * @param age The age of the animal
+     */
+    protected void setAge(int age)
+    {
+        this.age = age;
+    }
+    
+    /**
+     * Indicate that the animal is no longer alive.
+     * It is removed from the field.
+     */
+    protected void setDead()
+    {
+        alive = false;
+        if(location != null) {
+            field.clear(location);
+            location = null;
+            field = null;
+        }
+    }
+    
+    /**
+     * Return the animal's location.
+     * @return The animal's location.
+     */
+    protected Location getLocation()
+    {
+        return location;
+    }
+    
+    /**
+     * Return the animal's field.
+     * @return The animal's field.
+     */
+    protected Field getField()
+    {
+        return field;
+    }
+    
+    /**
+     * Getter for age of the animal
+     * @return The age of the animal
+     */
+    protected int getAge()
+    {
+        return age;
+    }
+    
+    /**
+     * Getter for gender of the animal
+     * @return The gender of the animal
+     */
+    public boolean getGender()
+    {
+        return gender;
+    }
+    
+    /**
+     * Return true if genders are used.
+     * @return boolean true if genders, false no genders.
+     */
+    public static boolean getUseGender()
+    {
+    	return useGender;
+    }
+    
+    /**
      * Check whether or not this animal is to give birth at this step.
      * New births will be made into free adjacent locations.
      * @param newAnimals A list to return newly born animals.
@@ -83,20 +187,6 @@ public abstract class Animal implements Actor
 		            newAnimals.add(young);
 		        }
 		    }
-    	}
-    }
-    
-    /**
-     * Determine whether the simulation should
-     * incorporate males and females for animals
-     * @param bool True when using genders
-     */
-    public static void setUseGender(boolean bool)
-    {
-    	if (bool) {
-    		useGender = true;
-    	} else {
-    		useGender = false;
     	}
     }
     
@@ -130,15 +220,6 @@ public abstract class Animal implements Actor
     }
     
     /**
-     * Setter for age of the animal
-     * @param age The age of the animal
-     */
-    protected void setAge(int age)
-    {
-        this.age = age;
-    }
-    
-    /**
      * Make this fox more hungry. This could result in the fox's death.
      */
     protected void incrementHunger()
@@ -146,20 +227,6 @@ public abstract class Animal implements Actor
         foodLevel--;
         if(foodLevel <= 0) {
             setDead();
-        }
-    }
-
-    /**
-     * Indicate that the animal is no longer alive.
-     * It is removed from the field.
-     */
-    protected void setDead()
-    {
-        alive = false;
-        if(location != null) {
-            field.clear(location);
-            location = null;
-            field = null;
         }
     }
         
@@ -172,46 +239,6 @@ public abstract class Animal implements Actor
         if(age > getMaxAge()) {
             setDead();
         }
-    }
-    
-    /**
-     * Set the animals food level.
-     * @param foodLevel int The value of the animals food level
-     */
-    protected void setFoodLevel(int foodLevel)
-    {
-        this.foodLevel = foodLevel;
-    }
-    
-    /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
-     */
-    protected void setLocation(Location newLocation)
-    {
-        if(location != null) {
-            field.clear(location);
-        }
-        location = newLocation;
-        field.place(this, newLocation);
-    }
-
-    /**
-     * Return the animal's location.
-     * @return The animal's location.
-     */
-    protected Location getLocation()
-    {
-        return location;
-    }
-    
-    /**
-     * Return the animal's field.
-     * @return The animal's field.
-     */
-    protected Field getField()
-    {
-        return field;
     }
     
     /**
@@ -235,33 +262,6 @@ public abstract class Animal implements Actor
             births = rand.nextInt(getMaxLitterSize()) + 1;
         }
         return births;
-    }
-    
-    /**
-     * Getter for age of the animal
-     * @return The age of the animal
-     */
-    protected int getAge()
-    {
-        return age;
-    }
-    
-    /**
-     * Getter for gender of the animal
-     * @return The gender of the animal
-     */
-    public boolean getGender()
-    {
-        return gender;
-    }
-    
-    /**
-     * Return true if genders are used.
-     * @return boolean true if genders, false no genders.
-     */
-    public static boolean getUseGender()
-    {
-    	return useGender;
     }
     
     /**
