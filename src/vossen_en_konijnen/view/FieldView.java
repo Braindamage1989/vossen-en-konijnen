@@ -17,11 +17,11 @@ public class FieldView extends AbstractView
 
     /**
      * Create a new FieldView component.
-	 * @param model The currently used model
-	 * @param stats The statistics of the current model
-	 * @param height The height of the grid
-	 * @param width The width of the grid
-     */
+     * @param model The currently used model
+     * @param stats The statistics of the current model
+     * @param height The height of the grid
+     * @param width The width of the grid
+    */
     public FieldView(Controller model, FieldStats stats, int height, int width)
     {
     	super(model, stats, height, width);

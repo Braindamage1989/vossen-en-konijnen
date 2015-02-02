@@ -17,14 +17,14 @@ import vossen_en_konijnen.model.FieldStats;
  */
 public abstract class AbstractView extends JPanel
 {
-	protected Controller model;
+    protected Controller model;
     public Graphics g;
     public int xScale, yScale;
     protected final int GRID_VIEW_SCALING_FACTOR = 6;
     protected int gridWidth, gridHeight;
     protected Dimension size;
     protected Image fieldImage;
-	protected FieldStats stats;
+    protected FieldStats stats;
 	
 	/**
 	 * Constructor
@@ -35,9 +35,9 @@ public abstract class AbstractView extends JPanel
 	 */
     public AbstractView(Controller model, FieldStats stats, int height, int width)
     {
-    	this.model = model;
-    	this.stats = stats;
-		this.size = new Dimension();
+        this.model = model;
+        this.stats = stats;
+        this.size = new Dimension();
         gridHeight = height;
         gridWidth = width;
     }
@@ -56,5 +56,6 @@ public abstract class AbstractView extends JPanel
     /**
      * Overridden method needed for painting
      */
+    @Override
     public abstract void paintComponent(Graphics g);
 }
