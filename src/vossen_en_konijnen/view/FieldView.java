@@ -74,6 +74,7 @@ public class FieldView extends AbstractView
      * The field view component needs to be redisplayed. Copy the
      * internal image to screen.
      */
+    @Override
     public void paintComponent(Graphics g)
     {
         if(fieldImage != null) {
