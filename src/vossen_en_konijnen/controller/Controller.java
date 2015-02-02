@@ -121,6 +121,156 @@ public class Controller extends JFrame
     }
     
     /**
+     * Setter for rabbit creation probability
+     * @param probability
+     */
+    public static void setRabbitCreationProbability(double probability)
+    {
+    	rabbitCreationProbability = probability;
+    }
+    
+    /**
+     * Setter for fox creation probability
+     * @param probability
+     */
+    public static void setFoxCreationProbability(double probability)
+    {
+    	foxCreationProbability = probability;
+    }
+    
+    /**
+     * Setter for creation probability
+     * @param probability
+     */
+    public static void setLynxCreationProbability(double probability)
+    {
+    	lynxCreationProbability = probability;
+    }
+    
+    /**
+     * Setter for grass creation probability
+     * @param probability
+     */
+    public static void setGrassCreationProbability(double probability)
+    {
+    	grassCreationProbability = probability;
+    }
+    
+    /**
+     * Setter for hunter creation probability
+     * @param probability
+     */
+    public static void setHunterCreationProbability(double probability)
+    {
+    	hunterCreationProbability = probability;
+    }
+    
+    /**
+     * Setter for rock creation probability
+     * @param probability
+     */
+    public static void setRockCreationProbability(double probability)
+    {
+    	rockCreationProbability = probability;
+    }
+    
+    /**
+     * setter for using mute sounds
+     * @param useMute
+     */
+    public static void setMute(boolean useMute)
+    {
+    	mute = useMute;
+    }
+    
+    /**
+     * Set the speed for the simulation flow
+     * @param speed
+     */
+    public static void setSimulationSpeed(int speed)
+    {
+    	simulationSpeed = speed;
+    }
+    
+    /**
+     * Getter for rabbit creation probability.
+     * @return rabbitCreationProbability
+     */
+    public static double getRabbitCreationProbability()
+    {
+    	return rabbitCreationProbability;
+    }
+    
+    /**
+     * Getter for fox creation probability.
+     * @return foxCreationProbability
+     */
+    public static double getFoxCreationProbability()
+    {
+    	return foxCreationProbability;
+    }
+    
+    /**
+     * Getter for lynx creation probability.
+     * @return lynxCreationProbability
+     */
+    public static double getLynxCreationProbability()
+    {
+    	return lynxCreationProbability;
+    }
+    
+    /**
+     * Getter for grass creation probability.
+     * @return grassCreationProbability
+     */
+    public static double getGrassCreationProbability()
+    {
+    	return grassCreationProbability;
+    }
+    
+    /**
+     * Getter for hunter creation probability.
+     * @return hunterCreationProbability
+     */
+    public static double getHunterCreationProbability()
+    {
+    	return hunterCreationProbability;
+    }
+    
+    /**
+     * Getter for rock creation probability.
+     * @return rockCreationProbability
+     */
+    public static double getRockCreationProbability()
+    {
+    	return rockCreationProbability;
+    }
+    
+    /**
+     * Getter for the simulation speed.
+     * @return simulationSpeed
+     */
+    public static int getSimulationSpeed()
+    {
+    	return simulationSpeed;
+    }
+    
+    /**
+     * @return The color to be used for a given class of animal.
+     */
+    public Color getColor(Class animalClass)
+    {
+        Color col = colors.get(animalClass);
+        if(col == null) {
+            // no color defined for this class
+            return UNKNOWN_COLOR;
+        }
+        else {
+            return col;
+        }
+    }
+    
+    /**
      * Run the simulation from its current state for a single step.
      * Iterate over the whole field updating the state of each
      * fox and rabbit.
@@ -195,75 +345,14 @@ public class Controller extends JFrame
     
     public void showAbout()
     {
-	JOptionPane.showMessageDialog(this,
-	"Fox and Rabbit Simulation\n" + VERSION,
-	"About Fox and Rabbit Simulation",
-	JOptionPane.INFORMATION_MESSAGE
-	);
+		JOptionPane.showMessageDialog(this,
+		"Fox and Rabbit Simulation\n" + VERSION,
+		"About Fox and Rabbit Simulation",
+		JOptionPane.INFORMATION_MESSAGE
+		);
     }
     
-    /**
-     * Getter for rabbit creation probability.
-     * @return rabbitCreationProbability
-     */
-    public static double getRabbitCreationProbability()
-    {
-    	return rabbitCreationProbability;
-    }
     
-    /**
-     * Getter for fox creation probability.
-     * @return foxCreationProbability
-     */
-    public static double getFoxCreationProbability()
-    {
-    	return foxCreationProbability;
-    }
-    
-    /**
-     * Getter for lynx creation probability.
-     * @return lynxCreationProbability
-     */
-    public static double getLynxCreationProbability()
-    {
-    	return lynxCreationProbability;
-    }
-    
-    /**
-     * Getter for grass creation probability.
-     * @return grassCreationProbability
-     */
-    public static double getGrassCreationProbability()
-    {
-    	return grassCreationProbability;
-    }
-    
-    /**
-     * Getter for hunter creation probability.
-     * @return hunterCreationProbability
-     */
-    public static double getHunterCreationProbability()
-    {
-    	return hunterCreationProbability;
-    }
-    
-    /**
-     * Getter for rock creation probability.
-     * @return rockCreationProbability
-     */
-    public static double getRockCreationProbability()
-    {
-    	return rockCreationProbability;
-    }
-    
-    /**
-     * Getter for the simulation speed.
-     * @return simulationSpeed
-     */
-    public static int getSimulationSpeed()
-    {
-    	return simulationSpeed;
-    }
     
     /**
      * If sounds are muted return true.
@@ -416,20 +505,7 @@ public class Controller extends JFrame
         setVisible(true);
     }
 
-    /**
-     * @return The color to be used for a given class of animal.
-     */
-    public Color getColor(Class animalClass)
-    {
-        Color col = colors.get(animalClass);
-        if(col == null) {
-            // no color defined for this class
-            return UNKNOWN_COLOR;
-        }
-        else {
-            return col;
-        }
-    }
+    
     
     /**
      * Start a disease so rabbits will get ill.
@@ -519,77 +595,7 @@ public class Controller extends JFrame
         return stats.isViable(field);
     }
     
-    /**
-     * Setter for rabbit creation probability
-     * @param probability
-     */
-    public static void setRabbitCreationProbability(double probability)
-    {
-    	rabbitCreationProbability = probability;
-    }
     
-    /**
-     * Setter for fox creation probability
-     * @param probability
-     */
-    public static void setFoxCreationProbability(double probability)
-    {
-    	foxCreationProbability = probability;
-    }
-    
-    /**
-     * Setter for creation probability
-     * @param probability
-     */
-    public static void setLynxCreationProbability(double probability)
-    {
-    	lynxCreationProbability = probability;
-    }
-    
-    /**
-     * Setter for grass creation probability
-     * @param probability
-     */
-    public static void setGrassCreationProbability(double probability)
-    {
-    	grassCreationProbability = probability;
-    }
-    
-    /**
-     * Setter for hunter creation probability
-     * @param probability
-     */
-    public static void setHunterCreationProbability(double probability)
-    {
-    	hunterCreationProbability = probability;
-    }
-    
-    /**
-     * Setter for rock creation probability
-     * @param probability
-     */
-    public static void setRockCreationProbability(double probability)
-    {
-    	rockCreationProbability = probability;
-    }
-    
-    /**
-     * setter for using mute sounds
-     * @param useMute
-     */
-    public static void setMute(boolean useMute)
-    {
-    	mute = useMute;
-    }
-    
-    /**
-     * Set the speed for the simulation flow
-     * @param speed
-     */
-    public static void setSimulationSpeed(int speed)
-    {
-    	simulationSpeed = speed;
-    }
     
     /**
      * If sounds not muted, play a sound effect
