@@ -136,15 +136,6 @@ public class Hunter implements Actor
     }
     
     /**
-     * Return the hunters location.
-     * @return The hunters location.
-     */
-    protected Location getLocation()
-    {
-        return location;
-    }
-    
-    /**
      * Place the hunter at the new location in the given field.
      * @param newLocation The hunters new location.
      */
@@ -164,5 +155,14 @@ public class Hunter implements Actor
     protected Field getField()
     {
         return field;
+    }
+    
+    /**
+     * Return the hunters location.
+     * @return The hunters location.
+     */
+    protected Location getLocation()
+    {
+        return location;
     }
 }
