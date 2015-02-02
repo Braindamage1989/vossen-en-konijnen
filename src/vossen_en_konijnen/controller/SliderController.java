@@ -88,12 +88,12 @@ public class SliderController extends AbstractController implements ItemListener
         //*********************************************************************General settings
         
         useGenderToggle = new JCheckBox("Use genders");
-        useGenderToggle.setSelected(false);
+        useGenderToggle.setSelected(Animal.getUseGender());
         useGenderToggle.addItemListener(this);
         generalPanel.add(useGenderToggle);
         
         muteToggle = new JCheckBox("Mute sounds");
-        muteToggle.setSelected(false);
+        muteToggle.setSelected(Controller.isMuted());
         muteToggle.addItemListener(this);
         generalPanel.add(muteToggle);
         

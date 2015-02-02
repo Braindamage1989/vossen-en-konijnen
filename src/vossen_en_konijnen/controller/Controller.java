@@ -60,7 +60,7 @@ public class Controller extends AbstractController
     
     private volatile boolean started;
     
-    private static boolean mute;
+    private static boolean mute = false;
     
     // Colors used for empty locations.
     private static final Color EMPTY_COLOR = Color.white;
@@ -263,6 +263,15 @@ public class Controller extends AbstractController
     public static int getSimulationSpeed()
     {
     	return simulationSpeed;
+    }
+    
+    /**
+     * If sounds are muted return true.
+     * @return boolean true if muted, false if sounds are being used.
+     */
+    public static boolean isMuted()
+    {
+    	return mute;
     }
     
     /**

@@ -254,6 +254,15 @@ public abstract class Animal implements Actor
     }
     
     /**
+     * Return true if genders are used.
+     * @return boolean true if genders, false no genders.
+     */
+    public static boolean getUseGender()
+    {
+    	return useGender;
+    }
+    
+    /**
      * Check whether the animal is alive or not.
      * @return true if the animal is still alive.
      */
